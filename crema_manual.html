@@ -133,6 +133,19 @@
     .warning-box { border: 2px solid #ff4d4d; background-color: rgba(255, 77, 77, 0.1); }
     .warning-box .manual-box-title { color: #ff4d4d; }
 
+    /* Callout boxes */
+    .tip-box { background: rgba(76, 175, 80, 0.07); border: 1px solid rgba(76, 175, 80, 0.35); border-left: 4px solid #4caf50; border-radius: 6px; padding: 16px 20px; margin: 20px 0; }
+    .tip-box p { margin: 0; }
+    .tip-box strong { color: #4caf50; }
+    .warn-box { background: rgba(255, 152, 0, 0.07); border: 1px solid rgba(255, 152, 0, 0.35); border-left: 4px solid #ff9800; border-radius: 6px; padding: 16px 20px; margin: 20px 0; }
+    .warn-box p { margin: 0; }
+    .warn-box strong { color: #ff9800; }
+    .controls-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+    .controls-table th { text-align: left; padding: 10px 14px; font-size: 12px; font-weight: 900; text-transform: uppercase; color: var(--accent); border-bottom: 2px solid var(--border_solid); }
+    .controls-table td { padding: 10px 14px; font-size: 15px; color: var(--text_sec); border-bottom: 1px solid var(--border); }
+    .controls-table tr:last-child td { border-bottom: none; }
+    .key { color: var(--text_main); font-weight: bold; font-family: monospace; background: var(--bg_panel); border: 1px solid var(--border_solid); border-radius: 3px; padding: 2px 8px; font-size: 13px; }
+
     /* Footer & Support Banner */
     .support-box { background: rgba(0,0,0,0.3); border: 1px solid var(--border_solid); padding: 30px; border-radius: 8px; max-width: 650px; margin: 50px auto 30px auto; text-align: center; }
     .support-box h4 { color: var(--accent_alt); margin-top: 0; margin-bottom: 15px; font-size: 16px; letter-spacing: 1px; }
@@ -255,104 +268,136 @@
 
   <div id="main-container">
       <div id="sidebar">
-        <button class="nav-btn active" data-target="man-1">1. Introduction</button>
-        <button class="nav-btn" data-target="man-2">2. Library Integration</button>
-        <button class="nav-btn" data-target="man-3">3. Controls & Navigation</button>
-        <button class="nav-btn" data-target="man-4">4. Media & Scraping</button>
-        <button class="nav-btn" data-target="man-5">5. The Jukebox</button>
-        <button class="nav-btn" data-target="man-6">6. Screensaver & Sleep</button>
-        <button class="nav-btn" data-target="man-7">7. Settings & Audio</button>
+        <button class="nav-btn active" data-target="man-1">1. Overview</button>
+        <button class="nav-btn" data-target="man-2">2. Controls</button>
+        <button class="nav-btn" data-target="man-3">3. Gallery & Gamepage</button>
+        <button class="nav-btn" data-target="man-4">4. Scraping & Metadata</button>
+        <button class="nav-btn" data-target="man-5">5. Music & Atmosphere</button>
       </div>
 
       <div id="content">
           <div class="container">
               <h1 id="man-1">CAFE NEUROTICO: CREMA</h1>
 
-              <h2>1. INTRODUCTION: THE SWEET FOAM ON TOP</h2>
+              <h2>1. OVERVIEW</h2>
               <div class="manual-box">
-                  <p class="manual-box-title">YOUR LIBRARY. ELEVATED. FULLSCREEN. CONTROLLER-READY.</p>
-                  <p><em>Crema is the reddish-brown, frothy foam layer that sits on top of a freshly brewed espresso. It consists of water, coffee oils, and pressurized CO2 bubbles created during high-pressure extraction. It signifies freshness and proper pressure.</em></p>
-                  <p>If <strong>CNGM (Cafe Neurotico Game Manager)</strong> is the robust espresso machine handling the intense pressure of scraping, managing, and organizing your data, <strong>CREMA</strong> is the beautiful result you actually consume.</p>
-                  <p>CREMA is designed from the ground up to be a <strong>controller-first, fullscreen interface</strong>. It abandons mouse cursors and complex text entry for a pure console-like experience. You sit back on the couch, grab your gamepad, listen to some lo-fi or your own custom music, and just play.</p>
+                  <p class="manual-box-title">THE SWEET FOAM ON TOP</p>
+                  <p><em>Crema is the reddish-brown frothy foam on top of a freshly brewed espresso &mdash; a sign of freshness and proper pressure. If CNGM is the espresso machine, CREMA is the beautiful result you actually drink.</em></p>
+                  <p>CREMA is CNGM&rsquo;s fullscreen companion app &mdash; laidback, easygoing, and focused purely on fun. Designed for couch play with a gamepad, it presents your library in a bold, beautiful TV-mode interface with ambient music integration. Grab a controller and enjoy.</p>
               </div>
 
-              <h2 id="man-2">2. LIBRARY INTEGRATION & THE CNGM BOND</h2>
-              <p>CREMA and CNGM are two sides of the exact same coin. They share the same <code>GameManagerConfig</code> folder and the exact same <code>games.db</code> database file.</p>
+              <h3>Launching CREMA</h3>
+              <p>Place <code>CREMA.AppImage</code> (any capitalization) in the same folder as <code>CNGM.AppImage</code>. A <strong>Go Fullscreen With CREMA</strong> button appears at the bottom of CNGM&rsquo;s sidebar. Clicking it minimizes CNGM and launches CREMA as a separate fullscreen process.</p>
+              <p>CREMA can also be launched independently from your desktop launcher or terminal &mdash; it always reads from the shared <code>GameManagerConfig/game_library.db</code>.</p>
 
-              <div class="manual-box warning-box">
-                  <p class="manual-box-title">CRITICAL TIP: DATA MANAGEMENT</p>
-                  <p>While CREMA has built-in scraping capabilities to grab covers and trailers, it is <strong>highly recommended</strong> to do your heavy-lifting data entry (importing libraries, syncing Heroic, syncing Steam, typing descriptions) using the <strong>CNGM Desktop App</strong>.</p>
-                  <p>CNGM is built for a mouse and keyboard. CREMA is built for a gamepad. Let each app do what it does best.</p>
+              <h3>Shared Library</h3>
+              <p>CNGM and CREMA access the exact same SQLite database. Any game you add, scrape, or edit in CNGM is immediately visible in CREMA. Steam install status updates are pushed live to both apps simultaneously via a background file watcher &mdash; no manual refresh needed.</p>
+              <div class="tip-box">
+                  <p><strong>Recommendation:</strong> Do your heavy-lifting in CNGM (syncing stores, bulk scraping, editing metadata). CNGM is built for mouse and keyboard; CREMA is built for a gamepad. Let each do what it does best.</p>
               </div>
 
-              <h3>Heroic Launcher Configuration Tip</h3>
-              <p>Open your Heroic Launcher, go to Settings -> General, and ensure <strong>"Minimize Heroic on Game Launch"</strong> or <strong>"Hide to Tray"</strong> is enabled. This guarantees Heroic stays invisible while your game plays, and CREMA takes the spotlight back when you exit.</p>
-
-              <h2 id="man-3">3. CONTROLS & Navigation</h2>
-              <p>CREMA operates on a unified controller mapping system. You can change the visual icons (Xbox, PlayStation, Nintendo) in the System Menu to match what you are holding.</p>
-
+              <h3>Available Categories</h3>
               <ul>
-                  <li><strong>D-PAD / LEFT STICK:</strong> Navigate menus and game lists.</li>
-                  <li><strong>L1 / R1 (Bumpers):</strong> Page Jump (Skips 10 games at a time).</li>
-                  <li><strong>SOUTH BUTTON (A / Cross / B):</strong> Select / Play Game / Confirm.</li>
-                  <li><strong>EAST BUTTON (B / Circle / A):</strong> Back / Cancel / Exit Menu.</li>
-                  <li><strong>START / OPTIONS:</strong> Open the System Menu.</li>
-                  <li><strong>SELECT / SHARE:</strong> Open Game Options (Scraping, Favorites, Trailers).</li>
-                  <li><strong>NORTH BUTTON (Y / Triangle / X):</strong> Global Search (Opens On-Screen Keyboard).</li>
-                  <li><strong>WEST BUTTON (X / Square / Y):</strong> Toggle between Cover Art and Trailer/Screenshot in the main view.</li>
-                  <li><strong>L3 / R3 (Stick Clicks):</strong> Jukebox Controls (Next Track / Restart Track).</li>
+                  <li><strong>All Games, Installed</strong> &mdash; full library or just what&rsquo;s installed</li>
+                  <li><strong>Steam, GOG, Epic, Amazon</strong> &mdash; by store</li>
+                  <li><strong>Others, Physical, Emulation, Apps</strong> &mdash; manual categories</li>
+                  <li><strong>Want to Play, Favs</strong> &mdash; your personal curation lists</li>
               </ul>
 
-              <h2 id="man-4">4. MEDIA & SCRAPING ENGINE</h2>
-              <p>If you add a game but it's missing artwork or metadata, press <strong>SELECT</strong> on the game to open the Game Options, and choose <strong>SCRAPING ENGINE</strong>.</p>
+              <h2 id="man-2">2. CONTROLS</h2>
+              <p>CREMA is designed around a unified gamepad mapping. Keyboard is also fully supported.</p>
 
-              <h3>Available Scraping Tools:</h3>
+              <h3>Gamepad Controls</h3>
+              <table class="controls-table">
+                  <thead><tr><th>Button</th><th>Action</th></tr></thead>
+                  <tbody>
+                      <tr><td><span class="key">Left Stick / D-Pad</span></td><td>Navigate the game grid and menus</td></tr>
+                      <tr><td><span class="key">A / Cross</span></td><td>Confirm / Open Gamepage / Launch game</td></tr>
+                      <tr><td><span class="key">B / Circle</span></td><td>Back / Close overlay / Return to gallery</td></tr>
+                      <tr><td><span class="key">X / Square</span></td><td>Scrape metadata for the selected game</td></tr>
+                      <tr><td><span class="key">LB / L1</span></td><td>Previous category</td></tr>
+                      <tr><td><span class="key">RB / R1</span></td><td>Next category</td></tr>
+                      <tr><td><span class="key">Start / Menu</span></td><td>Open Sound Settings</td></tr>
+                  </tbody>
+              </table>
+
+              <h3>Keyboard Controls</h3>
+              <table class="controls-table">
+                  <thead><tr><th>Key</th><th>Action</th></tr></thead>
+                  <tbody>
+                      <tr><td><span class="key">Arrow Keys</span></td><td>Navigate the game grid</td></tr>
+                      <tr><td><span class="key">Enter</span></td><td>Confirm / Select / Open Gamepage</td></tr>
+                      <tr><td><span class="key">Escape / Backspace</span></td><td>Back / Close overlay</td></tr>
+                      <tr><td><span class="key">Left / Right</span></td><td>Switch category (from gallery header)</td></tr>
+                      <tr><td><span class="key">, + .</span></td><td>Wake from screensaver (hold both simultaneously)</td></tr>
+                  </tbody>
+              </table>
+
+              <h3>The On-Screen Keyboard (OSK)</h3>
+              <p>For Physical, Emulation, Others, or Apps games without a launch command, pressing Play opens the OSK so you can type the command with your gamepad or keyboard. Navigate with the D-pad, confirm characters with A / Enter, cancel with B or Escape.</p>
+
+              <div class="tip-box">
+                  <p><strong>Wake from screensaver:</strong> Hold <strong>comma (,) and period (.)</strong> simultaneously on the keyboard to wake CREMA from its idle screensaver mode.</p>
+              </div>
+
+              <h2 id="man-3">3. GALLERY &amp; GAMEPAGE</h2>
+
+              <h3>The Gallery</h3>
+              <p>CREMA&rsquo;s main view is a fullscreen cover-art grid. Categories are shown at the top &mdash; navigate with LB/RB (gamepad) or Left/Right arrow keys. Each card shows the cover and an install status indicator. The grid reloads instantly for the selected category.</p>
+
+              <h3>The Gamepage</h3>
+              <p>Select a game and press A / Enter to open its Gamepage:</p>
               <ul>
-                  <li><strong>SCRAPE ALL (DEFAULT):</strong> The fastest method. Connects to Steam, searches the game title, and automatically downloads the Cover Art, 5 Screenshots, Genre, Release Year, Developer, and Description in seconds.</li>
-                  <li><strong>CUSTOM COVER (STEAMGRIDDB):</strong> Sometimes official art is boring. If you have added your free SteamGridDB API key, this will open a gallery of high-quality custom covers. Use the D-Pad to pick your favorite.</li>
+                  <li><strong>Hero Banner</strong> &mdash; cinematic, takes up ~40% of screen height. The transparent Logo is overlaid at center.</li>
+                  <li><strong>Stats Panel</strong> &mdash; Release Year, HLTB, ProtonDB, Genre, Co-op, Players, Metacritic.</li>
+                  <li><strong>Description</strong> &mdash; a short summary of the game.</li>
+                  <li><strong>Screenshots</strong> &mdash; animated Ken Burns slideshow. Confirm to enter fullscreen; confirm again to advance frames.</li>
+                  <li><strong>Play / Install Button</strong> &mdash; launches the game. Uninstalled store games show Install. Manual categories without a command open the OSK.</li>
+                  <li><strong>Trailer Button</strong> &mdash; appears only if a trailer was downloaded in CNGM. BGM fades out automatically when playing.</li>
               </ul>
-              <p><em>Tip: If the automatic scraper doesn't get a game, select <strong>REFINE SEARCH</strong> to manually type the exact title using the on-screen keyboard.</em></p>
 
-              <h2 id="man-5">5. THE JUKEBOX</h2>
-              <p>CREMA features a robust, fully-integrated music player. Access it from the main System Menu.</p>
+              <h3>FAV &amp; Want to Play</h3>
+              <p>From the Gamepage menu, toggle Favorites and Want to Play. Changes write instantly to the shared database and are reflected in CNGM immediately.</p>
 
-              <h3>Adding Custom Music</h3>
-              <p>To build your collection, go to the folder where the CREMA app is located and add your audio files (MP3, WAV, OGG, FLAC) to the newly created folder named: <code>CREMA_CUSTOM_MUSIC</code>.</p>
-              <p>Close and reopen the Jukebox for the app to scan the ID3 metadata (Artist, Album, Title, Cover Art) of your files.</p>
+              <h3>Installed Status</h3>
+              <p>Each gallery card has a small status indicator. Games with a launch command / confirmed as installed show as active. For Physical, Others, Emulation, or Apps games without a command, pressing Play or the Install button opens the OSK to add one. Once a command is saved, the game is marked installed.</p>
 
-              <h3>Jukebox Features:</h3>
+              <h2 id="man-4">4. SCRAPING &amp; METADATA</h2>
+              <p>CREMA can scrape metadata for individual games without going through CNGM. The scope matches CNGM&rsquo;s Auto-Fetch: Cover, Hero Art, Logo, HLTB, ProtonDB, Description, Genre, Developer, Publisher, Co-op, Players, Metacritic, Screenshots.</p>
+
+              <h3>How to Scrape</h3>
+              <p>Navigate to a game in the gallery and press <strong>X / Square</strong> (or use the scrape option in the Game Menu). CREMA will:</p>
+              <ol>
+                  <li>Search Steam for the game by name. If found, proceed with a full Steam + IGDB scrape.</li>
+                  <li>If Steam search finds nothing, CREMA offers an <strong>IGDB fallback</strong> &mdash; a search overlay where you can type the correct title and select from results.</li>
+              </ol>
+
+              <h3>IGDB Fallback</h3>
+              <p>When the Steam search fails, a search overlay appears with IGDB results. Select the correct entry and CREMA fetches all available metadata. Especially useful for older games, non-English titles, or games not on Steam.</p>
+
+              <div class="warn-box">
+                  <p><strong>IGDB credentials required:</strong> The IGDB fallback requires a Twitch dev API key set in CNGM&rsquo;s Connect menu. Without it, only Steam-based data is available.</p>
+              </div>
+
+              <h2 id="man-5">5. MUSIC &amp; ATMOSPHERE</h2>
+              <p>CREMA has a built-in music player for ambient game-room atmosphere. It runs continuously while you browse and integrates seamlessly with the rest of the experience.</p>
+
+              <h3>BGM Categories</h3>
+              <p>CREMA ships with curated music organized into genre and mood categories. The default on first launch is <strong>Ambient</strong>. Switch categories in the Sound Settings overlay (Start button or the on-screen menu icon).</p>
+
+              <h3>Sound Settings</h3>
               <ul>
-                  <li><strong>Browse by Categories:</strong> Sort your library by All Songs, Artists, or Albums.</li>
-                  <li><strong>Playlists:</strong> Create custom playlists using the On-Screen Keyboard. Select any song or album to add it directly to a playlist.</li>
-                  <li><strong>Fullscreen Mode:</strong> Press the <strong>WEST BUTTON</strong> (X/Square) while in the Jukebox to enter an immersive, animated fullscreen player.</li>
-                  <li><strong>Background Audio:</strong> Jukebox music continues playing seamlessly while you browse your game library! Use L3/R3 to skip tracks without opening the menu.</li>
+                  <li>Switch BGM category / style</li>
+                  <li>Adjust BGM volume</li>
+                  <li>Toggle BGM on or off</li>
+                  <li>Adjust UI sound effects volume</li>
               </ul>
 
-              <h2 id="man-6">6. SCREENSAVER & SLEEP MODE</h2>
+              <h3>Trailer Fade</h3>
+              <p>When you play a trailer from the Gamepage, CREMA automatically fades out the BGM. When the trailer ends or you close the player, the BGM fades smoothly back in &mdash; seamless and cinematic.</p>
 
-              <h3>The Screensaver</h3>
-              <p>If you step away from your controller, CREMA will eventually trigger its dynamic screensaver (configurable between 1 to 30 minutes in Settings). The screensaver has two modes:</p>
-              <ul>
-                  <li><strong>CN Wallpapers (Default):</strong> A cinematic Ken Burns showcase featuring exclusive, curated renditions of our heroes: N3UR0T1C the Hacker and Crema the Bon Vivant.</li>
-                  <li><strong>Screenshots:</strong> Slowly pans and zooms across high-res gameplay screenshots from your personal library.</li>
-              </ul>
-              <p>While the <strong>Screenshots</strong> screensaver is active, you can press a button to instantly Launch the displayed game, or add it to your Favorites/Want-to-Play list without leaving the screensaver.</p>
-
-              <h3>Sleep Mode & Waking Up</h3>
-              <p>When you launch a game, CREMA fades to black and enters "Sleep Mode," yielding all system resources to your game. Once you are finished playing and close the game, you need to "Wake Up" CREMA.</p>
-              <p>By default, pressing <strong>START + SELECT</strong> simultaneously on your controller will violently yank CREMA back to the absolute front of your screen, burying any lingering launchers (like Steam, EA, CDPR, Heroic, etc...) and restoring the background music.</p>
-              <p><em>(You can change this combo in the System Menu -> Wake Up Method to prevent accidental triggers).</em></p>
-
-              <h2 id="man-7">7. SETTINGS & AUDIO</h2>
-              <p>Press <strong>START</strong> anywhere to access the System Menu.</p>
-              <ul>
-                  <li><strong>Gaming History:</strong> Choose to display your 5, 10, 15, or 20 most recently launched games at the top of your library. You can also clear this history for a fresh start.</li>
-                  <li><strong>Color Scheme:</strong> Instantly switch between dozens of themes ranging from modern gradients to retro console aesthetics.</li>
-                  <li><strong>Sound Settings:</strong> Adjust master volume, toggle UI sound effects, and choose your Background Music (BGM).</li>
-              </ul>
-
-              <h3>BGM Modes</h3>
-              <p>If you don't want to use the Custom Music folder, CREMA comes with built-in, looping background tracks composed by <em>Schwarzenegger Belonio (Migfus20)</em> to set the mood of your console. Choose between Jazz, Lo-Fi, Ambient, or Piano.</p>
+              <h3>Gaming History</h3>
+              <p>CREMA maintains its own independent gaming history counter (separate from CNGM). Configure it in the Sound Settings menu: OFF, 5, 10, 15, or 20 most recently played games pinned to the top of the gallery.</p>
 
               <div class="support-box">
                 <h4>SUPPORT CAFE NEUROTICO</h4>
@@ -466,14 +511,21 @@
         "SNES": {bg: "#b5b6b5", bg_panel: "rgba(200, 200, 200, 0.8)", bg_menu: "#e2e2e2", accent: "#524b82", accent_menu: "#827aa5", text_main: "#333333", text_sec: "#555555", text_dim: "#777777", border: "rgba(82, 75, 130, 0.2)", border_solid: "#524b82", accent_alt: "#D4A373"},
         "EARTHY & ORGANIC": {bg: "#3E4E3A", bg_panel: "rgba(91, 107, 85, 0.7)", bg_menu: "#4F5D48", accent: "#D4B28C", accent_menu: "#A9C298", text_main: "#F3EDE4", text_sec: "#D8D3C8", text_dim: "#8E9E88", border: "rgba(212, 178, 140, 0.2)", border_solid: "#6b7d63", accent_alt: "#D4A373"},
         "DOPAMINE BRIGHTS": {bg: "#FF3366", bg_panel: "rgba(20,20,20,0.8)", bg_menu: "#1a1a1a", accent: "#00E5FF", accent_menu: "#FFEB3B", text_main: "#ffffff", text_sec: "#CCCCCC", text_dim: "#888888", border: "rgba(0,229,255,0.4)", border_solid: "#333333", accent_alt: "#D4A373"},
-        "RETRO REVIVAL": {bg: "#F2D1C9", bg_panel: "rgba(240, 200, 190, 0.8)", bg_menu: "#E8C0B5", accent: "#E05A47", accent_menu: "#6C8A9B", text_main: "#4A403A", text_sec: "#72655A", text_dim: "#A28E84", border: "rgba(224, 90, 71, 0.2)", border_solid: "#E05A47", accent_alt: "#D4A373"}
+        "RETRO REVIVAL": {bg: "#F2D1C9", bg_panel: "rgba(240, 200, 190, 0.8)", bg_menu: "#E8C0B5", accent: "#E05A47", accent_menu: "#6C8A9B", text_main: "#4A403A", text_sec: "#72655A", text_dim: "#A28E84", border: "rgba(224, 90, 71, 0.2)", border_solid: "#E05A47", accent_alt: "#D4A373"},
+        "VAPORWAVE": {bg: "#0d0221", bg_panel: "rgba(80, 10, 100, 0.65)", bg_menu: "#150330", accent: "#ff71ce", accent_menu: "#01cdfe", text_main: "#f0e0ff", text_sec: "#c080ff", text_dim: "#6030a0", border: "rgba(255, 113, 206, 0.25)", border_solid: "#35005a", accent_alt: "#D4A373"},
+        "AURORA": {bg: "#0a1520", bg_panel: "rgba(0, 80, 80, 0.55)", bg_menu: "#081018", accent: "#00e8c8", accent_menu: "#b060ff", text_main: "#d0f8f0", text_sec: "#78d8c8", text_dim: "#306858", border: "rgba(0, 232, 200, 0.20)", border_solid: "#0a4040", accent_alt: "#D4A373"},
+        "NOIR": {bg: "#0a0a0a", bg_panel: "rgba(45, 45, 45, 0.78)", bg_menu: "#151515", accent: "#d4a030", accent_menu: "#f0b838", text_main: "#e8e0d0", text_sec: "#a09888", text_dim: "#606058", border: "rgba(212, 160, 48, 0.20)", border_solid: "#303028", accent_alt: "#D4A373"},
+        "BIOLUMINESCENCE": {bg: "#020810", bg_panel: "rgba(0, 120, 120, 0.42)", bg_menu: "#030c18", accent: "#00e8a8", accent_menu: "#00ffc0", text_main: "#c0f8f0", text_sec: "#60d8c8", text_dim: "#206858", border: "rgba(0, 232, 168, 0.22)", border_solid: "#0a3838", accent_alt: "#D4A373"},
+        "BRUTALIST": {bg: "#1a1a1a", bg_panel: "rgba(80, 80, 80, 0.55)", bg_menu: "#222222", accent: "#e03000", accent_menu: "#ff4010", text_main: "#f0f0f0", text_sec: "#c0c0c0", text_dim: "#808080", border: "rgba(224, 48, 0, 0.25)", border_solid: "#404040", accent_alt: "#D4A373"},
+        "OXOCARBON": {bg: "#161616", bg_panel: "rgba(38, 38, 38, 0.85)", bg_menu: "#262626", accent: "#0f62fe", accent_menu: "#4589ff", text_main: "#f4f4f4", text_sec: "#c6c6c6", text_dim: "#8d8d8d", border: "rgba(15, 98, 254, 0.25)", border_solid: "#393939", accent_alt: "#D4A373"},
+        "MATERIAL DARK": {bg: "#1a1c1e", bg_panel: "rgba(40, 48, 56, 0.80)", bg_menu: "#212325", accent: "#4fc3f7", accent_menu: "#0288d1", text_main: "#e1e2e8", text_sec: "#c1c2cb", text_dim: "#8589a0", border: "rgba(79, 195, 247, 0.18)", border_solid: "#3a3f4a", accent_alt: "#D4A373"}
     };
 
     const THEME_CATEGORIES = {
         "Originals & System": ["CREMA (DEFAULT)", "DARK GRAY", "CYBERPUNK", "SNOW", "MOVIESFLIX", "VAPOUR OS", "PSIV BLUE", "GREEN BOX", "WIN XP"],
         "Gaming Legends": ["GAME BOY DMG", "PIP BOY", "SEVASTOPOL", "RIP AND TEAR CLASSIC", "SUPER BROTHERS", "GREEN HILL", "NES", "SNES"],
-        "Aesthetics": ["EARTHY & ORGANIC", "DOPAMINE BRIGHTS", "RETRO REVIVAL"],
-        "Linux Ricing": ["DRACULA", "GRUVBOX", "NORD", "SOLARIZED DARK", "SOLARIZED LIGHT", "CATPPUCCIN LATTE", "CATPPUCCIN FRAPPÉ", "CATPPUCCIN MACCHIATO", "CATPPUCCIN MOCHA", "TOKYO NIGHT", "EVERFOREST", "ROSÉ PINE"],
+        "Aesthetics": ["EARTHY & ORGANIC", "DOPAMINE BRIGHTS", "RETRO REVIVAL", "VAPORWAVE", "AURORA", "NOIR", "BIOLUMINESCENCE", "BRUTALIST"],
+        "Linux Ricing": ["DRACULA", "GRUVBOX", "NORD", "SOLARIZED DARK", "SOLARIZED LIGHT", "CATPPUCCIN LATTE", "CATPPUCCIN FRAPPÉ", "CATPPUCCIN MACCHIATO", "CATPPUCCIN MOCHA", "TOKYO NIGHT", "EVERFOREST", "ROSÉ PINE", "OXOCARBON", "MATERIAL DARK"],
         "PSIII Colors": ["PSIII CLASSIC", "PSIII RED", "PSIII GREEN", "PSIII BLUE", "PSIII PURPLE", "PSIII GOLD", "PSIII SILVER"]
     };
 

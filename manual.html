@@ -131,6 +131,19 @@
     .manual-box { border: 2px dashed var(--accent); padding: 25px; margin: 25px 0; background-color: var(--bg_panel); border-radius: 8px; }
     .manual-box-title { color: var(--accent); font-weight: 900; font-size: 16px; margin-top: 0; text-transform: uppercase; letter-spacing: 1px; }
 
+    /* Callout boxes */
+    .tip-box { background: rgba(76, 175, 80, 0.07); border: 1px solid rgba(76, 175, 80, 0.35); border-left: 4px solid #4caf50; border-radius: 6px; padding: 16px 20px; margin: 20px 0; }
+    .tip-box p { margin: 0; }
+    .tip-box strong { color: #4caf50; }
+    .warn-box { background: rgba(255, 152, 0, 0.07); border: 1px solid rgba(255, 152, 0, 0.35); border-left: 4px solid #ff9800; border-radius: 6px; padding: 16px 20px; margin: 20px 0; }
+    .warn-box p { margin: 0; }
+    .warn-box strong { color: #ff9800; }
+    .controls-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+    .controls-table th { text-align: left; padding: 10px 14px; font-size: 12px; font-weight: 900; text-transform: uppercase; color: var(--accent); border-bottom: 2px solid var(--border_solid); }
+    .controls-table td { padding: 10px 14px; font-size: 15px; color: var(--text_sec); border-bottom: 1px solid var(--border); }
+    .controls-table tr:last-child td { border-bottom: none; }
+    .key { color: var(--text_main); font-weight: bold; font-family: monospace; background: var(--bg_panel); border: 1px solid var(--border_solid); border-radius: 3px; padding: 2px 8px; font-size: 13px; }
+
     /* Footer & Support Banner */
     .support-box { background: rgba(0,0,0,0.3); border: 1px solid var(--border_solid); padding: 30px; border-radius: 8px; max-width: 650px; margin: 50px auto 30px auto; text-align: center; }
     .support-box h4 { color: var(--accent_alt); margin-top: 0; margin-bottom: 15px; font-size: 16px; letter-spacing: 1px; }
@@ -253,114 +266,207 @@
 
   <div id="main-container">
       <div id="sidebar">
-        <button class="nav-btn active" data-target="man-1">1. Manifesto & Philosophy</button>
-        <button class="nav-btn" data-target="man-2">2. Adding Games & Sync</button>
-        <button class="nav-btn" data-target="man-3">3. Views & Navigation</button>
-        <button class="nav-btn" data-target="man-4">4. The Perfect Gamepage</button>
-        <button class="nav-btn" data-target="man-5">5. Detailed View & Fallbacks</button>
-        <button class="nav-btn" data-target="man-6">6. Media, SGDB & Trailers</button>
-        <button class="nav-btn" data-target="man-7">7. Tools, Data & Cleanup</button>
+        <button class="nav-btn active" data-target="man-1">1. Manifesto</button>
+        <button class="nav-btn" data-target="man-2">2. Quick Start</button>
+        <button class="nav-btn" data-target="man-3">3. Adding Games</button>
+        <button class="nav-btn" data-target="man-4">4. Views & Navigation</button>
+        <button class="nav-btn" data-target="man-5">5. Installed Status</button>
+        <button class="nav-btn" data-target="man-6">6. The Gamepage</button>
+        <button class="nav-btn" data-target="man-7">7. Edit & Auto-Fetch</button>
+        <button class="nav-btn" data-target="man-8">8. Media, SGDB & Trailers</button>
+        <button class="nav-btn" data-target="man-9">9. Tools & Settings</button>
       </div>
 
       <div id="content">
           <div class="container">
               <h1 id="man-1">CAFE NEUROTICO GAME MANAGER</h1>
 
-              <h2>1. MANIFESTO & PHILOSOPHY</h2>
+              <h2>1. MANIFESTO &amp; PHILOSOPHY</h2>
               <div class="manual-box">
                   <p class="manual-box-title">YOUR LIBRARY. MANAGEABLE. SEARCHABLE. PORTABLE.</p>
-                  <p>I wanted an app that could organize and launch all my games, from Steam, Heroic (Epic and GOG), Flatpak, Emulators or whatever in just one place.</p>
-                  <p>I wanted it to be complete with all the features I've always wished I had in a Linux game manager, like checking Youtube videos, HowLongToBeat, and ProtonDB right from inside the app, among other things.</p>
+                  <p>I wanted an app that could organize and launch all my games &mdash; from Steam, Heroic (Epic and GOG), Flatpak, Emulators, or whatever &mdash; in just one place.</p>
+                  <p>I wanted it to be complete with all the features I've always wished I had in a Linux game manager: checking YouTube videos, HowLongToBeat, and ProtonDB right from inside the app, among other things.</p>
                   <p>I wanted it to be simple, beautiful and themeable.</p>
-                  <p>And most importantly, I wanted it to be completely PORTABLE and BACKUPABLE.</p>
+                  <p>And most importantly, I wanted it to be completely <strong>PORTABLE</strong> and <strong>BACKUPABLE</strong>.</p>
 
                   <p class="manual-box-title">THE LOCAL-ONLY PHILOSOPHY</p>
                   <p>CNGM is built with a strict <strong>Offline-First, Local-Only</strong> philosophy for your media. Once you fetch artwork, covers, logos, or download a trailer, it is saved securely into your local <code>GameManagerConfig</code> folder.</p>
-                  <p>This means your library will never suffer from "link rot" or broken web images if a storefront changes its API. It also means you can pack up the entire folder, put it on a thumb drive, and take your flawlessly curated library to another PC entirely.</p>
+                  <p>This means your library will never suffer from &ldquo;link rot&rdquo; or broken web images if a storefront changes its API. It also means you can pack up the entire folder, put it on a thumb drive, and take your flawlessly curated library to another PC entirely.</p>
 
                   <p class="manual-box-title">THE LAUNCH COMMAND</p>
-                  <p>The crucial feature for my own usage. Inside the Detailed View, there is a field where you can put a command to launch that game.</p>
-                  <p>Anything goes. If you can launch it on Linux, you can launch it from here. You can even open your calculator or your terminal from here if that fancies your desire.</p>
-                  <p><b>Now the sweet part: If you imported your games via Steam or Heroic sync, the launch commands will be filled out automatically, even if the game is not installed (clicking PLAY will prompt you to install it).</b></p>
+                  <p>The crucial feature. Inside the Edit Details screen, there is a field where you can put a command to launch any game. Anything goes &mdash; if you can run it on Linux, you can run it from here.</p>
+                  <p><strong>If you imported your games via Steam or Heroic Sync, the launch commands are filled in automatically, even if the game is not installed. Clicking PLAY will prompt you to install it.</strong></p>
               </div>
 
-              <h2 id="man-2">2. ADDING GAMES & STORE SYNC</h2>
-              <p>Before we dive in, a quick note: all data is securely stored in a <strong>single folder</strong> created in the same directory as the app (`GameManagerConfig`). No searching around your entire OS in hidden folders.</p>
+              <h2 id="man-2">2. QUICK START</h2>
+              <p>CNGM and CREMA are two apps that share one library database and live in the same folder. Neither requires system installation &mdash; just run the AppImage.</p>
 
-              <h3>CONNECTING YOUR STORES</h3>
-              <p>Click the <strong>Connect</strong> button in the left Menu sector to begin syncing libraries.</p>
+              <h3>The Welcome &amp; Setup Guide</h3>
+              <p>Every time CNGM launches, it shows a <strong>Welcome &amp; Setup Guide</strong> screen that walks you through the recommended first-run workflow step by step. Each step has live action buttons built right into the panel &mdash; you can sync Heroic, enter your Steam credentials, run a batch fetch, save API keys, and register shortcuts all without leaving the screen.</p>
+              <div class="tip-box">
+                <p><strong>Tip:</strong> The Welcome Screen shows on every launch by default. Check &ldquo;Don&rsquo;t show this again&rdquo; to stop it. You can always reopen it from <strong>Tools &rarr; System &rarr; Show Welcome &amp; Setup Guide</strong>.</p>
+              </div>
+
+              <h3>Your Files</h3>
+              <p>On first launch, CNGM creates a <code>GameManagerConfig</code> folder next to the app:</p>
               <ul>
-                  <li><strong>HEROIC SYNC (EPIC/GOG):</strong> Automatically scans your local Heroic/Legendary config files and pulls in everything you own (installed or not) <b>with the correct native launch commands!</b></li>
-                  <li><strong>STEAM:</strong> Input your SteamID64 and API key. The system grabs your entire library and injects the launch commands automatically. <em>(Your profile's 'Game Details' must be set to Public.)</em></li>
-                  <li><strong>GOG:</strong> Opens a secure internal login window. Once logged in, close it, and the app will automatically scrape and pull in your owned GOG assets. <em><b>The best way to import GOG games is actually via Heroic Sync, but if you want you can use this GOG Sync (be aware that you will have to add ALL launch commands manually).</b></em></li>
+                  <li><code>game_library.db</code> &mdash; your SQLite library (all games and metadata)</li>
+                  <li><code>images/</code> &mdash; covers, hero art, logos, icons, screenshots</li>
+                  <li><code>trailers/</code> &mdash; locally downloaded MP4 trailers</li>
+              </ul>
+              <div class="tip-box">
+                <p><strong>Portability:</strong> Back up the entire <code>GameManagerConfig</code> folder and you have your complete library. Restore it anywhere and it works immediately.</p>
+              </div>
+
+              <h3>Recommended First-Run Workflow</h3>
+              <ol>
+                  <li>On first launch, the <strong>Welcome &amp; Setup Guide</strong> appears &mdash; follow its steps for the fastest setup.</li>
+                  <li>Open <strong>Connect</strong> and sync your stores &mdash; Heroic first, then Steam.</li>
+                  <li>Open <strong>Tools &rarr; Library</strong> and run <strong>Batch Fetch Missing Data</strong> to pull artwork for all synced games at once.</li>
+                  <li>Set up <strong>SteamGridDB</strong> (free key at steamgriddb.com) and <strong>IGDB</strong> (free Twitch dev key at dev.twitch.tv) in the Connect menu.</li>
+                  <li>Place <code>CREMA.AppImage</code> in the same folder as CNGM to activate the fullscreen companion.</li>
+                  <li>Open <strong>Tools &rarr; System &rarr; Add to Application Menu</strong> to register both apps in your desktop launcher &mdash; no terminal required.</li>
+              </ol>
+
+              <h2 id="man-3">3. ADDING GAMES &amp; STORE SYNC</h2>
+              <p>Click <strong>Connect</strong> in the sidebar. All data is stored locally &mdash; no cloud accounts required.</p>
+
+              <h3>Heroic Sync (Epic / GOG / Amazon) &mdash; Recommended</h3>
+              <p>CNGM reads Heroic&rsquo;s local config files directly &mdash; no login, no API key. It imports everything you own, installed or not, <strong>with the correct native launch commands already filled in</strong>. Amazon Games are also included if connected in Heroic.</p>
+
+              <h3>Steam API Import</h3>
+              <p>Get a free API Key at <code>steamcommunity.com/dev/apikey</code> and find your 17-digit <strong>SteamID64</strong> at steamid.io. Enter both in the Connect menu.</p>
+              <div class="warn-box">
+                <p><strong>Important:</strong> Your Steam profile&rsquo;s <em>Game Details</em> must be set to <strong>Public</strong> for the API to return your library.</p>
+              </div>
+
+              <h3>IGDB Integration</h3>
+              <p>Get free credentials at <code>dev.twitch.tv</code> &mdash; register a Twitch developer app and copy the Client ID and Secret into the Connect menu. Auto-Fetch then pulls IGDB data (franchise info, ratings, co-op data) alongside Steam data.</p>
+
+              <h3>GOG Direct Login</h3>
+              <p>Opens a secure internal browser. Log in and close it &mdash; CNGM imports your owned GOG titles. <strong>This method cannot auto-generate launch commands</strong>, so connecting GOG to Heroic and using Heroic Sync is strongly recommended instead.</p>
+
+              <h3>Adding Games Manually</h3>
+              <p>Hit <strong>+ Add Game</strong>, enter the title, then use <strong>✨ Auto-Fetch</strong> in Edit Details to pull all metadata and artwork automatically. For Physical, Emulation, or other non-store games, type any terminal command in the Launch Command field.</p>
+
+              <h2 id="man-4">4. VIEWS &amp; NAVIGATION</h2>
+              <p>Three main views share one persistent sidebar. Clicking a sidebar filter from anywhere &mdash; even deep inside a Gamepage &mdash; snaps you back to the last grid view and applies the filter instantly.</p>
+
+              <h3>The List View</h3>
+              <p>High-density, spreadsheet-style. Shows launch status, Favs, Want to Play, Store, Genre, and Release Year. Double-click any row to open its Gamepage. Recently played games pin to the top when Gaming History is enabled.</p>
+
+              <h3>The Gallery View</h3>
+              <p>Cover-art grid with a dynamic <strong>Hero header</strong> at the top that cycles through hero art and screenshots from your current filter using a Ken Burns zoom and crossfade &mdash; a built-in animated screensaver. Each card shows the cover, store badge, and an install status dot.</p>
+
+              <h3>Sidebar Filters</h3>
+              <ul>
+                  <li><strong>All Games / Installed / Favs / Want</strong></li>
+                  <li><strong>Steam / Epic / GOG / Amazon</strong> &mdash; by store</li>
+                  <li><strong>Physical / Others / Emulation / Apps</strong> &mdash; manual categories</li>
               </ul>
 
-              <h3>ADDING GAMES MANUALLY</h3>
-              <p>Don't want to sync? Hit the <strong>+ Add Game</strong> button. It creates a blank slate. From there, you can jump to the Edit Details screen, type the title, and hit <strong>✨ Auto-Fetch</strong> to pull all metadata and artwork from the Steam database instantly.</p>
+              <h3>The CREMA Button</h3>
+              <p>If <code>CREMA.AppImage</code> is in the same folder, a <strong>Go Fullscreen With CREMA</strong> button appears at the bottom of the sidebar. Clicking it minimizes CNGM and launches CREMA. Both apps share the same database &mdash; changes in one are visible in the other immediately.</p>
 
-              <h2 id="man-3">3. VIEWS & NAVIGATION</h2>
-              <p>There are three main views. The left sidebar remains your constant command center for filtering and searching.</p>
+              <h2 id="man-5">5. INSTALLED STATUS</h2>
+              <p>CNGM tracks whether each game is currently installed and shows it everywhere in the UI.</p>
 
-              <h3>THE LIST VIEW</h3>
-              <p>For the true data obsessive. A high-density spreadsheet showing you everything at a glance: Launch status, Favs, Want, Store, Genre, and Release Year. Double click a row to open the Gamepage. If Gaming History is enabled, your most recently played games will be pinned at the very top.</p>
+              <h3>The Install Dot</h3>
+              <p>A small dot overlays each cover card and list row. <strong>Green</strong> = installed. <strong>Orange</strong> = not installed or unknown.</p>
 
-              <h3>THE GALLERY VIEW</h3>
-              <p>All about the cover art. A highly visual, grid-based layout. At the top, the dynamic Hero header acts as a screensaver for your currently filtered selection, utilizing a beautiful Ken Burns effect to fade smoothly between the hero arts and screenshots of the games you are currently viewing. Just like the List View, your recent games will appear first if the history tracking is active.</p>
+              <h3>How Detection Works</h3>
+              <ul>
+                  <li><strong>Steam:</strong> Scans <code>appmanifest_*.acf</code> files across all Steam library folders (including secondary drives). A live file watcher updates status automatically when you install or uninstall in Steam.</li>
+                  <li><strong>Heroic (Epic / GOG / Amazon):</strong> Reads Heroic&rsquo;s <code>installed.json</code>. Refresh with Sync Heroic or Check Installed Games.</li>
+                  <li><strong>Physical / Others / Emulation / Apps:</strong> Considered installed only if a Launch Command is saved. Adding the command marks it installed immediately.</li>
+              </ul>
 
-              <h2 id="man-4">4. THE PERFECT GAMEPAGE</h2>
-              <p>Double-click any entry to enter the immersive <strong>Gamepage</strong>. This is your premium storefront view for the game.</p>
+              <h3>Install / Play Buttons</h3>
+              <p>Uninstalled games show an <strong>INSTALL</strong> button in Gallery and List view. For Steam/Heroic it opens the relevant store install page. For manual categories it opens the Add Command dialog.</p>
+              <div class="tip-box">
+                <p><strong>Check Installed Games</strong> in Tools &rarr; Library rescans your entire library at once. Use it after a big Heroic session.</p>
+              </div>
+
+              <h2 id="man-6">6. THE GAMEPAGE</h2>
+              <p>Double-click any entry to open the immersive Gamepage &mdash; a premium storefront-style view for that game.</p>
+
+              <h3>What You See</h3>
+              <ul>
+                  <li><strong>Hero Banner:</strong> Full-width cropped image with the transparent Logo overlaid at center.</li>
+                  <li><strong>Action Bar:</strong> Play / Install, Edit Details, Watch Trailer (if downloaded), FAV toggle, WANT TO PLAY toggle.</li>
+                  <li><strong>Stats Panel:</strong> Release year, Developer, Publisher, Genre, HLTB, Metacritic, ProtonDB, Co-op, Players, Franchise, Similar Games.</li>
+                  <li><strong>Description:</strong> Plain-text summary followed by the full rich HTML Steam store description.</li>
+                  <li><strong>Screenshots:</strong> Ken Burns animated slideshow. Click to enter fullscreen; click again to advance.</li>
+              </ul>
 
               <div class="manual-box">
-                  <p class="manual-box-title">STEP-BY-STEP: CRAFTING THE ULTIMATE PAGE</p>
-                  <p>To get the absolute best-looking, most complete Gamepage, follow this workflow:</p>
-                  <ul>
-                      <li><strong>1. The Initial Scrape:</strong> Click <b>⚙️ EDIT DETAILS</b> and click <b>✨ AUTO-FETCH</b>. This pulls the Cover, Hero Art, Logo, Icon, up to 5 Screenshots, the massive HTML description, and queries ProtonDB and HLTB automatically.</li>
-                      <li><strong>2. Refine the Visuals:</strong> Still in the Edit screen, look at the left column. If the Steam-provided Hero Art or Logo looks boring, click the <b>SGDB</b> button. This connects to SteamGridDB (requires a free API key) to let you pick custom, fan-made transparent logos and gorgeous textless hero backgrounds.</li>
-                      <li><strong>3. Add the Trailer:</strong> Click <b>▶ WATCH TRAILER</b>. It will search YouTube for a high-quality, no-commentary gameplay trailer. Select the best one to download it to your local drive.</li>
-                      <li><strong>4. Enjoy the Results:</strong> Return to the Gamepage. You should now see:
-                          <ul>
-                              <li>A massive Hero banner with a crisp, centered transparent Logo.</li>
-                              <li>An animated Screenshots banner utilizing the Ken Burns effect. Clicking it opens a fullscreen slideshow!</li>
-                              <li>A beautifully formatted short description summarizing the game, followed by the rich HTML Steam storefront payload.</li>
-                              <li>A <b>🎬 WATCH TRAILER</b> button right in the action bar, ready to play your locally downloaded video instantly.</li>
-                          </ul>
-                      </li>
-                  </ul>
+                  <p class="manual-box-title">CRAFTING THE ULTIMATE GAMEPAGE</p>
+                  <ol>
+                      <li><strong>Auto-Fetch first</strong> &mdash; covers ~90% of everything in one click.</li>
+                      <li>Click <strong>SGDB</strong> next to Hero Art or Logo to browse stunning fan-made custom art.</li>
+                      <li>Click <strong>&#x25B6; WATCH TRAILER</strong> in the edit bar, search YouTube, pick the best result, and download it locally.</li>
+                      <li>Save and return &mdash; fully curated, completely offline, beautiful.</li>
+                  </ol>
               </div>
 
-              <p>From the Gamepage, you can also use the live toggle buttons (<strong>+ FAV</strong> and <strong>WANT TO PLAY</strong>) to instantly update the database without needing to open the Edit screen.</p>
+              <h2 id="man-7">7. EDIT DETAILS &amp; AUTO-FETCH</h2>
+              <p>Click <strong>&#x2699;&#xFE0F; EDIT DETAILS</strong> from any Gamepage. Every field is editable and saves directly to the database.</p>
 
-              <h2 id="man-5">5. DETAILED VIEW & FALLBACKS</h2>
-              <p>Click <strong>⚙️ EDIT DETAILS</strong> to enter Edit Mode. Here you have full control over the database entry. You can edit every single text box manually.</p>
+              <h3>&#x2728; Auto-Fetch</h3>
+              <p>The single most powerful button. One click pulls: Cover, Hero Art, Logo (with SGDB fallback), Icon, up to 5 Screenshots, Description, Release Year, Developer, Publisher, Genre, Franchise, HLTB, ProtonDB, Metacritic, Co-op, Players.</p>
 
-              <h3>HLTB & PROTONDB FALLBACKS</h3>
-              <p>Next to the HLTB (HowLongToBeat) and ProtonDB fields, you'll see a magnifying glass icon (🔍). Clicking this will normally query their respective databases and pull the data right into your text box.</p>
-              <p>However, if the automated query fails (due to strict API limits or if the game's title is highly unusual), the app will intelligently pop open a secure internal web browser window directly to the search results page. You can then quickly read the score or time, close the window, and type it in manually.</p>
+              <h3>HLTB &amp; ProtonDB Live Lookups</h3>
+              <p>The &#x1F50D; icons next to HLTB and ProtonDB fields trigger live API queries. If the lookup fails (unusual title, API down), CNGM opens a secure internal browser directly to the search results page &mdash; read the value, close the window, type it in. No dead ends.</p>
 
-              <h2 id="man-6">6. MEDIA, SGDB & TRAILERS</h2>
+              <h3>Asset Management</h3>
+              <p>Each image asset (Cover, Hero, Logo, Icon) has four options: <strong>Auto</strong> (Steam CDN), <strong>SGDB</strong> (community art), <strong>Local</strong> (pick a file), and <strong>Delete</strong>.</p>
 
-              <h3>STEAMGRIDDB (SGDB)</h3>
-              <p>By pasting a free SteamGridDB API key into the app's settings, clicking the SGDB button next to any asset will instantly load the top-rated custom artwork for your game. If the auto-search gets the wrong game (e.g., pulling art for "Doom 2016" instead of "Doom 1993"), use the <strong>manual search box</strong> located inside the SGDB window to hunt for specific variations or editions. Click an image, and it downloads and applies it automatically.</p>
+              <h3>&#x1F9F9; Clear Meta</h3>
+              <p>Wipes all scraped text fields without touching images or launch commands. Use to re-scrape a game completely from scratch.</p>
 
-              <h3>YOUTUBE TRAILERS & THE LOCAL RULE</h3>
-              <p>Clicking <strong>▶ WATCH TRAILER</strong> in the edit screen queries YouTube. Select the best result, and the app uses an embedded <code>yt-dlp</code> backend to securely process and download the highest-quality MP4 to your local folder.</p>
-              <p><strong>IMPORTANT:</strong> The <b>🎬 WATCH TRAILER</b> button on the main Gamepage will <em>only</em> appear if the game has a trailer successfully downloaded to your local drive. CNGM will never attempt to stream videos directly from the internet on the Gamepage. This guarantees that if the button is there, the video will play instantly, at maximum quality, entirely offline.</p>
+              <h2 id="man-8">8. MEDIA, SGDB &amp; TRAILERS</h2>
 
-              <h2 id="man-7">7. TOOLS, DATA & CLEANUP</h2>
-              <p>Click the <strong>Tools</strong> button in the left sidebar to open the two-column Control Center dashboard.</p>
+              <h3>SteamGridDB (SGDB)</h3>
+              <p>Get a free API key at <code>steamgriddb.com</code> and paste it into the Connect menu. Every <strong>SGDB</strong> button in the Edit screen opens a browsable grid of top-rated community art for that asset type. If the auto-search picks the wrong game, use the <strong>manual search box</strong> inside the SGDB window to hunt for the exact variation. Click an image to apply it immediately.</p>
 
-              <h3>BATCH FETCHING</h3>
-              <p>The powerful <strong>Batch Fetch Missing Artwork</strong> tool scans your entire library in the background. It checks all five asset types (Cover, Hero, Logo, Icon, and Screenshots). If a game is missing <em>even one</em> of these assets, it will silently query Steam and pull down the missing files and metadata for you.</p>
+              <h3>YouTube Trailers &amp; The Local Rule</h3>
+              <p>Click <strong>&#x25B6; WATCH TRAILER</strong> in the edit bar to search YouTube. CNGM uses <code>yt-dlp</code> to download the highest-quality MP4 to your local <code>trailers/</code> folder.</p>
+              <p><strong>The Local Rule:</strong> The <em>&#x1F3AC; WATCH TRAILER</em> button on the Gamepage only appears if the trailer has been downloaded to disk. CNGM never streams from the internet on the Gamepage. If the button is there, the video plays instantly, offline, at maximum quality.</p>
+              <div class="tip-box">
+                <p><strong>yt-dlp</strong> must be installed on your system. Verify with <code>which yt-dlp</code> in a terminal, or install via your package manager.</p>
+              </div>
 
-              <h3>IMAGE STORAGE & CLEANUP</h3>
-              <p>Because of our neurotic local-only philosophy, and the fact that SGDB custom artwork generates unique filenames, your <code>images</code> folder can collect "orphaned" images over time when you replace covers or logos.</p>
+              <h2 id="man-9">9. TOOLS &amp; SETTINGS</h2>
+              <p>Click <strong>Tools</strong> in the sidebar. Use the search bar at the top to jump directly to any setting by keyword.</p>
+
+              <h3>&#x1F3A8; Appearance</h3>
+              <p><strong>Theme Selection</strong> opens the full theme picker &mdash; live-preview any color scheme instantly. <strong>UI Scale</strong> zooms the interface from 50% to 150%, useful for Steam Deck or 4K displays.</p>
+
+              <h3>&#x1F552; Gaming History</h3>
+              <p>Controls how many recently launched games pin to the top (OFF, 5, 10, 15, or 20). <strong>Clear History</strong> wipes timestamps without touching other data. CNGM and CREMA maintain separate history counts.</p>
+
+              <h3>&#x2728; Library</h3>
               <ul>
-                  <li><strong>🧹 Clean Unused Images:</strong> Click this to run a deep scan of your database. The app will cross-reference every assigned image, and ruthlessly delete any file in the folder that is no longer being used by a game, freeing up space safely.</li>
-                  <li><strong>☢️ Clear All Images:</strong> The nuclear option. This completely wipes all downloaded artwork and screenshots from your drive and resets the visual database, giving you a completely fresh start.</li>
+                  <li><strong>Refresh Heroic New Games:</strong> Opens Heroic, watches for library changes, auto-syncs when Heroic finishes. Use after buying a new game.</li>
+                  <li><strong>Batch Fetch Missing Data:</strong> Scans all five asset types for every game and silently pulls whatever is missing from Steam.</li>
+                  <li><strong>Check Installed Games:</strong> Rescans Steam appmanifests and Heroic files, updating installed status for your entire library.</li>
+                  <li><strong>Export / Import CSV:</strong> Move your library in and out of spreadsheet format. CSV Template downloads a blank sheet with all correct column headers.</li>
               </ul>
 
-              <h3>CSV EXPORT & SYSTEM BACKUP</h3>
-              <p>Full library portability. Export your entire library to a standard CSV, or use the <strong>BACKUP TO ZIP</strong> tool to pack your database, covers, logos, and screenshots into a single, massive <code>.zip</code> file. When moving to another machine or a Steam Deck, simply use <strong>RESTORE ZIP</strong> from inside the app to unpack your perfectly curated library exactly as you left it.</p>
+              <h3>&#x1F5C4;&#xFE0F; System</h3>
+              <ul>
+                  <li><strong>Backup ZIP:</strong> Packs your entire <code>GameManagerConfig</code> folder into a single archive &mdash; your complete migration package.</li>
+                  <li><strong>Restore ZIP:</strong> Unpacks a backup. <em>Warning: overwrites your current library entirely.</em></li>
+                  <li><strong>Add to Application Menu:</strong> Registers both CNGM and CREMA in your desktop launcher (GNOME, KDE, XFCE&hellip;) with icons. No terminal required. Re-run if you move the folder.</li>
+                  <li><strong>Show Welcome &amp; Setup Guide:</strong> Reopens the first-run setup screen. Also resets the &ldquo;don&rsquo;t show again&rdquo; flag for next launch.</li>
+              </ul>
+
+              <h3>&#x1F9F9; Cleanup</h3>
+              <ul>
+                  <li><strong>Clean Images:</strong> Deletes orphaned image files no longer assigned to any game. Safe and surgical.</li>
+                  <li><strong>Clear All Images:</strong> Wipes all downloaded artwork and screenshots. Text metadata is preserved; all visual assets must be re-fetched.</li>
+                  <li><strong>Wipe Secure Browser Data:</strong> Clears the internal Chromium cache used by the GOG login window. First thing to try if a store sync is behaving strangely.</li>
+              </ul>
 
               <div class="support-box">
                 <h4>SUPPORT CAFE NEUROTICO</h4>
@@ -474,14 +580,21 @@
         "SNES": {bg: "#b5b6b5", bg_panel: "rgba(200, 200, 200, 0.8)", bg_menu: "#e2e2e2", accent: "#524b82", accent_menu: "#827aa5", text_main: "#333333", text_sec: "#555555", text_dim: "#777777", border: "rgba(82, 75, 130, 0.2)", border_solid: "#524b82", accent_alt: "#D4A373"},
         "EARTHY & ORGANIC": {bg: "#3E4E3A", bg_panel: "rgba(91, 107, 85, 0.7)", bg_menu: "#4F5D48", accent: "#D4B28C", accent_menu: "#A9C298", text_main: "#F3EDE4", text_sec: "#D8D3C8", text_dim: "#8E9E88", border: "rgba(212, 178, 140, 0.2)", border_solid: "#6b7d63", accent_alt: "#D4A373"},
         "DOPAMINE BRIGHTS": {bg: "#FF3366", bg_panel: "rgba(20,20,20,0.8)", bg_menu: "#1a1a1a", accent: "#00E5FF", accent_menu: "#FFEB3B", text_main: "#ffffff", text_sec: "#CCCCCC", text_dim: "#888888", border: "rgba(0,229,255,0.4)", border_solid: "#333333", accent_alt: "#D4A373"},
-        "RETRO REVIVAL": {bg: "#F2D1C9", bg_panel: "rgba(240, 200, 190, 0.8)", bg_menu: "#E8C0B5", accent: "#E05A47", accent_menu: "#6C8A9B", text_main: "#4A403A", text_sec: "#72655A", text_dim: "#A28E84", border: "rgba(224, 90, 71, 0.2)", border_solid: "#E05A47", accent_alt: "#D4A373"}
+        "RETRO REVIVAL": {bg: "#F2D1C9", bg_panel: "rgba(240, 200, 190, 0.8)", bg_menu: "#E8C0B5", accent: "#E05A47", accent_menu: "#6C8A9B", text_main: "#4A403A", text_sec: "#72655A", text_dim: "#A28E84", border: "rgba(224, 90, 71, 0.2)", border_solid: "#E05A47", accent_alt: "#D4A373"},
+        "VAPORWAVE": {bg: "#0d0221", bg_panel: "rgba(80, 10, 100, 0.65)", bg_menu: "#150330", accent: "#ff71ce", accent_menu: "#01cdfe", text_main: "#f0e0ff", text_sec: "#c080ff", text_dim: "#6030a0", border: "rgba(255, 113, 206, 0.25)", border_solid: "#35005a", accent_alt: "#D4A373"},
+        "AURORA": {bg: "#0a1520", bg_panel: "rgba(0, 80, 80, 0.55)", bg_menu: "#081018", accent: "#00e8c8", accent_menu: "#b060ff", text_main: "#d0f8f0", text_sec: "#78d8c8", text_dim: "#306858", border: "rgba(0, 232, 200, 0.20)", border_solid: "#0a4040", accent_alt: "#D4A373"},
+        "NOIR": {bg: "#0a0a0a", bg_panel: "rgba(45, 45, 45, 0.78)", bg_menu: "#151515", accent: "#d4a030", accent_menu: "#f0b838", text_main: "#e8e0d0", text_sec: "#a09888", text_dim: "#606058", border: "rgba(212, 160, 48, 0.20)", border_solid: "#303028", accent_alt: "#D4A373"},
+        "BIOLUMINESCENCE": {bg: "#020810", bg_panel: "rgba(0, 120, 120, 0.42)", bg_menu: "#030c18", accent: "#00e8a8", accent_menu: "#00ffc0", text_main: "#c0f8f0", text_sec: "#60d8c8", text_dim: "#206858", border: "rgba(0, 232, 168, 0.22)", border_solid: "#0a3838", accent_alt: "#D4A373"},
+        "BRUTALIST": {bg: "#1a1a1a", bg_panel: "rgba(80, 80, 80, 0.55)", bg_menu: "#222222", accent: "#e03000", accent_menu: "#ff4010", text_main: "#f0f0f0", text_sec: "#c0c0c0", text_dim: "#808080", border: "rgba(224, 48, 0, 0.25)", border_solid: "#404040", accent_alt: "#D4A373"},
+        "OXOCARBON": {bg: "#161616", bg_panel: "rgba(38, 38, 38, 0.85)", bg_menu: "#262626", accent: "#0f62fe", accent_menu: "#4589ff", text_main: "#f4f4f4", text_sec: "#c6c6c6", text_dim: "#8d8d8d", border: "rgba(15, 98, 254, 0.25)", border_solid: "#393939", accent_alt: "#D4A373"},
+        "MATERIAL DARK": {bg: "#1a1c1e", bg_panel: "rgba(40, 48, 56, 0.80)", bg_menu: "#212325", accent: "#4fc3f7", accent_menu: "#0288d1", text_main: "#e1e2e8", text_sec: "#c1c2cb", text_dim: "#8589a0", border: "rgba(79, 195, 247, 0.18)", border_solid: "#3a3f4a", accent_alt: "#D4A373"}
     };
 
     const THEME_CATEGORIES = {
         "Originals & System": ["DARK GRAY", "CREMA", "CYBERPUNK", "SNOW", "MOVIESFLIX", "VAPOUR OS", "PSIV BLUE", "GREEN BOX", "WIN XP"],
         "Gaming Legends": ["GAME BOY DMG", "PIP BOY", "SEVASTOPOL", "RIP AND TEAR CLASSIC", "SUPER BROTHERS", "GREEN HILL", "NES", "SNES"],
-        "Aesthetics": ["EARTHY & ORGANIC", "DOPAMINE BRIGHTS", "RETRO REVIVAL"],
-        "Linux Ricing": ["DRACULA", "GRUVBOX", "NORD", "SOLARIZED DARK", "SOLARIZED LIGHT", "CATPPUCCIN LATTE", "CATPPUCCIN FRAPPÉ", "CATPPUCCIN MACCHIATO", "CATPPUCCIN MOCHA", "TOKYO NIGHT", "EVERFOREST", "ROSÉ PINE"],
+        "Aesthetics": ["EARTHY & ORGANIC", "DOPAMINE BRIGHTS", "RETRO REVIVAL", "VAPORWAVE", "AURORA", "NOIR", "BIOLUMINESCENCE", "BRUTALIST"],
+        "Linux Ricing": ["DRACULA", "GRUVBOX", "NORD", "SOLARIZED DARK", "SOLARIZED LIGHT", "CATPPUCCIN LATTE", "CATPPUCCIN FRAPPÉ", "CATPPUCCIN MACCHIATO", "CATPPUCCIN MOCHA", "TOKYO NIGHT", "EVERFOREST", "ROSÉ PINE", "OXOCARBON", "MATERIAL DARK"],
         "PSIII Colors": ["PSIII CLASSIC", "PSIII RED", "PSIII GREEN", "PSIII BLUE", "PSIII PURPLE", "PSIII GOLD", "PSIII SILVER"]
     };
 
