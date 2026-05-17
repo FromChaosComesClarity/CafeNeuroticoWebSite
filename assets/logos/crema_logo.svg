@@ -1,0 +1,31 @@
+<svg width="600" height="120" viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Import Monospace + Premium Geometric Sans -->
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&amp;family=Share+Tech+Mono&amp;display=swap');
+      .brand-small { font-family: 'Share Tech Mono', monospace; font-size: 18px; fill: #bbbbbb; letter-spacing: 4px; }
+      .brand-large { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 44px; fill: #ffffff; letter-spacing: 3px; }
+      .crema-accent { fill: #D4A373; }
+    </style>
+  </defs>
+
+  <!-- The ABXY Foam Icon -->
+  <g transform="translate(10, 10) scale(0.195)">
+    <rect width="512" height="512" rx="112" fill="#2C1E16"/>
+    <path d="M 380 256 C 490 256, 490 150, 380 150" fill="none" stroke="#D4A373" stroke-width="24" stroke-linecap="round"/>
+    <circle cx="256" cy="256" r="160" fill="#432818" stroke="#D4A373" stroke-width="16"/>
+    <path d="M 256 136 A 120 120 0 0 1 376 256" fill="none" stroke="#D4A373" stroke-width="16" stroke-linecap="round"/>
+    <path d="M 256 376 A 120 120 0 0 1 136 256" fill="none" stroke="#D4A373" stroke-width="16" stroke-linecap="round"/>
+    <path d="M 186 256 A 70 70 0 0 1 256 186" fill="none" stroke="#FFE6A7" stroke-width="12" stroke-linecap="round"/>
+    <path d="M 326 256 A 70 70 0 0 1 256 326" fill="none" stroke="#FFE6A7" stroke-width="12" stroke-linecap="round"/>
+    <circle cx="256" cy="204" r="16" fill="#FFE6A7"/>
+    <circle cx="256" cy="308" r="16" fill="#FFE6A7"/>
+    <circle cx="204" cy="256" r="16" fill="#FFE6A7"/>
+    <circle cx="308" cy="256" r="16" fill="#FFE6A7"/>
+    <rect x="24" y="24" width="464" height="464" rx="88" fill="none" stroke="#8B5A2B" stroke-width="12"/>
+  </g>
+
+  <!-- Typography -->
+  <text x="130" y="46" class="brand-small">CAFE NEUROTICO</text>
+  <text x="128" y="96" class="brand-large crema-accent">CREMA</text>
+</svg>

@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cafe Neurotico - FAQ</title>
+  <link rel="icon" type="image/svg+xml" href="assets/icons/default_icon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #141414;
+      --bg_panel: rgba(0,0,0,0.5);
+      --bg_menu: #222222;
+      --accent: #00e5ff;
+      --accent_alt: #D4A373;
+      --text_main: #ffffff;
+      --text_sec: #bbbbbb;
+      --text_dim: #777777;
+      --border_solid: #555555;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg);
+      color: var(--text_main);
+      font-family: 'Raleway', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Refined Responsive Navbar */
+    nav {
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      background: rgba(20, 20, 20, 0.85);
+      backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      box-sizing: border-box;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      z-index: 1000;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      font-weight: 900;
+      font-size: 20px;
+      letter-spacing: 2px;
+      color: var(--text_main);
+    }
+
+    .nav-icon {
+      height: 28px;
+      width: 28px;
+      margin-right: 12px;
+      filter: drop-shadow(0 0 5px rgba(255,255,255,0.3));
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text_sec);
+      text-decoration: none;
+      margin-left: 25px;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: 1px;
+      transition: color 0.3s, text-shadow 0.3s;
+    }
+    .nav-links a:hover {
+      color: var(--accent);
+      text-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
+    }
+
+    /* Mobile Hamburger Menu */
+    .mobile-menu-btn {
+      display: none;
+      background: transparent;
+      border: none;
+      color: var(--text_main);
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    /* Header */
+    .hero {
+      padding: 150px 20px 60px 20px;
+      text-align: center;
+      background: radial-gradient(circle at center, #222 0%, var(--bg) 100%);
+      border-bottom: 1px solid var(--border_solid);
+    }
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 900;
+      letter-spacing: 3px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      color: var(--accent);
+      line-height: 1.2;
+    }
+    .hero p {
+      font-size: clamp(16px, 3vw, 20px);
+      color: var(--text_sec);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* FAQ Container */
+    .faq-container {
+      max-width: 900px;
+      margin: 60px auto 100px auto;
+      padding: 0 20px;
+    }
+
+    .faq-category {
+      font-size: clamp(20px, 3vw, 24px);
+      font-weight: 900;
+      color: var(--text_dim);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-top: 50px;
+      margin-bottom: 20px;
+      border-bottom: 2px solid var(--border_solid);
+      padding-bottom: 10px;
+    }
+
+    /* Accordion Styles */
+    details {
+      background: var(--bg_panel);
+      border: 1px solid var(--border_solid);
+      border-radius: 8px;
+      margin-bottom: 15px;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+    details[open] {
+      border-color: var(--accent);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    }
+    summary {
+      padding: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: var(--text_main);
+      cursor: pointer;
+      list-style: none; /* Removes default arrow */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.2s;
+    }
+    summary::-webkit-details-marker { display: none; } /* Removes default arrow for Safari */
+    summary:hover {
+      background: rgba(255,255,255,0.05);
+    }
+    summary::after {
+      content: '+';
+      color: var(--accent);
+      font-size: 28px;
+      font-weight: 900;
+      line-height: 1;
+      transition: transform 0.2s;
+    }
+    details[open] summary::after {
+      content: '−';
+      color: var(--accent_alt);
+    }
+    .faq-content {
+      padding: 0 20px 20px 20px;
+      color: var(--text_sec);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    .faq-content p:first-child { margin-top: 0; }
+    .faq-content strong { color: var(--text_main); }
+
+    /* Footer & Support Banner */
+    footer { background: var(--bg_menu); padding: 40px; text-align: center; border-top: 1px solid var(--border_solid); }
+    .footer-brand { font-size: 20px; font-weight: 900; letter-spacing: 2px; margin-bottom: 10px; }
+
+    .support-box { background: rgba(0,0,0,0.3); border: 1px solid var(--border_solid); padding: 30px; border-radius: 8px; max-width: 650px; margin: 50px auto 30px auto; text-align: center; }
+    .support-box h4 { color: var(--accent_alt); margin-top: 0; margin-bottom: 15px; font-size: 16px; letter-spacing: 1px; }
+
+    .support-banner {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border_solid);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+      margin-bottom: 25px;
+      display: block;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .support-banner:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 35px rgba(212, 163, 115, 0.25); /* Crema color glow */
+      border-color: var(--accent_alt);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text_main);
+      border: 2px solid var(--border_solid);
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Raleway', sans-serif;
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.05); }
+
+    /* Modal Backdrop for PIX */
+    .modal-backdrop {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      z-index: 3000; display: flex; justify-content: center; align-items: center;
+      opacity: 1; transition: opacity 0.3s ease;
+    }
+    .modal-backdrop.hidden { opacity: 0; pointer-events: none; }
+
+    ::-webkit-scrollbar { width: 12px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border_solid); border-radius: 6px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+    /* Responsive Overrides */
+    @media (max-width: 900px) {
+      nav { padding: 15px 20px; }
+      .mobile-menu-btn { display: block; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 60px; left: 0; width: 100%;
+        background: rgba(20, 20, 20, 0.95);
+        flex-direction: column;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--border_solid);
+      }
+      .nav-links.show { display: flex; }
+      .nav-links a { margin: 15px 0; font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PIX Modal -->
+  <div id="pix-modal" class="modal-backdrop hidden">
+    <div style="background: var(--bg_menu); border: 2px solid var(--border_solid); border-radius: 12px; padding: 30px; text-align: center; max-width: 400px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); position: relative;">
+      <button onclick="closePixModal()" style="position: absolute; top: 15px; right: 15px; background: transparent; border: none; color: var(--text_sec); font-size: 20px; cursor: pointer; transition: 0.2s;">✕</button>
+      <h3 style="color: #32BCAD; margin-top: 0; font-weight: 900; letter-spacing: 1px;">DONATE VIA PIX</h3>
+      <img src="assets/images/pixqrcode.jpg" alt="PIX QR Code" style="width: 250px; height: 250px; border-radius: 8px; margin: 20px 0; border: 2px solid #32BCAD; box-shadow: 0 10px 20px rgba(0,0,0,0.5);">
+      <p style="font-size: 14px; color: var(--text_sec); margin-bottom: 20px; word-break: break-all; user-select: all;">b734a9e2-e479-42f9-abd6-c88d1b8b880e</p>
+      <button onclick="copyPixKey()" class="btn-secondary" style="border-color: #32BCAD; color: #32BCAD; width: 100%; padding: 12px; font-weight: 900; letter-spacing: 1px;">COPY PIX KEY</button>
+      <div id="pix-copy-msg" style="color: #32BCAD; font-size: 12px; font-weight: bold; margin-top: 10px; opacity: 0; transition: opacity 0.3s;">Copied to clipboard!</div>
+    </div>
+  </div>
+
+  <nav>
+    <div class="nav-brand">
+      <img src="assets/icons/default_icon.svg" alt="Cafe Neurotico Logo" class="nav-icon">
+      CAFE NEUROTICO
+    </div>
+    <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#cngm">CNGM</a>
+      <a href="index.html#crema">CREMA</a>
+      <a href="faq.html" style="color: var(--accent);">FAQ</a>
+      <a href="wallpapers.html">CN Wallpapers</a>
+      <a href="index.html#support">Buy me a coffee</a>
+      <a href="mailto:shampooisalie@gmail.com">Contact</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <h1>Frequently Asked Questions</h1>
+    <p>Everything you need to know about the Cafe Neurotico ecosystem, library syncing, and controller setups.</p>
+  </header>
+
+  <div class="faq-container">
+
+    <!-- CATEGORY 1 -->
+    <div class="faq-category">General & Ecosystem</div>
+
+    <details>
+      <summary>Do I need to keep both CNGM and CREMA open at the same time?</summary>
+      <div class="faq-content">
+        <p><strong>No.</strong> They are standalone applications designed for different moments. They share the exact same <code>GameManagerConfig</code> database folder. Use CNGM (the desktop app) with your mouse and keyboard to organize your library, sync stores, and download media. Search, browse, edit any info and play your games with a beautiful and themeable interface. When you want use a TV or simply go fullscreen, close it and open CREMA (the fullscreen app) for your controller-based gaming session. CREMA features a music Jukebox too :)</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Does this work on Windows or MacOS, or is it Linux only?</summary>
+      <div class="faq-content">
+        <p>CNGM and CREMA are built primarily as a labor of love for <strong>Linux</strong>, utilizing tools like AppImage, bash launch commands, Heroic Games Launcher, and ProtonDB. So yeah, at least for now, Linux only.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Is my data sent to a cloud server? Do I need to create an account?</summary>
+      <div class="faq-content">
+        <p><strong>Absolutely not.</strong> The entire ecosystem is 100% offline and local-first. All your data, cover art, screenshots, trailers, and database files are stored locally in the <code>GameManagerConfig</code> folder on your drive. There are no accounts, no subscriptions, and zero telemetry.</p>
+      </div>
+    </details>
+
+    <!-- CATEGORY 2 -->
+    <div class="faq-category">Adding Games & Store Syncing</div>
+
+    <details>
+      <summary>Why is my Steam library failing to import?</summary>
+      <div class="faq-content">
+        <p>Make sure you have entered both your SteamID64 and a valid Steam Web API Key in the CNGM Connect menu. Crucially, your actual Steam Profile's <strong>'Game Details' privacy setting must be set to "Public"</strong> so the API can read your owned games. If it is set to "Private" or "Friends Only", the import will fail.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Does this sync with the official Epic Games Store or EA App?</summary>
+      <div class="faq-content">
+        <p>It syncs natively with the <strong>Heroic Games Launcher</strong>, which is the premier way to play Epic Games and GOG titles on Linux. Ensure you have Heroic installed and configured. CNGM will automatically and instantly import your games with the correct native launch commands.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Can I use this for emulators (RetroArch, Yuzu) or physical games?</summary>
+      <div class="faq-content">
+        <p><strong>Yes!</strong> The magic lies in the "Launch Command" field. Any command you can type into a Linux terminal can be used here to launch an emulator or a flatpak. If you want to catalogue physical board games or console games just for the sake of organizing them, simply leave the launch command blank and assign them to the "Physical" or "Others" category.</p>
+      </div>
+    </details>
+
+    <!-- CATEGORY 3 -->
+    <div class="faq-category">CREMA & Controller Experience</div>
+
+    <details>
+      <summary>I launched a game in CREMA. How do I get back to the CREMA interface?</summary>
+      <div class="faq-content">
+        <p>When a game is launched, CREMA automatically enters a lightweight Sleep Mode to save system resources and fades your background music out. When you're done playing and you've closed your game, simply press <strong>START + SELECT</strong> simultaneously on your controller. CREMA will forcefully pull itself back to the front of your screen and fade the music back in.</p>
+        <p><em>(You can change this wake-up combo in the CREMA System Menu to prevent accidental triggers while playing).</em></p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Steam or Heroic keeps popping up over CREMA after I close a game. How do I fix this?</summary>
+      <div class="faq-content">
+        <p>To keep CREMA acting like a true console shell, you should set your background launchers to hide themselves. For example, open Heroic, go to Settings -> General, and check <strong>"Minimize Heroic on Game Launch"</strong> or <strong>"Hide to Tray"</strong>. CREMA's wake-up combo (Start + Select) will also actively attempt to force itself over any lingering windows.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I add my own music to the CREMA Jukebox?</summary>
+      <div class="faq-content">
+        <p>Go to the folder where the CREMA application is located. The app will have automatically generated a folder named <code>CREMA_CUSTOM_MUSIC</code>. Drop your audio files (MP3, WAV, OGG, or FLAC) in there. Close and reopen the Jukebox in CREMA, and it will automatically scan your tracks and their ID3 metadata (Artist, Album, Cover Art).</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>My controller isn't navigating the CREMA menu. What's wrong?</summary>
+      <div class="faq-content">
+        <p>Ensure the CREMA window has system focus. Sometimes when an app first launches, the OS doesn't immediately give it input priority—simply click the window once with your mouse. CREMA uses the standard HTML5 Gamepad API, meaning almost any Xbox, PlayStation, Switch, or generic PC controller should work natively without extra drivers.</p>
+      </div>
+    </details>
+
+    <!-- CATEGORY 4 -->
+    <div class="faq-category">Data Management & Backups</div>
+
+    <details>
+      <summary>Where are all my covers, trailers, and save data actually stored?</summary>
+      <div class="faq-content">
+        <p>Everything is contained securely within a single folder named <code>GameManagerConfig</code> located in the exact same directory as your CNGM/CREMA application files. Your downloaded images, YouTube trailers, audio settings, and the main SQLite database (<code>games.db</code>) are all kept in this single portable location.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I move my library to a new PC or Steam Deck?</summary>
+      <div class="faq-content">
+        <p>Open the CNGM desktop app, click on the <strong>Tools</strong> menu in the sidebar, and select <strong>Backup to ZIP</strong>. This will compress your entire <code>GameManagerConfig</code> folder (including all your scraped media and databases) into one file. Move that ZIP to your new machine, open CNGM there, and use the <strong>Restore ZIP</strong> option.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Why did the automatic scraper grab the wrong cover art for my game?</summary>
+      <div class="faq-content">
+        <p>Preferentially, use CNGM and its detailed view to clear all info and fetch again, individually for that game (see the manual) if there is more than one result in Steam database, it will give you options to choose from. The automatic Steam scraper searches the database by text, so sequels, re-releases, or games with similar names can sometimes overlap, but doing this will fix it.</p><p> If this happens in CREMA, open the Game Options, select "Scraping Engine", CLEAR ALL SCRAPED ITEMS and try again, if there is more than one result in Steam database, it will give you options. If it doesn't find any match, the option <strong>REFINE SEARCH</strong> will be available to manually type the exact title. Alternatively, you can use the <strong>CUSTOM COVER (STEAMGRIDDB)</strong> option to visually pick the exact artwork you want from a grid.</p>
+      </div>
+    </details>
+
+  </div>
+
+  <footer>
+    <div class="footer-brand">CAFE NEUROTICO ECOSYSTEM</div>
+
+    <div class="support-box" id="support">
+      <h4>SUPPORT CAFE NEUROTICO</h4>
+      <p style="font-size: 14px; margin-bottom: 5px; color: var(--text_sec);">If this project helped organize your gaming life, consider buying me a coffee! It helps keep the project alive. <b>"MORE CAFFEINE IS <u style="color: var(--text_main);">MORE GOOD</u>"</b> </p>
+      <p style="font-size: 14px; margin-bottom: 25px; font-weight: bold; color: var(--text_main);">If you do so, <a href="mailto:shampooisalie@gmail.com" style="color: var(--accent); text-decoration: underline;">LET ME KNOW</a> so I can thank you personally! :)</p>
+
+      <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 30px;">
+        <!-- Ko-fi Link (International) -->
+        <a href="https://ko-fi.com/shampooisalie" target="_blank" class="btn-secondary" style="padding: 10px 20px; font-size: 14px; border-color: #FF5E5B; color: #FF5E5B; text-decoration: none; font-weight: bold; text-align: center;">☕ Donate via Ko-fi (Intl)</a>
+
+        <!-- PIX (Brazil) -->
+        <button class="btn-secondary" style="padding: 10px 20px; font-size: 14px; border-color: #32BCAD; color: #32BCAD; font-weight: bold;" onclick="openPixModal()">
+          🇧🇷 PIX Key: QR CODE
+        </button>
+      </div>
+
+      <!-- Visual Banner -->
+      <a href="https://ko-fi.com/shampooisalie" target="_blank" style="display: block; text-decoration: none;">
+        <img src="assets/images/coffee_banner.jpg" alt="Cafe Neurotico - Buy us a coffee!" class="support-banner">
+      </a>
+
+      <!-- Heroic Donation Link -->
+      <p style="font-size: 14px; color: var(--text_sec); border-top: 1px solid var(--border_solid); padding-top: 20px; margin: 0;">
+        I am a HUGE fan of <b>Heroic Games Launcher</b>. It's amazing and makes it possible to play GOG and Epic Games smoothly on Linux. They are the true Heroes (pun intended) here! Now seriously, without their work, I wouldn't be gaming exclusively on Linux and this project wouldn't even have been conceived. Please consider donating to their project
+        <a href="https://heroicgameslauncher.com/donate" target="_blank" style="color: #FF007F; font-weight: 900; text-decoration: none; border-bottom: 2px solid #FF007F; margin-left: 5px;">HERE</a>.
+      </p>
+    </div>
+
+    <p style="font-size: 14px; margin-bottom: 5px; margin-top: 15px;">Contact: <a href="mailto:shampooisalie@gmail.com" style="color: var(--accent); text-decoration: none; font-weight: bold;">shampooisalie@gmail.com</a></p>
+
+    <!-- GitHub Project Button -->
+    <div style="margin-top: 20px; margin-bottom: 30px; display: flex; justify-content: center;">
+      <a href="https://github.com/shampooisalie/CafeNeurotico" target="_blank" class="btn-secondary" style="display: flex; align-items: center; gap: 10px; padding: 10px 20px; text-decoration: none; font-weight: bold; font-size: 14px; border-color: var(--border_solid); border-radius: 8px;">
+        <img src="assets/images/github_cngm.svg" alt="GitHub" style="width: 24px; height: 24px;">
+        VIEW PROJECT ON GITHUB
+      </a>
+    </div>
+
+    <p style="font-size: 12px; color: var(--text_dim); margin-top: 0;">&copy; 2026 Shampoo is a Lie. Not affiliated with Steam, Heroic, Epic Games, or GOG.</p>
+  </footer>
+
+  <!-- Javascript Logic -->
+  <script>
+    // PIX Modal Logic
+    function openPixModal() {
+      document.getElementById('pix-modal').classList.remove('hidden');
+    }
+    function closePixModal() {
+      document.getElementById('pix-modal').classList.add('hidden');
+    }
+    function copyPixKey() {
+      navigator.clipboard.writeText('b734a9e2-e479-42f9-abd6-c88d1b8b880e').then(() => {
+        const msg = document.getElementById('pix-copy-msg');
+        msg.style.opacity = 1;
+        setTimeout(() => { msg.style.opacity = 0; }, 2000);
+      });
+    }
+
+    // Close Modal on Escape
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (!document.getElementById('pix-modal').classList.contains('hidden')) closePixModal();
+      }
+    });
+
+    // Mobile Menu Toggle
+    function toggleMenu() {
+      const navLinks = document.getElementById('nav-links');
+      navLinks.classList.toggle('show');
+    }
+  </script>
+
+</body>
+</html>

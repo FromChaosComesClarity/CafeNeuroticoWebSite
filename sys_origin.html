@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Origin - Cafe Neurotico</title>
+  <link rel="icon" type="image/svg+xml" href="assets/icons/default_icon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #141414; --bg_panel: rgba(0,0,0,0.5); --bg_menu: #222222;
+      --accent: #ffffff; --accent_menu: #00e5ff; --text_main: #ffffff;
+      --text_sec: #bbbbbb; --text_dim: #777777; --border: rgba(255,255,255,0.1);
+      --border_solid: #555555;
+      --accent_alt: #D4A373;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+        margin: 0; background-color: var(--bg); color: var(--text_main);
+        font-family: 'Raleway', sans-serif; transition: background-color 0.3s ease;
+        display: flex; flex-direction: column; height: 100vh; overflow: hidden;
+    }
+
+    /* Refined Responsive Navbar */
+    nav {
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      background: rgba(20, 20, 20, 0.85);
+      backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      box-sizing: border-box;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      z-index: 1000;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      font-weight: 900;
+      font-size: 20px;
+      letter-spacing: 2px;
+      color: var(--text_main);
+    }
+
+    .nav-icon {
+      height: 28px;
+      width: 28px;
+      margin-right: 12px;
+      filter: drop-shadow(0 0 5px rgba(255,255,255,0.3));
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text_sec);
+      text-decoration: none;
+      margin-left: 25px;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: 1px;
+      transition: color 0.3s, text-shadow 0.3s;
+    }
+    .nav-links a:hover {
+      color: var(--accent_menu);
+      text-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
+    }
+
+    /* Mobile Hamburger Menu */
+    .mobile-menu-btn {
+      display: none;
+      background: transparent;
+      border: none;
+      color: var(--text_main);
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    /* Title Bar */
+    #titlebar {
+        height: 50px; flex-shrink: 0; background: var(--bg_menu);
+        display: flex; justify-content: space-between; align-items: center;
+        border-bottom: 2px solid var(--border_solid); padding: 0 20px;
+        margin-top: 63px; /* Account for global navbar */
+    }
+    .titlebar-brand { font-size: clamp(12px, 2vw, 16px); font-weight: 900; color: var(--accent); letter-spacing: 2px; }
+
+    .theme-selector-container { display: flex; align-items: center; gap: 10px; }
+    .theme-selector-container label { font-size: 12px; font-weight: bold; color: var(--text_sec); text-transform: uppercase; display: none; }
+    select {
+        background: var(--bg_panel); color: var(--text_main); border: 1px solid var(--border_solid);
+        padding: 5px 10px; font-family: 'Raleway', sans-serif; font-weight: bold; border-radius: 4px;
+        outline: none; cursor: pointer;
+    }
+    select:focus { border-color: var(--accent); }
+
+    /* Layout */
+    #main-container { display: flex; flex: 1; overflow: hidden; position: relative; }
+    #sidebar { width: 250px; background: var(--bg_panel); border-right: 2px solid var(--border_solid); overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; transition: transform 0.3s ease; }
+
+    .nav-btn { background: transparent; border: 1px solid transparent; color: var(--text_sec); text-align: left; padding: 12px 10px; font-size: 12px; text-transform: uppercase; font-weight: bold; border-radius: 4px; cursor: pointer; transition: 0.2s; font-family: 'Raleway', sans-serif; }
+    .nav-btn:hover, .nav-btn.active { background: var(--border_solid); color: var(--text_main); border-color: var(--accent); }
+
+    #content { flex: 1; padding: 40px 60px; overflow-y: auto; scroll-behavior: smooth; }
+    .container { max-width: 900px; margin: 0 auto; }
+
+    /* Typography inside content */
+    h1 { color: var(--accent); font-weight: 900; font-size: clamp(24px, 4vw, 32px); letter-spacing: 2px; border-bottom: 2px solid var(--border_solid); padding-bottom: 10px; margin-top: 0;}
+    p, li { font-size: 16px; line-height: 1.6; color: var(--text_sec); }
+    strong { color: var(--text_main); }
+
+    .manual-box { border: 2px dashed var(--accent); padding: 25px; margin: 25px 0; background-color: var(--bg_panel); border-radius: 8px; }
+    .manual-box-title { color: var(--accent); font-weight: 900; font-size: 16px; margin-top: 0; text-transform: uppercase; letter-spacing: 1px; }
+
+    /* Footer & Support Banner */
+    .support-box { background: rgba(0,0,0,0.3); border: 1px solid var(--border_solid); padding: 30px; border-radius: 8px; max-width: 650px; margin: 50px auto 30px auto; text-align: center; }
+    .support-box h4 { color: var(--accent_alt); margin-top: 0; margin-bottom: 15px; font-size: 16px; letter-spacing: 1px; }
+
+    .support-banner {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border_solid);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+      margin-bottom: 25px;
+      display: block;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .support-banner:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 35px rgba(212, 163, 115, 0.25);
+      border-color: var(--accent_alt);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text_main);
+      border: 2px solid var(--border_solid);
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Raleway', sans-serif;
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.05); }
+
+    /* Modal Backdrop */
+    .modal-backdrop {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      z-index: 3000; display: flex; justify-content: center; align-items: center;
+      opacity: 1; transition: opacity 0.3s ease;
+    }
+    .modal-backdrop.hidden { opacity: 0; pointer-events: none; }
+
+    ::-webkit-scrollbar { width: 12px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border_solid); border-radius: 6px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+    /* Responsive Overrides */
+    @media (max-width: 900px) {
+      nav { padding: 15px 20px; }
+      .mobile-menu-btn { display: block; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 60px; left: 0; width: 100%;
+        background: rgba(20, 20, 20, 0.95);
+        flex-direction: column;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--border_solid);
+      }
+      .nav-links.show { display: flex; }
+      .nav-links a { margin: 15px 0; font-size: 16px; }
+
+      #main-container { flex-direction: column; }
+
+      /* Mobile Sidebar transforms into a horizontal scrollable strip */
+      #sidebar {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 10px;
+        border-right: none;
+        border-bottom: 2px solid var(--border_solid);
+      }
+      .nav-btn { white-space: nowrap; flex-shrink: 0; padding: 10px 15px; }
+
+      #content { padding: 20px 15px; }
+      .theme-selector-container label { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PIX Modal -->
+  <div id="pix-modal" class="modal-backdrop hidden">
+    <div style="background: var(--bg_menu); border: 2px solid var(--border_solid); border-radius: 12px; padding: 30px; text-align: center; max-width: 400px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); position: relative;">
+      <button onclick="closePixModal()" style="position: absolute; top: 15px; right: 15px; background: transparent; border: none; color: var(--text_sec); font-size: 20px; cursor: pointer; transition: 0.2s;">✕</button>
+      <h3 style="color: #32BCAD; margin-top: 0; font-weight: 900; letter-spacing: 1px;">DONATE VIA PIX</h3>
+      <img src="assets/images/pixqrcode.jpg" alt="PIX QR Code" style="width: 250px; height: 250px; border-radius: 8px; margin: 20px 0; border: 2px solid #32BCAD; box-shadow: 0 10px 20px rgba(0,0,0,0.5);">
+      <p style="font-size: 14px; color: var(--text_sec); margin-bottom: 20px; word-break: break-all; user-select: all;">b734a9e2-e479-42f9-abd6-c88d1b8b880e</p>
+      <button onclick="copyPixKey()" class="btn-secondary" style="border-color: #32BCAD; color: #32BCAD; width: 100%; padding: 12px; font-weight: 900; letter-spacing: 1px;">COPY PIX KEY</button>
+      <div id="pix-copy-msg" style="color: #32BCAD; font-size: 12px; font-weight: bold; margin-top: 10px; opacity: 0; transition: opacity 0.3s;">Copied to clipboard!</div>
+    </div>
+  </div>
+
+  <!-- Global Navbar -->
+  <nav>
+    <div class="nav-brand">
+      <img src="assets/icons/default_icon.svg" alt="Cafe Neurotico Logo" class="nav-icon">
+      CAFE NEUROTICO
+    </div>
+    <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#cngm">CNGM</a>
+      <a href="index.html#crema">CREMA</a>
+      <a href="faq.html">FAQ</a>
+      <a href="wallpapers.html">CN Wallpapers</a>
+      <a href="index.html#support">Buy me a coffee</a>
+      <a href="mailto:shampooisalie@gmail.com">Contact</a>
+    </div>
+  </nav>
+
+  <div id="titlebar">
+    <div class="titlebar-brand">CAFE NEUROTICO - System Origin</div>
+    <div class="theme-selector-container">
+        <label for="theme-select">Theme:</label>
+        <select id="theme-select"></select>
+    </div>
+  </div>
+
+  <div id="main-container">
+      <div id="sidebar">
+        <button class="nav-btn active" data-target="sys-1">System Origin</button>
+      </div>
+
+      <div id="content">
+          <div class="container">
+              <h1 id="sys-1">SYSTEM ORIGIN: HUMAN BRAIN + MACHINE</h1>
+              <div class="manual-box" style="border-color: var(--accent); background-color: rgba(0,0,0,0.2);">
+                  <p class="manual-box-title" style="color: var(--text_main);">FULL DISCLOSURE: AI ARCHITECTURE</p>
+                  <p>I am an architect, not a traditional developer. Every single line of code in Cafe Neurotico was generated, assembled, and debugged using advanced AI assistance.</p>
+                  <p>I provided the neurotic vision, the logic, and the UI/UX design. The AI wrote the syntax. If you dig into the source code and find unconventional architecture or weird redundancies, that is the machine learning at work. Feel free to laugh at it :)</p>
+                  <p>This application was 100% conceptualized by a human and 100% coded by AI. Built to solve a personal obsession with library management. Don't mind the playful tone of this manual, it's all for fun, I do it just for fun.</p>
+              </div>
+              <div class="manual-box" style="border-color: var(--accent); background-color: rgba(0,0,0,0.2);">
+                  <p class="manual-box-title" style="color: var(--text_main);">"NO MAN IS BETTER THAN A MACHINE, BUT NO MACHINE IS BETTER THAN A MAN WITH A MACHINE" - Paul Tudor Jones</p>
+                  <p>I would like to address the elephant in the room: AI. Although it would be tempting to think that I gave a prompt like "Make an app like this" or "Make a copy of the whatever software", and it auto-magically just worked, it couldn't be further from the truth. Try it for yourself.</p>
+                  <p>It's a very personal project that started just like a way to manage my own Excel CSV games file (which was huge BTW), it was a just a Python script, then I added a native interface using Qt libraries, it was nice, but then I remembered that I like to distro-hop and Qt can look ugly in different environments, so I moved to Electron, then I've made many incremental changes, as I was having more and more ideas of what I wanted. Changes that sometimes broke the whole thing. Steam integration was incredibly frustrating, I had to try many different approaches, just to give an example. The logical solutions came from me burning my neurons, like using the Steam API, implementing the Heroic Sync or solving ProtonDB and HLTB. AI still needs someone to tell it what to do.</p>
+                  <p>It has been a journey. It's been a couple of months now and I've covered a massive amount of ground, from the initial idea, the UI design, the database logic, and drafting the manual—we are easily looking at hundreds of hours for the entire project. Not to mention more hours of researching for solutions. I've been putting in some serious architectural work to build this. Also keep in mind that I am a 47yo father and husband who works as a teacher from 7am to 9pm on weekdays, so I don't have a ton of time to do it.</p>
+                  <p>I would like to encourage people who have ideas to put them into practice. I know I don't have the time to do thousands of lines of code, I just don't, but this is not going to stop me.</p>
+                  <p>I like to think of AI as an employee, or even a team that I have at my disposal to execute my ideas, so I have more headspace to create them.</p>
+                  <p>If I can conceptualize and architect something, like a building, but I'm not the one laying brick by brick, does it make me less of a creator? I mean, people remember the ones who conceived things, not the ones who actually performed the action of building them. It is what it is.</p>
+                  <p>I've been gaming since the 80's and using Linux since 2002, my first distro was Mandrake Linux, from a CD inserted in a magazine. I've been around and I've seen distros being born and dying. The first Ubuntu, the first Live-CDs (Knoppix, Kurumin, Kalango), the last Mandrake, Conectiva (they merged into Mandriva), Yellow Dog (PPC architecture) oh boy... Good memories! I will keep on using CNGM to manage my library. This is a labor of love, for gaming and for Linux. Cheers!</p>
+                  <p style="text-align: right;">J.R.A.</p>
+              </div>
+
+              <!-- Support & Footer Section -->
+              <div class="support-box">
+                <h4>SUPPORT CAFE NEUROTICO</h4>
+                <p style="font-size: 14px; margin-bottom: 5px; color: var(--text_sec);">If this project helped organize your gaming life, consider buying me a coffee! It helps keep the project alive. <b>"MORE CAFFEINE IS <u style="color: var(--text_main);">MORE GOOD</u>"</b> </p>
+                <p style="font-size: 14px; margin-bottom: 25px; font-weight: bold; color: var(--text_main);">If you do so, <a href="mailto:shampooisalie@gmail.com" style="color: var(--accent); text-decoration: underline;">LET ME KNOW</a> so I can thank you personally! :)</p>
+
+                <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 30px;">
+                  <!-- Ko-fi Link (International) -->
+                  <a href="https://ko-fi.com/shampooisalie" target="_blank" class="btn-secondary" style="padding: 10px 20px; font-size: 14px; border-color: #FF5E5B; color: #FF5E5B; text-decoration: none; font-weight: bold; text-align: center;">☕ Donate via Ko-fi (Intl)</a>
+
+                  <!-- PIX (Brazil) -->
+                  <button class="btn-secondary" style="padding: 10px 20px; font-size: 14px; border-color: #32BCAD; color: #32BCAD; font-weight: bold;" onclick="openPixModal()">
+                    🇧🇷 PIX Key: QR CODE
+                  </button>
+                </div>
+
+                <!-- Visual Banner -->
+                <a href="https://ko-fi.com/shampooisalie" target="_blank" style="display: block; text-decoration: none;">
+                  <img src="assets/images/coffee_banner.jpg" alt="Cafe Neurotico - Buy us a coffee!" class="support-banner">
+                </a>
+
+                <p style="font-size: 14px; color: var(--text_sec); border-top: 1px solid var(--border_solid); padding-top: 20px; margin: 0;">
+                  I am a HUGE fan of <b>Heroic Games Launcher</b>. It's amazing and makes it possible to play GOG and Epic Games smoothly on Linux. They are the true Heroes (pun intended) here! Now seriously, without their work, I wouldn't be gaming exclusively on Linux and this project wouldn't even have been conceived. Please consider donating to their project
+                  <a href="https://heroicgameslauncher.com/donate" target="_blank" style="color: #FF007F; font-weight: 900; text-decoration: none; border-bottom: 2px solid #FF007F; margin-left: 5px;">HERE</a>.
+                </p>
+              </div>
+
+              <div style="text-align: center; margin-top: 60px; padding: 20px; border: 1px solid var(--border_solid); background-color: var(--bg_panel); border-radius: 8px; margin-bottom: 20px;">
+                  <p style="color: var(--accent); font-weight: bold;">=========================================</p>
+                  <h3 style="color: var(--text_main); margin: 5px 0;">/// END OF FILE ///</h3>
+                  <p style="color: var(--text_sec); font-family: monospace; font-size: 12px; margin: 2px;">SYSTEM OPERATIONS CONCLUDED.</p>
+                  <p style="color: var(--text_sec); font-family: monospace; font-size: 12px; margin: 2px;">COPYRIGHT &copy; 2026 Shampoo is a Lie.</p>
+                  <p style="color: var(--text_sec); font-family: monospace; font-size: 12px; margin: 2px;">Not affiliated with Steam, Heroic, Epic Games, or GOG.</p>
+                  <p style="color: var(--accent); font-weight: bold; margin-top: 15px;">NOW GO PLAY SOME GAMES.</p>
+                  <p style="color: var(--accent); font-weight: bold; margin-bottom: 0;">=========================================</p>
+              </div>
+              <p style="text-align: center; font-size: 14px; margin-bottom: 30px;">Contact: <a href="mailto:shampooisalie@gmail.com" style="color: var(--accent); text-decoration: none; font-weight: bold;">shampooisalie@gmail.com</a></p>
+
+              <!-- GitHub Project Button -->
+              <div style="display: flex; justify-content: center; margin-bottom: 50px;">
+                <a href="https://github.com/shampooisalie/CafeNeurotico" target="_blank" class="btn-secondary" style="display: flex; align-items: center; gap: 10px; padding: 10px 20px; text-decoration: none; font-weight: bold; font-size: 14px; border-color: var(--border_solid); border-radius: 8px;">
+                  <img src="assets/images/github_cngm.svg" alt="GitHub" style="width: 24px; height: 24px;">
+                  VIEW PROJECT ON GITHUB
+                </a>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Javascript -->
+  <script>
+    // PIX Modal Logic
+    function openPixModal() {
+      document.getElementById('pix-modal').classList.remove('hidden');
+    }
+    function closePixModal() {
+      document.getElementById('pix-modal').classList.add('hidden');
+    }
+    function copyPixKey() {
+      navigator.clipboard.writeText('b734a9e2-e479-42f9-abd6-c88d1b8b880e').then(() => {
+        const msg = document.getElementById('pix-copy-msg');
+        msg.style.opacity = 1;
+        setTimeout(() => { msg.style.opacity = 0; }, 2000);
+      });
+    }
+
+    // Close Modal on Escape
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !document.getElementById('pix-modal').classList.contains('hidden')) {
+        closePixModal();
+      }
+    });
+
+    // Mobile Menu
+    function toggleMenu() {
+      const navLinks = document.getElementById('nav-links');
+      navLinks.classList.toggle('show');
+    }
+
+    const THEMES = {
+        "DARK GRAY": {bg: "#141414", bg_panel: "rgba(0,0,0,0.5)", bg_menu: "#222222", accent: "#ffffff", accent_menu: "#00e5ff", text_main: "#ffffff", text_sec: "#bbbbbb", text_dim: "#777777", border: "rgba(255,255,255,0.1)", border_solid: "#555555", accent_alt: "#D4A373"},
+        "CREMA": {bg: "#2C1E16", bg_panel: "rgba(67, 40, 24, 0.6)", bg_menu: "#432818", accent: "#D4A373", accent_menu: "#D4A373", text_main: "#FFE6A7", text_sec: "#E6CC98", text_dim: "#A47148", border: "rgba(212, 163, 115, 0.2)", border_solid: "#8B5A2B", accent_alt: "#00e5ff"},
+        "CYBERPUNK": {bg: "#09090b", bg_panel: "rgba(26, 26, 46, 0.7)", bg_menu: "#1a1a2e", accent: "#f3e600", accent_menu: "#00ffcc", text_main: "#00ffcc", text_sec: "#e0e0e0", text_dim: "#ff003c", border: "rgba(243, 230, 0, 0.2)", border_solid: "#ff003c", accent_alt: "#00ffcc"},
+        "VAPOUR OS": {bg: "#171a21", bg_panel: "rgba(27, 40, 56, 0.7)", bg_menu: "#1b2838", accent: "#66c0f4", accent_menu: "#66c0f4", text_main: "#c7d5e0", text_sec: "#8f98a0", text_dim: "#556b82", border: "rgba(102, 192, 244, 0.2)", border_solid: "#2a475e", accent_alt: "#D4A373"},
+        "PSIV BLUE": {bg: "#000022", bg_panel: "rgba(0, 67, 156, 0.4)", bg_menu: "#001144", accent: "#ffffff", accent_menu: "#0070cc", text_main: "#ffffff", text_sec: "#aaaaaa", text_dim: "#666666", border: "rgba(0, 112, 204, 0.3)", border_solid: "#00439c", accent_alt: "#D4A373"},
+        "GREEN BOX": {bg: "#101010", bg_panel: "rgba(26,26,26,0.8)", bg_menu: "#1a1a1a", accent: "#107C10", accent_menu: "#107C10", text_main: "#ffffff", text_sec: "#D2D2D2", text_dim: "#777777", border: "rgba(16,124,16,0.4)", border_solid: "#333333", accent_alt: "#D4A373"},
+        "MOVIESFLIX": {bg: "#141414", bg_panel: "rgba(0,0,0,0.75)", bg_menu: "#000000", accent: "#E50914", accent_menu: "#E50914", text_main: "#ffffff", text_sec: "#B3B3B3", text_dim: "#808080", border: "rgba(229,9,20,0.3)", border_solid: "#333333", accent_alt: "#D4A373"},
+        "SNOW": {bg: "#E0E0E0", bg_panel: "rgba(255, 255, 255, 0.7)", bg_menu: "#FFFFFF", accent: "#000000", accent_menu: "#000000", text_main: "#111111", text_sec: "#444444", text_dim: "#777777", border: "rgba(0, 0, 0, 0.1)", border_solid: "#CCCCCC", accent_alt: "#D4A373"},
+        "WIN XP": {bg: "#003399", bg_panel: "rgba(236, 233, 216, 0.2)", bg_menu: "#0054E3", accent: "#3CA02B", accent_menu: "#3CA02B", text_main: "#FFFFFF", text_sec: "#ECE9D8", text_dim: "#99B4D1", border: "rgba(236, 233, 216, 0.4)", border_solid: "#ECE9D8", accent_alt: "#D4A373"},
+        "PSIII CLASSIC": {bg: "#000000", bg_panel: "rgba(25, 25, 25, 0.7)", bg_menu: "#111111", accent: "#dcdcdc", accent_menu: "#ffffff", text_main: "#ffffff", text_sec: "#aaaaaa", text_dim: "#666666", border: "rgba(255, 255, 255, 0.2)", border_solid: "#444444", accent_alt: "#D4A373"},
+        "PSIII RED": {bg: "#2b0000", bg_panel: "rgba(40, 0, 0, 0.7)", bg_menu: "#1a0000", accent: "#ff4d4d", accent_menu: "#ff4d4d", text_main: "#ffffff", text_sec: "#ffcccc", text_dim: "#cc6666", border: "rgba(255, 77, 77, 0.2)", border_solid: "#800000", accent_alt: "#D4A373"},
+        "PSIII GREEN": {bg: "#001a00", bg_panel: "rgba(0, 30, 0, 0.7)", bg_menu: "#000d00", accent: "#4dff4d", accent_menu: "#4dff4d", text_main: "#ffffff", text_sec: "#ccffcc", text_dim: "#66cc66", border: "rgba(77, 255, 77, 0.2)", border_solid: "#004d00", accent_alt: "#D4A373"},
+        "PSIII BLUE": {bg: "#000a1a", bg_panel: "rgba(0, 15, 30, 0.7)", bg_menu: "#00050d", accent: "#4d94ff", accent_menu: "#4d94ff", text_main: "#ffffff", text_sec: "#cce0ff", text_dim: "#66a3ff", border: "rgba(77, 148, 255, 0.2)", border_solid: "#003380", accent_alt: "#D4A373"},
+        "PSIII PURPLE": {bg: "#1a001a", bg_panel: "rgba(30, 0, 30, 0.7)", bg_menu: "#0d000d", accent: "#d24dff", accent_menu: "#d24dff", text_main: "#ffffff", text_sec: "#f0ccff", text_dim: "#c266cc", border: "rgba(210, 77, 255, 0.2)", border_solid: "#800080", accent_alt: "#D4A373"},
+        "PSIII GOLD": {bg: "#261a00", bg_panel: "rgba(40, 25, 0, 0.7)", bg_menu: "#130d00", accent: "#ffcc00", accent_menu: "#ffcc00", text_main: "#ffffff", text_sec: "#ffeecc", text_dim: "#cca300", border: "rgba(255, 204, 0, 0.2)", border_solid: "#997300", accent_alt: "#D4A373"},
+        "PSIII SILVER": {bg: "#1a1a1a", bg_panel: "rgba(35, 35, 35, 0.7)", bg_menu: "#0d0d0d", accent: "#cccccc", accent_menu: "#cccccc", text_main: "#ffffff", text_sec: "#e6e6e6", text_dim: "#999999", border: "rgba(204, 204, 204, 0.2)", border_solid: "#666666", accent_alt: "#D4A373"},
+        "DRACULA": {bg: "#282a36", bg_panel: "rgba(68, 71, 90, 0.7)", bg_menu: "#44475a", accent: "#bd93f9", accent_menu: "#ff79c6", text_main: "#f8f8f2", text_sec: "#8be9fd", text_dim: "#6272a4", border: "rgba(189, 147, 249, 0.2)", border_solid: "#6272a4", accent_alt: "#D4A373"},
+        "GRUVBOX": {bg: "#282828", bg_panel: "rgba(60, 56, 54, 0.8)", bg_menu: "#3c3836", accent: "#fabd2f", accent_menu: "#fe8019", text_main: "#ebdbb2", text_sec: "#b8bb26", text_dim: "#a89984", border: "rgba(250, 189, 47, 0.2)", border_solid: "#504945", accent_alt: "#D4A373"},
+        "NORD": {bg: "#2e3440", bg_panel: "rgba(59, 66, 82, 0.8)", bg_menu: "#3b4252", accent: "#88c0d0", accent_menu: "#81a1c1", text_main: "#eceff4", text_sec: "#e5e9f0", text_dim: "#4c566a", border: "rgba(136, 192, 208, 0.2)", border_solid: "#434c5e", accent_alt: "#D4A373"},
+        "SOLARIZED DARK": {bg: "#002b36", bg_panel: "rgba(7, 54, 66, 0.8)", bg_menu: "#073642", accent: "#2aa198", accent_menu: "#268bd2", text_main: "#839496", text_sec: "#93a1a1", text_dim: "#586e75", border: "rgba(42, 161, 152, 0.2)", border_solid: "#073642", accent_alt: "#D4A373"},
+        "SOLARIZED LIGHT": {bg: "#fdf6e3", bg_panel: "rgba(238, 232, 213, 0.8)", bg_menu: "#eee8d5", accent: "#2aa198", accent_menu: "#d33682", text_main: "#657b83", text_sec: "#586e75", text_dim: "#93a1a1", border: "rgba(42, 161, 152, 0.2)", border_solid: "#ccc2a8", accent_alt: "#D4A373"},
+        "CATPPUCCIN MOCHA": {bg: "#1e1e2e", bg_panel: "rgba(30, 30, 46, 0.8)", bg_menu: "#181825", accent: "#cba6f7", accent_menu: "#f5c2e7", text_main: "#cdd6f4", text_sec: "#bac2de", text_dim: "#6c7086", border: "rgba(203, 166, 247, 0.2)", border_solid: "#313244", accent_alt: "#D4A373"},
+        "CATPPUCCIN MACCHIATO": {bg: "#24273a", bg_panel: "rgba(36, 39, 58, 0.8)", bg_menu: "#1e2030", accent: "#c6a0f6", accent_menu: "#f4b8e4", text_main: "#cad3f5", text_sec: "#b8c0e0", text_dim: "#6e738d", border: "rgba(198, 160, 246, 0.2)", border_solid: "#363a4f", accent_alt: "#D4A373"},
+        "CATPPUCCIN FRAPPÉ": {bg: "#303446", bg_panel: "rgba(48, 52, 70, 0.8)", bg_menu: "#292c3c", accent: "#ca9ee6", accent_menu: "#f2d5cf", text_main: "#c6d0f5", text_sec: "#b5bfe2", text_dim: "#737994", border: "rgba(202, 158, 230, 0.2)", border_solid: "#414559", accent_alt: "#D4A373"},
+        "CATPPUCCIN LATTE": {bg: "#eff1f5", bg_panel: "rgba(239, 241, 245, 0.8)", bg_menu: "#e6e9ef", accent: "#8839ef", accent_menu: "#1e66f5", text_main: "#4c4f69", text_sec: "#5c5f77", text_dim: "#9ca0b0", border: "rgba(136, 57, 239, 0.2)", border_solid: "#ccd0da", accent_alt: "#D4A373"},
+        "TOKYO NIGHT": {bg: "#1a1b26", bg_panel: "rgba(36, 40, 59, 0.8)", bg_menu: "#16161e", accent: "#7aa2f7", accent_menu: "#bb9af7", text_main: "#c0caf5", text_sec: "#a9b1d6", text_dim: "#565f89", border: "rgba(122, 162, 247, 0.2)", border_solid: "#292e42", accent_alt: "#D4A373"},
+        "EVERFOREST": {bg: "#2b3339", bg_panel: "rgba(50, 56, 62, 0.8)", bg_menu: "#2f383e", accent: "#a7c080", accent_menu: "#e67e80", text_main: "#d3c6aa", text_sec: "#a7c080", text_dim: "#859289", border: "rgba(167, 192, 128, 0.2)", border_solid: "#4b565c", accent_alt: "#D4A373"},
+        "ROSÉ PINE": {bg: "#191724", bg_panel: "rgba(31, 29, 46, 0.8)", bg_menu: "#1f1d2e", accent: "#c4a7e7", accent_menu: "#ebbcba", text_main: "#e0def4", text_sec: "#9ccfd8", text_dim: "#6e6a86", border: "rgba(196, 167, 231, 0.2)", border_solid: "#26233a", accent_alt: "#D4A373"},
+        "GAME BOY DMG": {bg: "#8bac0f", bg_panel: "rgba(155, 188, 15, 0.5)", bg_menu: "#8bac0f", accent: "#0f380f", accent_menu: "#0f380f", text_main: "#0f380f", text_sec: "#306230", text_dim: "#306230", border: "rgba(15, 56, 15, 0.2)", border_solid: "#306230", accent_alt: "#D4A373"},
+        "PIP BOY": {bg: "#000000", bg_panel: "rgba(0, 20, 0, 0.7)", bg_menu: "#001100", accent: "#14ff00", accent_menu: "#14ff00", text_main: "#14ff00", text_sec: "#0ea000", text_dim: "#0a6000", border: "rgba(20, 255, 0, 0.2)", border_solid: "#0ea000", accent_alt: "#D4A373"},
+        "SEVASTOPOL": {bg: "#050d05", bg_panel: "rgba(10, 25, 10, 0.7)", bg_menu: "#081808", accent: "#f5e6b3", accent_menu: "#ff0000", text_main: "#f5e6b3", text_sec: "#a39977", text_dim: "#4d594d", border: "rgba(245, 230, 179, 0.1)", border_solid: "#1a331a", accent_alt: "#D4A373"},
+        "RIP AND TEAR CLASSIC": {bg: "#1a0000", bg_panel: "rgba(40, 0, 0, 0.8)", bg_menu: "#2b0000", accent: "#ff0000", accent_menu: "#ff3333", text_main: "#ffcc00", text_sec: "#ff6600", text_dim: "#990000", border: "rgba(255, 0, 0, 0.3)", border_solid: "#800000", accent_alt: "#D4A373"},
+        "SUPER BROTHERS": {bg: "#5C94FC", bg_panel: "rgba(200,76,12,0.8)", bg_menu: "#C84C0C", accent: "#F8D820", accent_menu: "#F8D820", text_main: "#ffffff", text_sec: "#FFCE9E", text_dim: "#E8A274", border: "rgba(248,216,32,0.4)", border_solid: "#000000", accent_alt: "#D4A373"},
+        "GREEN HILL": {bg: "#2492FF", bg_panel: "rgba(136,68,0,0.8)", bg_menu: "#00A800", accent: "#F8B800", accent_menu: "#F8B800", text_main: "#ffffff", text_sec: "#E0E0E0", text_dim: "#A0A0A0", border: "rgba(248,184,0,0.5)", border_solid: "#000000", accent_alt: "#D4A373"},
+        "NES": {bg: "#808080", bg_panel: "rgba(0,0,0,0.85)", bg_menu: "#333333", accent: "#E00000", accent_menu: "#E00000", text_main: "#ffffff", text_sec: "#CCCCCC", text_dim: "#888888", border: "rgba(224,0,0,0.4)", border_solid: "#000000", accent_alt: "#D4A373"},
+        "SNES": {bg: "#b5b6b5", bg_panel: "rgba(200, 200, 200, 0.8)", bg_menu: "#e2e2e2", accent: "#524b82", accent_menu: "#827aa5", text_main: "#333333", text_sec: "#555555", text_dim: "#777777", border: "rgba(82, 75, 130, 0.2)", border_solid: "#524b82", accent_alt: "#D4A373"},
+        "EARTHY & ORGANIC": {bg: "#3E4E3A", bg_panel: "rgba(91, 107, 85, 0.7)", bg_menu: "#4F5D48", accent: "#D4B28C", accent_menu: "#A9C298", text_main: "#F3EDE4", text_sec: "#D8D3C8", text_dim: "#8E9E88", border: "rgba(212, 178, 140, 0.2)", border_solid: "#6b7d63", accent_alt: "#D4A373"},
+        "DOPAMINE BRIGHTS": {bg: "#FF3366", bg_panel: "rgba(20,20,20,0.8)", bg_menu: "#1a1a1a", accent: "#00E5FF", accent_menu: "#FFEB3B", text_main: "#ffffff", text_sec: "#CCCCCC", text_dim: "#888888", border: "rgba(0,229,255,0.4)", border_solid: "#333333", accent_alt: "#D4A373"},
+        "RETRO REVIVAL": {bg: "#F2D1C9", bg_panel: "rgba(240, 200, 190, 0.8)", bg_menu: "#E8C0B5", accent: "#E05A47", accent_menu: "#6C8A9B", text_main: "#4A403A", text_sec: "#72655A", text_dim: "#A28E84", border: "rgba(224, 90, 71, 0.2)", border_solid: "#E05A47", accent_alt: "#D4A373"}
+    };
+
+    const THEME_CATEGORIES = {
+        "Originals & System": ["DARK GRAY", "CREMA", "CYBERPUNK", "SNOW", "MOVIESFLIX", "VAPOUR OS", "PSIV BLUE", "GREEN BOX", "WIN XP"],
+        "Gaming Legends": ["GAME BOY DMG", "PIP BOY", "SEVASTOPOL", "RIP AND TEAR CLASSIC", "SUPER BROTHERS", "GREEN HILL", "NES", "SNES"],
+        "Aesthetics": ["EARTHY & ORGANIC", "DOPAMINE BRIGHTS", "RETRO REVIVAL"],
+        "Linux Ricing": ["DRACULA", "GRUVBOX", "NORD", "SOLARIZED DARK", "SOLARIZED LIGHT", "CATPPUCCIN LATTE", "CATPPUCCIN FRAPPÉ", "CATPPUCCIN MACCHIATO", "CATPPUCCIN MOCHA", "TOKYO NIGHT", "EVERFOREST", "ROSÉ PINE"],
+        "PSIII Colors": ["PSIII CLASSIC", "PSIII RED", "PSIII GREEN", "PSIII BLUE", "PSIII PURPLE", "PSIII GOLD", "PSIII SILVER"]
+    };
+
+    const select = document.getElementById('theme-select');
+
+    // Populate select
+    Object.keys(THEME_CATEGORIES).forEach(category => {
+        const optgroup = document.createElement('optgroup');
+        optgroup.label = category;
+        THEME_CATEGORIES[category].forEach(themeName => {
+            if(THEMES[themeName]) {
+                const opt = document.createElement('option');
+                opt.value = themeName;
+                opt.textContent = themeName;
+                optgroup.appendChild(opt);
+            }
+        });
+        select.appendChild(optgroup);
+    });
+
+    // Defaulted to NORD instead of DARK GRAY
+    let activeTheme = localStorage.getItem('cngm_manual_theme') || "NORD";
+
+    function applyTheme(themeName) {
+        const tConfig = THEMES[themeName];
+        if (!tConfig) return;
+        const root = document.documentElement;
+        Object.keys(tConfig).forEach(key => root.style.setProperty('--' + key, tConfig[key]));
+        localStorage.setItem('cngm_manual_theme', themeName);
+        select.value = themeName;
+    }
+
+    select.addEventListener('change', (e) => applyTheme(e.target.value));
+
+    // Apply on load
+    applyTheme(activeTheme);
+
+    // Nav Logic
+    const manualNavBtns = document.querySelectorAll('.nav-btn');
+    const manualContent = document.getElementById('content');
+
+    manualNavBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            manualNavBtns.forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+            const targetId = e.target.getAttribute('data-target');
+            const targetEl = document.getElementById(targetId);
+            if (targetEl) {
+                manualContent.scrollTo({
+                    top: targetEl.offsetTop - manualContent.offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+  </script>
+</body>
+</html>
