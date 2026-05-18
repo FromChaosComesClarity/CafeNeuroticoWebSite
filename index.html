@@ -686,8 +686,8 @@
       return { next, prev };
     }
 
-    const cngmImages  = shuffleArray(Array.from({length: 10}, (_, i) => `assets/images/cngm_scr_${String(i+1).padStart(2,'0')}.jpg`));
-    const cremaImages = shuffleArray(Array.from({length: 10}, (_, i) => `assets/images/crema_scr_${String(i+1).padStart(2,'0')}.jpg`));
+    const cngmImages  = shuffleArray(Array.from({length: 14}, (_, i) => `assets/images/cngm_scr_${String(i+1).padStart(2,'0')}.jpg`));
+    const cremaImages = shuffleArray(Array.from({length: 14}, (_, i) => `assets/images/crema_scr_${String(i+1).padStart(2,'0')}.jpg`));
 
     const cngmCar  = makeCarousel('cngm-slideshow',  'cngm-counter',  'cngm-carousel',  cngmImages,  5000);
     const cremaCar = makeCarousel('crema-slideshow', 'crema-counter', 'crema-carousel', cremaImages, 6500);
@@ -714,8 +714,8 @@
     }, 8000);
 
     // Fullscreen Gallery Modal
-    const fullCngmGallery  = Array.from({length: 20}, (_, i) => `assets/images/cngm_scr_${String(i+1).padStart(2,'0')}.jpg`);
-    const fullCremaGallery = Array.from({length: 20}, (_, i) => `assets/images/crema_scr_${String(i+1).padStart(2,'0')}.jpg`);
+    const fullCngmGallery  = Array.from({length: 14}, (_, i) => `assets/images/cngm_scr_${String(i+1).padStart(2,'0')}.jpg`);
+    const fullCremaGallery = Array.from({length: 14}, (_, i) => `assets/images/crema_scr_${String(i+1).padStart(2,'0')}.jpg`);
 
     let activeGalleryArray = [];
     let activeGalleryIndex = 0;
