@@ -362,6 +362,16 @@
               <h3>Adding Games Manually</h3>
               <p>Hit <strong>+ Add Game</strong>, enter the title, then use <strong>✨ Auto-Fetch</strong> in Edit Details to pull all metadata and artwork automatically. For Physical, Emulation, or other non-store games, type any terminal command in the Launch Command field.</p>
 
+              <h3>Advanced: Custom Stores &amp; Tags</h3>
+              <p>The <strong>Store</strong> field is plain text with no restrictions &mdash; you can type anything you want there. This opens up a neat trick: create your own virtual stores for platforms that don&rsquo;t have a dedicated sidebar button, like itch.io, GeForce Now, Xbox Cloud Gaming, Humble Bundle, GamePass, or anything else.</p>
+              <p>The search bar searches <strong>every field</strong> in the database, including Store. So a game with <code>Store: itch.io</code> will appear when you type <code>itch.io</code> in the search box, giving you instant filtered access to all your itch.io games.</p>
+              <div class="tip-box">
+                <p><strong>Recommended pattern:</strong> Use <code>Others, itch.io</code> instead of just <code>itch.io</code>. The comma-separated value means the game still shows under the <strong>Others</strong> sidebar filter (which matches anything containing the word &ldquo;others&rdquo;), and is also searchable by typing <code>itch.io</code>. Using just the custom name alone works fine too &mdash; it will be searchable but won&rsquo;t appear under any sidebar filter button.</p>
+              </div>
+              <div class="warn-box">
+                <p><strong>Avoid accidental keyword matches:</strong> Don&rsquo;t include <code>steam</code>, <code>epic</code>, <code>gog</code>, <code>heroic</code>, <code>amazon</code>, <code>physical</code>, <code>others</code>, <code>emulation</code>, or <code>apps</code> unintentionally in a custom name &mdash; the sidebar filters use a simple text match, so a store named <code>steam-like</code> would show up under the Steam filter.</p>
+              </div>
+
               <h2 id="man-4">4. VIEWS &amp; NAVIGATION</h2>
               <p>Three main views share one persistent sidebar. Clicking a sidebar filter from anywhere &mdash; even deep inside a Gamepage &mdash; snaps you back to the last grid view and applies the filter instantly.</p>
 
