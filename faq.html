@@ -296,106 +296,154 @@
   <div class="faq-container">
 
     <!-- CATEGORY 1 -->
-    <div class="faq-category">General & Ecosystem</div>
+    <div class="faq-category">General &amp; Ecosystem</div>
 
     <details>
       <summary>Do I need to keep both CNGM and CREMA open at the same time?</summary>
       <div class="faq-content">
-        <p><strong>No.</strong> They are standalone applications designed for different moments. They share the exact same <code>GameManagerConfig</code> database folder. Use CNGM (the desktop app) with your mouse and keyboard to organize your library, sync stores, and download media. Search, browse, edit any info and play your games with a beautiful and themeable interface. When you want use a TV or simply go fullscreen, close it and open CREMA (the fullscreen app) for your controller-based gaming session. CREMA features a music Jukebox too :)</p>
+        <p><strong>No.</strong> They are standalone applications designed for different moments. They share the exact same <code>GameManagerConfig</code> folder and database. Use <strong>CNGM</strong> with your mouse and keyboard to organise your library, sync stores, scrape metadata, and manage media. When you want a fullscreen couch experience, close CNGM and open <strong>CREMA</strong> for your controller-based session &mdash; it also has a full music Jukebox built in.</p>
+        <p>You can also open the <strong>User Manual</strong> as a separate floating window alongside CNGM, so you can reference it while working in the app at the same time.</p>
       </div>
     </details>
 
     <details>
-      <summary>Does this work on Windows or MacOS, or is it Linux only?</summary>
+      <summary>Does this work on Windows or macOS, or is it Linux only?</summary>
       <div class="faq-content">
-        <p>CNGM and CREMA are built primarily as a labor of love for <strong>Linux</strong>, utilizing tools like AppImage, bash launch commands, Heroic Games Launcher, and ProtonDB. So yeah, at least for now, Linux only.</p>
+        <p>CNGM and CREMA are built as a labor of love for <strong>Linux</strong>, relying on AppImage distribution, shell launch commands, Heroic Games Launcher integration, and ProtonDB. Linux only, at least for now.</p>
       </div>
     </details>
 
     <details>
       <summary>Is my data sent to a cloud server? Do I need to create an account?</summary>
       <div class="faq-content">
-        <p><strong>Absolutely not.</strong> The entire ecosystem is 100% offline and local-first. All your data, cover art, screenshots, trailers, and database files are stored locally in the <code>GameManagerConfig</code> folder on your drive. There are no accounts, no subscriptions, and zero telemetry.</p>
+        <p><strong>Absolutely not.</strong> The entire ecosystem is 100% offline and local-first. All your data &mdash; cover art, screenshots, trailers, and the database &mdash; are stored in the <code>GameManagerConfig</code> folder on your own drive. No accounts, no subscriptions, zero telemetry.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>What is the Welcome &amp; Setup Guide?</summary>
+      <div class="faq-content">
+        <p>The first time you launch CNGM (or any time you open a fresh <code>GameManagerConfig</code> folder), a <strong>Welcome &amp; Setup Guide</strong> screen appears. It walks you through the five recommended setup steps &mdash; connecting stores, fetching artwork, setting up API keys, adding CREMA, and registering system shortcuts &mdash; with live action buttons built right into the panel. You can perform each step without closing the screen.</p>
+        <p>Only <strong>Let&rsquo;s Go</strong> and <strong>Open User Manual</strong> dismiss it. Check <em>&ldquo;Don&rsquo;t show this again&rdquo;</em> if you no longer want it on startup. You can always reopen it from <strong>Tools &rarr; System &rarr; Show Welcome &amp; Setup Guide</strong>.</p>
       </div>
     </details>
 
     <!-- CATEGORY 2 -->
-    <div class="faq-category">Adding Games & Store Syncing</div>
+    <div class="faq-category">Adding Games &amp; Store Syncing</div>
 
     <details>
       <summary>Why is my Steam library failing to import?</summary>
       <div class="faq-content">
-        <p>Make sure you have entered both your SteamID64 and a valid Steam Web API Key in the CNGM Connect menu. Crucially, your actual Steam Profile's <strong>'Game Details' privacy setting must be set to "Public"</strong> so the API can read your owned games. If it is set to "Private" or "Friends Only", the import will fail.</p>
+        <p>Make sure you have entered both your <strong>SteamID64</strong> and a valid <strong>Steam Web API Key</strong> in the CNGM Connect menu. Most importantly, your Steam Profile&rsquo;s <em>Game Details</em> privacy setting must be set to <strong>Public</strong>. If it is set to Private or Friends Only, the API returns nothing and the import will fail.</p>
+        <p>Get your API key at <code>steamcommunity.com/dev/apikey</code> and find your SteamID64 from your profile URL or at steamid.io.</p>
       </div>
     </details>
 
     <details>
-      <summary>Does this sync with the official Epic Games Store or EA App?</summary>
+      <summary>Does this sync with Epic Games, GOG, and Amazon Games?</summary>
       <div class="faq-content">
-        <p>It syncs natively with the <strong>Heroic Games Launcher</strong>, which is the premier way to play Epic Games and GOG titles on Linux. Ensure you have Heroic installed and configured. CNGM will automatically and instantly import your games with the correct native launch commands.</p>
+        <p>Yes &mdash; all three, via <strong>Heroic Games Launcher</strong>. Heroic is the premier way to play Epic, GOG, and Amazon Games titles on Linux. Once you have Heroic installed and your stores connected inside it, CNGM&rsquo;s <strong>Sync Heroic Games</strong> button imports your entire library in one shot, complete with the correct native launch commands already filled in.</p>
+        <p>This is by far the most reliable import method for these stores. The direct GOG login option in CNGM also works, but it cannot auto-generate launch commands &mdash; Heroic Sync is strongly preferred.</p>
       </div>
     </details>
 
     <details>
-      <summary>Can I use this for emulators (RetroArch, Yuzu) or physical games?</summary>
+      <summary>Can I use this for emulators or physical games?</summary>
       <div class="faq-content">
-        <p><strong>Yes!</strong> The magic lies in the "Launch Command" field. Any command you can type into a Linux terminal can be used here to launch an emulator or a flatpak. If you want to catalogue physical board games or console games just for the sake of organizing them, simply leave the launch command blank and assign them to the "Physical" or "Others" category.</p>
+        <p><strong>Yes.</strong> The Launch Command field accepts any terminal command. You can point it at RetroArch, Ryujinx, RPCS3, a Flatpak, a shell script &mdash; anything you can run from a terminal. CNGM and CREMA will launch it, and CREMA will enter Sleep Mode just like with a native game.</p>
+        <p>For physical or console games you just want to catalogue without a launch command, assign them to the <strong>Physical</strong>, <strong>Emulation</strong>, or <strong>Others</strong> category and leave the command blank. In CREMA, pressing Play on those games opens the on-screen keyboard so you can add a command on the spot.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>What is IGDB and do I need it?</summary>
+      <div class="faq-content">
+        <p>IGDB (Internet Game Database) is an optional but recommended API integration. It enriches your metadata with franchise / series info, additional ratings, and &mdash; crucially &mdash; provides a <strong>scraping fallback</strong> for games that aren&rsquo;t on Steam or can&rsquo;t be found by the Steam search.</p>
+        <p>To set it up, register a free Twitch developer app at <code>dev.twitch.tv</code>, copy your Client ID and Client Secret, and paste them into CNGM&rsquo;s Connect menu. Once saved, Auto-Fetch pulls IGDB data automatically alongside Steam data, and both CNGM and CREMA can use the IGDB fallback search when Steam finds nothing.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I get a game into the INSTALLED category?</summary>
+      <div class="faq-content">
+        <p>CNGM tracks installed status automatically:</p>
+        <ul>
+          <li><strong>Steam games</strong> are detected by scanning your Steam library folders for <code>appmanifest_*.acf</code> files. A live background watcher updates status the moment you install or uninstall something in Steam &mdash; no manual action required.</li>
+          <li><strong>Heroic games</strong> (Epic, GOG, Amazon) are read from Heroic&rsquo;s local config. Use <strong>Sync Heroic Games</strong> or <strong>Check Installed Games</strong> (Tools &rarr; Library) to refresh.</li>
+          <li><strong>Physical / Emulation / Others / Apps</strong> are considered installed as soon as they have a Launch Command saved.</li>
+        </ul>
+        <p>In both CNGM and CREMA, games not yet installed show an <strong>INSTALL</strong> button that opens the appropriate store page. The <strong>INSTALLED</strong> category filters your library to only show what&rsquo;s ready to play right now.</p>
       </div>
     </details>
 
     <!-- CATEGORY 3 -->
-    <div class="faq-category">CREMA & Controller Experience</div>
+    <div class="faq-category">CREMA &amp; Controller Experience</div>
 
     <details>
       <summary>I launched a game in CREMA. How do I get back to the CREMA interface?</summary>
       <div class="faq-content">
-        <p>When a game is launched, CREMA automatically enters a lightweight Sleep Mode to save system resources and fades your background music out. When you're done playing and you've closed your game, simply press <strong>START + SELECT</strong> simultaneously on your controller. CREMA will forcefully pull itself back to the front of your screen and fade the music back in.</p>
-        <p><em>(You can change this wake-up combo in the CREMA System Menu to prevent accidental triggers while playing).</em></p>
+        <p>When a game launches, CREMA enters Sleep Mode &mdash; it yields system resources to your game and fades out the background music. Once you close the game, wake CREMA by pressing <strong>START + SELECT</strong> simultaneously on your controller. CREMA forces itself back to the front and fades the music back in.</p>
+        <p>On a keyboard, hold <strong>comma (,) and period (.)</strong> simultaneously &mdash; this always works regardless of which wake combo is configured.</p>
+        <p><em>You can change the wake-up combo in the CREMA System Menu &rarr; Controls &rarr; Wake Method. Six options are available, including hold variants to prevent accidental triggers.</em></p>
       </div>
     </details>
 
     <details>
-      <summary>Steam or Heroic keeps popping up over CREMA after I close a game. How do I fix this?</summary>
+      <summary>Steam or Heroic keeps popping up over CREMA after I close a game. How do I fix it?</summary>
       <div class="faq-content">
-        <p>To keep CREMA acting like a true console shell, you should set your background launchers to hide themselves. For example, open Heroic, go to Settings -> General, and check <strong>"Minimize Heroic on Game Launch"</strong> or <strong>"Hide to Tray"</strong>. CREMA's wake-up combo (Start + Select) will also actively attempt to force itself over any lingering windows.</p>
+        <p>Set your background launchers to hide on game launch. In Heroic: Settings &rarr; General &rarr; enable <strong>&ldquo;Minimize Heroic on Game Launch&rdquo;</strong> or <strong>&ldquo;Hide to Tray&rdquo;</strong>. CREMA&rsquo;s wake-up combo actively forces itself over any lingering windows, which also helps bury stubborn launchers.</p>
       </div>
     </details>
 
     <details>
       <summary>How do I add my own music to the CREMA Jukebox?</summary>
       <div class="faq-content">
-        <p>Go to the folder where the CREMA application is located. The app will have automatically generated a folder named <code>CREMA_CUSTOM_MUSIC</code>. Drop your audio files (MP3, WAV, OGG, or FLAC) in there. Close and reopen the Jukebox in CREMA, and it will automatically scan your tracks and their ID3 metadata (Artist, Album, Cover Art).</p>
+        <p>Place your audio files (MP3, WAV, OGG, or FLAC) in the <code>CREMA_CUSTOM_MUSIC</code> folder located in the same directory as the CREMA app. Close and reopen the Jukebox from the System Menu &mdash; CREMA scans the folder automatically and reads ID3 metadata (Title, Artist, Album, Cover Art). You can then browse by Artist, Album, or create custom Playlists inside the Jukebox.</p>
+        <p>To use your custom music as the background music while browsing, set the BGM style to <strong>Custom</strong> in System Menu &rarr; Audio &rarr; Sound Settings.</p>
       </div>
     </details>
 
     <details>
-      <summary>My controller isn't navigating the CREMA menu. What's wrong?</summary>
+      <summary>My controller isn&rsquo;t navigating the CREMA menu. What&rsquo;s wrong?</summary>
       <div class="faq-content">
-        <p>Ensure the CREMA window has system focus. Sometimes when an app first launches, the OS doesn't immediately give it input priority—simply click the window once with your mouse. CREMA uses the standard HTML5 Gamepad API, meaning almost any Xbox, PlayStation, Switch, or generic PC controller should work natively without extra drivers.</p>
+        <p>Make sure the CREMA window has system focus &mdash; click it once with your mouse if needed. CREMA uses the standard HTML5 Gamepad API, so almost any Xbox, PlayStation, Switch Pro, or generic PC controller works natively without extra drivers. You can switch the displayed button icons between Xbox, PlayStation, and Nintendo layouts in System Menu &rarr; Controls &rarr; Gamepad Icons.</p>
       </div>
     </details>
 
     <!-- CATEGORY 4 -->
-    <div class="faq-category">Data Management & Backups</div>
+    <div class="faq-category">Data Management &amp; Backups</div>
 
     <details>
-      <summary>Where are all my covers, trailers, and save data actually stored?</summary>
+      <summary>Where are all my covers, trailers, and data actually stored?</summary>
       <div class="faq-content">
-        <p>Everything is contained securely within a single folder named <code>GameManagerConfig</code> located in the exact same directory as your CNGM/CREMA application files. Your downloaded images, YouTube trailers, audio settings, and the main SQLite database (<code>games.db</code>) are all kept in this single portable location.</p>
+        <p>Everything lives in a single folder named <code>GameManagerConfig</code> in the exact same directory as your CNGM and CREMA app files. Inside it: the SQLite database (<code>game_library.db</code>), your downloaded cover art, hero images, logos, screenshots, and locally downloaded MP4 trailers. One folder, fully self-contained and portable.</p>
       </div>
     </details>
 
     <details>
       <summary>How do I move my library to a new PC or Steam Deck?</summary>
       <div class="faq-content">
-        <p>Open the CNGM desktop app, click on the <strong>Tools</strong> menu in the sidebar, and select <strong>Backup to ZIP</strong>. This will compress your entire <code>GameManagerConfig</code> folder (including all your scraped media and databases) into one file. Move that ZIP to your new machine, open CNGM there, and use the <strong>Restore ZIP</strong> option.</p>
+        <p>In CNGM, open <strong>Tools &rarr; System &rarr; Backup ZIP</strong>. This compresses your entire <code>GameManagerConfig</code> folder &mdash; database, all artwork, all trailers &mdash; into a single archive. Copy it to your new machine, run CNGM there, and use <strong>Restore ZIP</strong>. Your library will be exactly as you left it, including all covers and downloaded trailers.</p>
+        <p>After restoring on a new machine, run <strong>Tools &rarr; System &rarr; Add to Application Menu</strong> to re-register CNGM and CREMA in your desktop launcher with updated paths.</p>
       </div>
     </details>
 
     <details>
-      <summary>Why did the automatic scraper grab the wrong cover art for my game?</summary>
+      <summary>Why did the scraper grab the wrong cover art or metadata for my game?</summary>
       <div class="faq-content">
-        <p>Preferentially, use CNGM and its detailed view to clear all info and fetch again, individually for that game (see the manual) if there is more than one result in Steam database, it will give you options to choose from. The automatic Steam scraper searches the database by text, so sequels, re-releases, or games with similar names can sometimes overlap, but doing this will fix it.</p><p> If this happens in CREMA, open the Game Options, select "Scraping Engine", CLEAR ALL SCRAPED ITEMS and try again, if there is more than one result in Steam database, it will give you options. If it doesn't find any match, the option <strong>REFINE SEARCH</strong> will be available to manually type the exact title. Alternatively, you can use the <strong>CUSTOM COVER (STEAMGRIDDB)</strong> option to visually pick the exact artwork you want from a grid.</p>
+        <p>The Steam scraper searches by text, so sequels, remasters, or games with similar names can sometimes overlap. In <strong>CNGM</strong>, open Edit Details for that game, click <strong>🧹 Clear Meta</strong> to wipe the scraped data, then click <strong>✨ Auto-Fetch</strong> again &mdash; if multiple Steam results are found, CNGM will show you a list to pick from. You can also use the <strong>SGDB</strong> button next to any image field to browse and pick exact custom artwork from SteamGridDB.</p>
+        <p>In <strong>CREMA</strong>, press X / Square on the game to open scraping options. If Steam finds the wrong game or nothing at all, choose <strong>Refine Search</strong> to type a more specific title via the on-screen keyboard, or use the <strong>IGDB fallback</strong> to search IGDB directly if it&rsquo;s configured.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>My image folder is getting large. How do I clean it up?</summary>
+      <div class="faq-content">
+        <p>CNGM has two cleanup tools in <strong>Tools &rarr; Cleanup</strong>:</p>
+        <ul>
+          <li><strong>Clean Images</strong> &mdash; scans your database and deletes any image files in the <code>images/</code> folder that are no longer assigned to a game. Safe and surgical &mdash; nothing currently in use is touched. Run this whenever you&rsquo;ve swapped a lot of covers or logos.</li>
+          <li><strong>Clear All Images</strong> &mdash; the nuclear option. Wipes all downloaded artwork and screenshots. Your text metadata is preserved, but all visuals must be re-fetched.</li>
+        </ul>
       </div>
     </details>
 
