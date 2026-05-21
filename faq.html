@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cafe Neurotico - FAQ</title>
-  <meta name="description" content="Frequently asked questions about CNGM and CREMA — the Linux game library manager and fullscreen companion ecosystem.">
+  <meta name="description" content="Frequently asked questions about the Cafe Neurotico ecosystem — CNGM, CREMA, and GRINDER, the Linux game library manager, fullscreen companion, and GOG/Epic install engine.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Cafe Neurotico">
   <meta property="og:title" content="FAQ — Cafe Neurotico">
-  <meta property="og:description" content="Frequently asked questions about CNGM and CREMA — the Linux game library manager and fullscreen companion ecosystem.">
+  <meta property="og:description" content="Frequently asked questions about the Cafe Neurotico ecosystem — CNGM, CREMA, and GRINDER.">
   <meta property="og:image" content="https://shampoo-is-a-lie.github.io/CafeNeuroticoWebSite/assets/images/bg_01.jpg">
   <meta property="og:url" content="https://shampoo-is-a-lie.github.io/CafeNeuroticoWebSite/faq.html">
   <meta name="twitter:card" content="summary_large_image">
@@ -292,6 +292,7 @@
       <a href="index.html">Home</a>
       <a href="index.html#cngm">CNGM</a>
       <a href="index.html#crema">CREMA</a>
+      <a href="index.html#grinder">GRINDER</a>
       <a href="faq.html" style="color: var(--accent);">FAQ</a>
       <a href="wallpapers.html">CN Wallpapers</a>
       <a href="index.html#support">Buy me a coffee</a>
@@ -301,7 +302,7 @@
 
   <header class="hero">
     <h1>Frequently Asked Questions</h1>
-    <p>Everything you need to know about the Cafe Neurotico ecosystem, library syncing, and controller setups.</p>
+    <p>Everything you need to know about CNGM, CREMA, and GRINDER — the Cafe Neurotico ecosystem for Linux gamers.</p>
   </header>
 
   <div class="faq-container">
@@ -351,10 +352,10 @@
     </details>
 
     <details>
-      <summary>Does this sync with Epic Games, GOG, and Amazon Games?</summary>
+      <summary>Does this sync with Epic Games and GOG?</summary>
       <div class="faq-content">
-        <p>Yes &mdash; all three, via <strong>Heroic Games Launcher</strong>. Heroic is the premier way to play Epic, GOG, and Amazon Games titles on Linux. Once you have Heroic installed and your stores connected inside it, CNGM&rsquo;s <strong>Sync Heroic Games</strong> button imports your entire library in one shot, complete with the correct native launch commands already filled in.</p>
-        <p>This is by far the most reliable import method for these stores. The direct GOG login option in CNGM also works, but it cannot auto-generate launch commands &mdash; Heroic Sync is strongly preferred.</p>
+        <p>Yes &mdash; through <strong>GRINDER</strong>, the dedicated install and launch engine in the ecosystem. Place <code>GRINDER.AppImage</code> in the same folder as <code>CNGM.AppImage</code>, log in to GOG or Epic inside GRINDER, and import your library. CNGM reads GRINDER&rsquo;s database automatically on startup and shows install status per game.</p>
+        <p>CNGM also supports importing via <strong>Heroic Games Launcher</strong> (Sync Heroic Games) as a secondary option, which additionally covers <strong>Amazon Games</strong>. If you already use Heroic, that sync still works. But for a self-contained workflow without Heroic, GRINDER is the recommended path for GOG and Epic.</p>
       </div>
     </details>
 
@@ -380,7 +381,8 @@
         <p>CNGM tracks installed status automatically:</p>
         <ul>
           <li><strong>Steam games</strong> are detected by scanning your Steam library folders for <code>appmanifest_*.acf</code> files. A live background watcher updates status the moment you install or uninstall something in Steam &mdash; no manual action required.</li>
-          <li><strong>Heroic games</strong> (Epic, GOG, Amazon) are read from Heroic&rsquo;s local config. Use <strong>Sync Heroic Games</strong> or <strong>Check Installed Games</strong> (Tools &rarr; Library) to refresh.</li>
+          <li><strong>GOG and Epic games via GRINDER</strong> &mdash; CNGM reads GRINDER&rsquo;s database on every startup and updates installed status automatically. Use the <strong>Refresh</strong> button (⟳) in CNGM's sidebar to force an immediate sync.</li>
+          <li><strong>Heroic games</strong> (Epic, GOG, Amazon) &mdash; if you use Heroic, use <strong>Sync Heroic Games</strong> or <strong>Check Installed Games</strong> (Tools &rarr; Library) to refresh.</li>
           <li><strong>Physical / Emulation / Others / Apps</strong> are considered installed as soon as they have a Launch Command saved.</li>
         </ul>
         <p>In both CNGM and CREMA, games not yet installed show an <strong>INSTALL</strong> button that opens the appropriate store page. The <strong>INSTALLED</strong> category filters your library to only show what&rsquo;s ready to play right now.</p>
@@ -454,6 +456,81 @@
         <ul>
           <li><strong>Clean Images</strong> &mdash; scans your database and deletes any image files in the <code>images/</code> folder that are no longer assigned to a game. Safe and surgical &mdash; nothing currently in use is touched. Run this whenever you&rsquo;ve swapped a lot of covers or logos.</li>
           <li><strong>Clear All Images</strong> &mdash; the nuclear option. Wipes all downloaded artwork and screenshots. Your text metadata is preserved, but all visuals must be re-fetched.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- CATEGORY 5 -->
+    <div class="faq-category">GRINDER — GOG &amp; Epic Install Engine</div>
+
+    <details>
+      <summary>What exactly is GRINDER and do I need it?</summary>
+      <div class="faq-content">
+        <p><strong>GRINDER</strong> is the dedicated install and launch engine for GOG and Epic games in the Cafe Neurotico ecosystem. It handles downloading, Proton configuration, Wine prefix management, compatibility file installation, and launching &mdash; all in one place, without Heroic Games Launcher.</p>
+        <p>You need it if you want to <strong>install GOG or Epic games from within the ecosystem</strong>. If you only play Steam games or already use Heroic for launching, GRINDER is optional &mdash; CNGM and CREMA work fine without it. But if you want a fully self-contained workflow, GRINDER is the recommended path.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>My GOG game launches but the mods / expansions don't load. What's wrong?</summary>
+      <div class="faq-content">
+        <p>This is the most common GRINDER question. GOG games declare their exact launch configuration &mdash; including which mod files and config paths to load &mdash; inside a <code>goggame-*.info</code> file in the game folder. GRINDER reads this at launch time and applies those arguments automatically.</p>
+        <p>If the game was working in Heroic but not in GRINDER, the likely causes are:</p>
+        <ul>
+          <li>The <strong>Launch Target</strong> in GRINDER's Edit screen is set to a different option than the one that loads the mods. Check the dropdown and select the entry marked <em>(default)</em>.</li>
+          <li>The game's <code>goggame-*.info</code> file is absent or was not downloaded (rare, usually a corrupted install).</li>
+        </ul>
+        <p>You can also use the <strong>Additional Arguments</strong> field in the Edit screen to manually append any flags the game needs.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I install GE-Proton without ProtonUp-Qt?</summary>
+      <div class="faq-content">
+        <p>GRINDER has a built-in GE-Proton downloader. Open GRINDER &rarr; <strong>Settings</strong> &rarr; <strong>Install GE-Proton</strong>. Click <strong>Fetch Versions</strong> to load the latest 15 releases from GitHub, pick a version, and click <strong>Install Selected Version</strong>. GRINDER downloads the archive, extracts it to <code>~/.steam/root/compatibilitytools.d/</code>, and updates the Proton scanner automatically.</p>
+        <p>ProtonUp-Qt is no longer needed for GE-Proton management if you use GRINDER.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Can CREMA install games while I'm gaming on the couch?</summary>
+      <div class="faq-content">
+        <p><strong>Yes.</strong> This is one of GRINDER's most useful features. From CREMA's game menu (SELECT button), uninstalled GOG and Epic games show an <strong>Install via GRINDER</strong> option. GRINDER runs completely headlessly in the background while CREMA stays in the foreground, displaying its own progress overlay with AUTH &rarr; DOWNLOAD &rarr; INSTALL &rarr; COMPAT steps and a live percentage bar. You never leave the couch interface.</p>
+        <p>The same works for uninstalling: <strong>Uninstall via GRINDER</strong> appears in the game menu for installed GOG and Epic titles.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>What's the difference between Executable, Launch Target, and Additional Arguments?</summary>
+      <div class="faq-content">
+        <p>All three live in GRINDER's Edit screen and affect what gets run when you click Play:</p>
+        <ul>
+          <li><strong>Executable</strong> &mdash; The path to the game's main binary, relative to the install folder. Set automatically at install time. This is the permanent stored default.</li>
+          <li><strong>Launch Target</strong> &mdash; A dropdown populated from the game's official <code>goggame-*.info</code> playTasks. Lets you switch between declared options like "Play", "Editor", or "Mod Launcher" without touching the Executable field. When set, it overrides the Executable. GOG games only.</li>
+          <li><strong>Additional Arguments</strong> &mdash; Extra flags you type in manually, appended <em>after</em> any arguments already declared in the playTask. For example: <code>-windowed</code>, <code>+set com_allowConsole 1</code>. Applies to all stores.</li>
+        </ul>
+        <p>For most games, you never touch any of these &mdash; GRINDER handles everything automatically. They exist for power users who need to fine-tune the launch.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Do I still need Heroic Games Launcher?</summary>
+      <div class="faq-content">
+        <p>For <strong>GOG and Epic games</strong>: no, not if you use GRINDER. GRINDER handles everything Heroic did for those stores &mdash; authentication, downloading, Proton configuration, and launching.</p>
+        <p>For <strong>Amazon Games</strong>: yes, Heroic is still the only way to play Amazon Games on Linux. CNGM can sync your Amazon library from Heroic.</p>
+        <p>If you already have games installed via Heroic, you don&rsquo;t need to reinstall them. CNGM can import them via <strong>Sync Heroic Games</strong> and launch them through Heroic as before. GRINDER is for new installs or if you want a fully self-contained workflow without Heroic.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>A GOG game fails to install with no error, or completes but shows as not installed.</summary>
+      <div class="faq-content">
+        <p>A few things to check:</p>
+        <ul>
+          <li><strong>Log in again</strong> &mdash; GOG tokens expire. Click Sync GOG in the GRINDER sidebar. If you are shown a Login button, authenticate and retry the install.</li>
+          <li><strong>Check disk space</strong> &mdash; GRINDER shows a pre-install size check. If it ran anyway and space ran out mid-download, the install will fail silently. Free up space and retry.</li>
+          <li><strong>Linux vs. Windows platform</strong> &mdash; Some games only have a Windows build and no Linux native build. If you selected Linux and it failed, try Windows (the game will run through Proton).</li>
+          <li><strong>gogdl binary</strong> &mdash; Make sure <code>gogdl</code> is placed next to <code>GRINDER.AppImage</code>. Check Settings &rarr; External Tools for its status.</li>
         </ul>
       </div>
     </details>
