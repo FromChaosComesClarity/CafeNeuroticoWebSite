@@ -298,8 +298,9 @@
     <details>
       <summary>How do I move my library to a new machine?<span class="summary-icon">+</span></summary>
       <div class="faq-content">
-        <p>In CNGM: <strong>Tools → System → Backup ZIP</strong>. This packs your entire <code>GameManagerConfig</code> folder — database, all artwork, all downloaded trailers — into a single archive. Copy it to the new machine, run CNGM there, and use <strong>Restore ZIP</strong>. Your library is exactly as you left it.</p>
+        <p>In CNGM: <strong>Tools → System → Backup ZIP</strong>. This packs your entire <code>GameManagerConfig</code> folder — database, all artwork, all downloaded trailers — into a single archive. Copy it to the new machine, run CNGM there, and use <strong>Restore ZIP</strong>. Your library is exactly as you left it. CREMA needs nothing extra — it reads the same restored folder.</p>
         <p>After restoring, run <strong>Tools → System → Add to Application Menu</strong> to re-register all three apps in your desktop launcher with the correct paths.</p>
+        <p><strong>GRINDER is handled separately.</strong> It is system-specific by design — game install paths, Wine prefixes, Proton versions, and store auth tokens are all tied to the machine they were configured on. On the new machine, reinstall GRINDER and run through its first-launch setup: authenticate with GOG and Epic, install and scan for GE-Proton, and set your default install directory. GRINDER will reconnect to your restored CNGM library automatically and let you reinstall your GOG and Epic games from scratch.</p>
       </div>
     </details>
 

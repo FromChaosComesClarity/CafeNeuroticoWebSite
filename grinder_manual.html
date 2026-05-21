@@ -192,6 +192,9 @@
           <p class="manual-box-title">MECHANICAL PRECISION</p>
           <p>GRINDER was built on one principle: <strong>zero shortcuts</strong>. It reads the game publisher's own declared launch configuration (via GOG's <code>goggame-*.info</code> playTasks) and applies it exactly. If Ashes 2063 declares it needs five mod files and a custom config loaded at startup, GRINDER reads that and does it. You just click Play.</p>
           <p>It is fully integrated with <strong>CNGM</strong> (which tracks install status and opens GRINDER on demand) and <strong>CREMA</strong> (which can trigger installs and uninstalls headlessly, showing its own progress UI while GRINDER runs silently in the background).</p>
+          <p class="manual-box-title">SYSTEM-SPECIFIC BY DESIGN</p>
+          <p>CNGM and CREMA are built around a single backupable folder &mdash; one zip, restore anywhere. GRINDER deliberately does not follow this pattern. As an install engine, it is tied to the machine it runs on: game install locations, Wine prefixes, Proton versions, and store authentication tokens are all local and system-specific. There is no meaningful way to transfer them to a different machine.</p>
+          <p>This is not a limitation &mdash; it is the correct design for software that interacts directly with your system's directory structure, kernel compatibility layer, and authentication tokens. When you move to a new machine, reinstall GRINDER, run through the first-launch setup, and reconnect to your restored CNGM library. Your game list will be there; GRINDER just needs to re-download and reconfigure for the new environment.</p>
         </div>
 
         <h2 id="man-2">2. REQUIREMENTS</h2>
