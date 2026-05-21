@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GRINDER - Official User Manual</title>
+  <meta name="description" content="Complete user manual for GRINDER: GOG and Epic installer and launch engine for Linux. Proton management, compat tools, CNGM and CREMA integration.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Cafe Neurotico">
+  <meta property="og:title" content="GRINDER User Manual — Cafe Neurotico">
+  <meta property="og:description" content="Complete user manual for GRINDER: GOG and Epic installer and launch engine for Linux.">
+  <meta property="og:url" content="https://shampoo-is-a-lie.github.io/CafeNeuroticoWebSite/grinder_manual.html">
+  <link rel="icon" type="image/svg+xml" href="assets/icons/default_icon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #141414; --bg_panel: rgba(0,0,0,0.5); --bg_menu: #222222;
+      --accent: #9EAAB8; --accent_menu: #B8C8D8; --text_main: #ffffff;
+      --text_sec: #bbbbbb; --text_dim: #777777; --border: rgba(255,255,255,0.1);
+      --border_solid: #555555;
+      --accent_alt: #D4A373;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0; background-color: var(--bg); color: var(--text_main);
+      font-family: 'Raleway', sans-serif; transition: background-color 0.3s ease;
+      display: flex; flex-direction: column; height: 100vh; overflow: hidden;
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%;
+      background: rgba(20, 20, 20, 0.85);
+      backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 15px 40px; box-sizing: border-box;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      z-index: 1000; box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+    }
+    .nav-brand { display: flex; align-items: center; font-weight: 900; font-size: 20px; letter-spacing: 2px; color: var(--text_main); }
+    .nav-icon { height: 28px; width: 28px; margin-right: 12px; filter: drop-shadow(0 0 5px rgba(158,170,184,0.4)); }
+    .nav-links { display: flex; align-items: center; }
+    .nav-links a { color: var(--text_sec); text-decoration: none; margin-left: 25px; font-weight: bold; text-transform: uppercase; font-size: 13px; letter-spacing: 1px; transition: color 0.3s, text-shadow 0.3s; }
+    .nav-links a:hover { color: var(--accent_menu); text-shadow: 0 0 10px rgba(184,200,216,0.4); }
+    .mobile-menu-btn { display: none; background: transparent; border: none; color: var(--text_main); font-size: 28px; cursor: pointer; }
+
+    #titlebar {
+      height: 50px; flex-shrink: 0; background: var(--bg_menu);
+      display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 2px solid var(--border_solid); padding: 0 20px;
+      margin-top: 63px;
+    }
+    .titlebar-brand { font-size: clamp(12px, 2vw, 16px); font-weight: 900; color: var(--accent); letter-spacing: 2px; }
+    .theme-selector-container { display: flex; align-items: center; gap: 10px; }
+    .theme-selector-container label { font-size: 12px; font-weight: bold; color: var(--text_sec); text-transform: uppercase; }
+    select { background: var(--bg_panel); color: var(--text_main); border: 1px solid var(--border_solid); padding: 5px 10px; font-family: 'Raleway', sans-serif; font-weight: bold; border-radius: 4px; outline: none; cursor: pointer; }
+    select:focus { border-color: var(--accent); }
+
+    #main-container { display: flex; flex: 1; overflow: hidden; position: relative; }
+    #sidebar { width: 250px; background: var(--bg_panel); border-right: 2px solid var(--border_solid); overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; transition: transform 0.3s ease; }
+    .nav-btn { background: transparent; border: 1px solid transparent; color: var(--text_sec); text-align: left; padding: 12px 10px; font-size: 12px; text-transform: uppercase; font-weight: bold; border-radius: 4px; cursor: pointer; transition: 0.2s; font-family: 'Raleway', sans-serif; }
+    .nav-btn:hover, .nav-btn.active { background: var(--border_solid); color: var(--text_main); border-color: var(--accent); }
+
+    #content { flex: 1; padding: 40px 60px; overflow-y: auto; scroll-behavior: smooth; }
+    .container { max-width: 900px; margin: 0 auto; }
+
+    h1 { color: var(--accent); font-weight: 900; font-size: clamp(24px, 4vw, 32px); letter-spacing: 2px; border-bottom: 2px solid var(--border_solid); padding-bottom: 10px; margin-top: 0; }
+    h2 { color: var(--accent); border-bottom: 2px solid var(--border_solid); padding-bottom: 5px; font-weight: 900; text-transform: uppercase; margin-top: 50px; font-size: clamp(20px, 3vw, 24px); }
+    h3 { color: var(--text_sec); font-weight: bold; text-transform: uppercase; margin-top: 30px; font-size: 18px; }
+    p, li { font-size: 16px; line-height: 1.6; color: var(--text_sec); }
+    strong { color: var(--text_main); }
+    ul { padding-left: 20px; }
+    li { margin-bottom: 8px; }
+    code { font-size: 14px; background: rgba(0,0,0,0.4); border: 1px solid var(--border_solid); border-radius: 3px; padding: 1px 6px; font-family: monospace; color: var(--accent_menu); }
+
+    .manual-box { border: 2px dashed var(--accent); padding: 25px; margin: 25px 0; background-color: var(--bg_panel); border-radius: 8px; }
+    .manual-box-title { color: var(--accent); font-weight: 900; font-size: 16px; margin-top: 0; text-transform: uppercase; letter-spacing: 1px; }
+
+    .tip-box { background: rgba(76,175,80,0.07); border: 1px solid rgba(76,175,80,0.35); border-left: 4px solid #4caf50; border-radius: 6px; padding: 16px 20px; margin: 20px 0; }
+    .tip-box p { margin: 0; }
+    .tip-box strong { color: #4caf50; }
+    .warn-box { background: rgba(255,152,0,0.07); border: 1px solid rgba(255,152,0,0.35); border-left: 4px solid #ff9800; border-radius: 6px; padding: 16px 20px; margin: 20px 0; }
+    .warn-box p { margin: 0; }
+    .warn-box strong { color: #ff9800; }
+
+    .controls-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+    .controls-table th { text-align: left; padding: 10px 14px; font-size: 12px; font-weight: 900; text-transform: uppercase; color: var(--accent); border-bottom: 2px solid var(--border_solid); }
+    .controls-table td { padding: 10px 14px; font-size: 15px; color: var(--text_sec); border-bottom: 1px solid var(--border); }
+    .controls-table tr:last-child td { border-bottom: none; }
+    .key { color: var(--text_main); font-weight: bold; font-family: monospace; background: var(--bg_panel); border: 1px solid var(--border_solid); border-radius: 3px; padding: 2px 8px; font-size: 13px; }
+
+    .support-box { background: rgba(0,0,0,0.3); border: 1px solid var(--border_solid); padding: 30px; border-radius: 8px; max-width: 650px; margin: 50px auto 30px auto; text-align: center; }
+    .support-box h4 { color: var(--accent_alt); margin-top: 0; margin-bottom: 15px; font-size: 16px; letter-spacing: 1px; }
+    .support-banner { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border_solid); box-shadow: 0 8px 25px rgba(0,0,0,0.5); margin-bottom: 25px; display: block; transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
+    .support-banner:hover { transform: translateY(-4px); box-shadow: 0 15px 35px rgba(212,163,115,0.25); border-color: var(--accent_alt); }
+
+    .btn-secondary { background: transparent; color: var(--text_main); border: 2px solid var(--border_solid); border-radius: 8px; cursor: pointer; font-family: 'Raleway', sans-serif; transition: all 0.2s; }
+    .btn-secondary:hover { background: rgba(255,255,255,0.05); }
+
+    .modal-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 3000; display: flex; justify-content: center; align-items: center; opacity: 1; transition: opacity 0.3s ease; }
+    .modal-backdrop.hidden { opacity: 0; pointer-events: none; }
+
+    ::-webkit-scrollbar { width: 12px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border_solid); border-radius: 6px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+    @media (max-width: 900px) {
+      nav { padding: 15px 20px; }
+      .mobile-menu-btn { display: block; }
+      .nav-links { display: none; position: absolute; top: 60px; left: 0; width: 100%; background: rgba(20,20,20,0.95); flex-direction: column; padding: 20px 0; border-bottom: 1px solid var(--border_solid); }
+      .nav-links.show { display: flex; }
+      .nav-links a { margin: 15px 0; font-size: 16px; }
+      #main-container { flex-direction: column; }
+      #sidebar { width: 100%; height: auto; flex-direction: row; overflow-x: auto; overflow-y: hidden; padding: 10px; border-right: none; border-bottom: 2px solid var(--border_solid); }
+      .nav-btn { white-space: nowrap; flex-shrink: 0; padding: 10px 15px; }
+      #content { padding: 20px 15px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="pix-modal" class="modal-backdrop hidden">
+    <div style="background: var(--bg_menu); border: 2px solid var(--border_solid); border-radius: 12px; padding: 30px; text-align: center; max-width: 400px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); position: relative;">
+      <button onclick="closePixModal()" style="position: absolute; top: 15px; right: 15px; background: transparent; border: none; color: var(--text_sec); font-size: 20px; cursor: pointer;">✕</button>
+      <h3 style="color: #32BCAD; margin-top: 0; font-weight: 900; letter-spacing: 1px;">DONATE VIA PIX</h3>
+      <img src="assets/images/pixqrcode.jpg" alt="PIX QR Code" style="width: 250px; height: 250px; border-radius: 8px; margin: 20px 0; border: 2px solid #32BCAD;">
+      <p style="font-size: 14px; color: var(--text_sec); margin-bottom: 20px; word-break: break-all; user-select: all;">b734a9e2-e479-42f9-abd6-c88d1b8b880e</p>
+      <button onclick="copyPixKey()" class="btn-secondary" style="border-color: #32BCAD; color: #32BCAD; width: 100%; padding: 12px; font-weight: 900; letter-spacing: 1px;">COPY PIX KEY</button>
+      <div id="pix-copy-msg" style="color: #32BCAD; font-size: 12px; font-weight: bold; margin-top: 10px; opacity: 0; transition: opacity 0.3s;">Copied!</div>
+    </div>
+  </div>
+
+  <nav>
+    <div class="nav-brand">
+      <img src="assets/icons/grinder_icon.svg" alt="GRINDER" class="nav-icon">
+      CAFE NEUROTICO
+    </div>
+    <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#cngm">CNGM</a>
+      <a href="index.html#crema">CREMA</a>
+      <a href="index.html#grinder" style="color: var(--accent);">GRINDER</a>
+      <a href="faq.html">FAQ</a>
+      <a href="wallpapers.html">CN Wallpapers</a>
+      <a href="index.html#support">Buy me a coffee</a>
+      <a href="mailto:shampooisalie@gmail.com">Contact</a>
+    </div>
+  </nav>
+
+  <div id="titlebar">
+    <div class="titlebar-brand">GRINDER — User Manual</div>
+    <div class="theme-selector-container">
+      <label for="theme-select">Theme:</label>
+      <select id="theme-select"></select>
+    </div>
+  </div>
+
+  <div id="main-container">
+    <div id="sidebar">
+      <button class="nav-btn active" data-target="man-1">1. The Robot-Barista</button>
+      <button class="nav-btn" data-target="man-2">2. Requirements</button>
+      <button class="nav-btn" data-target="man-3">3. Quick Start</button>
+      <button class="nav-btn" data-target="man-4">4. Importing Games</button>
+      <button class="nav-btn" data-target="man-5">5. Installing Games</button>
+      <button class="nav-btn" data-target="man-6">6. Launching Games</button>
+      <button class="nav-btn" data-target="man-7">7. Per-Game Settings</button>
+      <button class="nav-btn" data-target="man-8">8. Proton Management</button>
+      <button class="nav-btn" data-target="man-9">9. Compatibility Tools</button>
+      <button class="nav-btn" data-target="man-10">10. CNGM &amp; CREMA</button>
+      <button class="nav-btn" data-target="man-11">11. Settings Reference</button>
+      <a href="manual.html" class="nav-btn" style="margin-top: 20px; border-top: 1px solid var(--border_solid); padding-top: 14px; color: var(--accent_menu); text-decoration: none;">&#x279C; CNGM Manual</a>
+      <a href="crema_manual.html" class="nav-btn" style="color: var(--accent_alt); text-decoration: none;">&#x279C; CREMA Manual</a>
+    </div>
+
+    <div id="content">
+      <div class="container">
+
+        <h1 id="man-1">CAFE NEUROTICO: GRINDER</h1>
+
+        <h2>1. THE ROBOT-BARISTA</h2>
+        <div class="manual-box">
+          <p class="manual-box-title">THE ENGINE ROOM</p>
+          <p>GRINDER is the install and launch engine of the Cafe Neurotico ecosystem. While CNGM manages your entire library and CREMA provides the couch-friendly interface, GRINDER does the actual <em>work</em> &mdash; it grinds the beans.</p>
+          <p>It is dedicated exclusively to <strong>GOG</strong> and <strong>Epic Games</strong> on Linux. It handles everything from the first authentication to the final executable: downloading, installing, configuring Proton, managing Wine prefixes, installing compatibility files, and reading each game's official launch arguments so mods and expansions load correctly without any manual setup.</p>
+          <p class="manual-box-title">MECHANICAL PRECISION</p>
+          <p>GRINDER was built on one principle: <strong>zero shortcuts</strong>. It reads the game publisher's own declared launch configuration (via GOG's <code>goggame-*.info</code> playTasks) and applies it exactly. If Ashes 2063 declares it needs five mod files and a custom config loaded at startup, GRINDER reads that and does it. You just click Play.</p>
+          <p>It is fully integrated with <strong>CNGM</strong> (which tracks install status and opens GRINDER on demand) and <strong>CREMA</strong> (which can trigger installs and uninstalls headlessly, showing its own progress UI while GRINDER runs silently in the background).</p>
+        </div>
+
+        <h2 id="man-2">2. REQUIREMENTS</h2>
+
+        <h3>Bundled (no install needed)</h3>
+        <ul>
+          <li><strong>legendary</strong> &mdash; Epic Games library management and installation.</li>
+          <li><strong>gogdl</strong> (Cafe Neurotico fork) &mdash; GOG library management and installation. Place the <code>gogdl</code> binary next to <code>GRINDER.AppImage</code>.</li>
+        </ul>
+
+        <h3>Strongly Recommended</h3>
+        <ul>
+          <li><strong>umu-run</strong> &mdash; The preferred launch method for Windows games. Handles Proton invocation correctly and is required for the best compatibility. Install via:
+            <br><code style="display:inline-block; margin-top:6px;">pipx install umu-launcher</code>
+            <br><span style="font-size:14px; color:var(--text_dim);">Or use the one-click installer in GRINDER's Settings &rarr; External Tools.</span>
+          </li>
+          <li><strong>GE-Proton</strong> &mdash; The recommended Proton build for gaming. Install directly from GRINDER's Settings &rarr; Install GE-Proton — no external tools required.</li>
+        </ul>
+
+        <h3>Optional</h3>
+        <ul>
+          <li><strong>wine</strong> &mdash; Only used as a last resort if no Proton version is configured and umu-run is absent. Not needed in a typical setup.</li>
+          <li><strong>winetricks</strong> &mdash; Required if you want to install runtime components (Visual C++ Redistributables, DirectX, etc.) into a game's Wine prefix from within GRINDER.</li>
+        </ul>
+
+        <div class="tip-box">
+          <p><strong>Tip:</strong> Open GRINDER's Settings tab to see the live status of all tools. It will tell you exactly what is found, what is bundled, and what needs attention.</p>
+        </div>
+
+        <h2 id="man-3">3. QUICK START</h2>
+
+        <h3>First Launch</h3>
+        <p>On first launch, GRINDER shows a <strong>Welcome Screen</strong> with a live tool check and Getting Started steps. It tells you what is installed, what is missing, and what to do next. Once you've reviewed it, check <em>Don't show this again</em> and click <strong>LET'S GO</strong>. You can always reopen it from Settings &rarr; About &rarr; Show Welcome Screen.</p>
+
+        <h3>Placement</h3>
+        <p>Place <code>GRINDER.AppImage</code> in the same folder as <code>CNGM.AppImage</code>. They connect automatically &mdash; CNGM reads GRINDER's database at startup with no configuration required.</p>
+
+        <h3>Recommended First-Run Workflow</h3>
+        <ol style="padding-left: 20px; color: var(--text_sec); font-size: 16px; line-height: 1.8;">
+          <li>Open Settings &rarr; <strong>Install GE-Proton</strong>. Fetch the latest version and install it.</li>
+          <li>Open Settings &rarr; <strong>Proton Versions</strong>. Click Scan, then set the newly installed GE-Proton as default.</li>
+          <li>Open Settings &rarr; <strong>Default Prefix Directory</strong>. Leave blank for the default or set a custom path.</li>
+          <li>Click <strong>Sync GOG</strong> or <strong>Sync Epic</strong> in the sidebar to import your library.</li>
+          <li>Select a game and click <strong>Install</strong>.</li>
+        </ol>
+
+        <h2 id="man-4">4. IMPORTING GAMES</h2>
+
+        <h3>GOG</h3>
+        <p>Click <strong>Sync GOG</strong> in the sidebar. If you are not logged in, the import dialog will show a <em>Login to GOG</em> button. GRINDER opens a secure GOG authentication window — log in, close it when done, and GRINDER stores your tokens locally. Your full GOG library appears immediately.</p>
+        <p>Select all the games you want to track (all are pre-selected by default) and click <strong>Import Selected</strong>. Only your own library is imported — ratings, reviews, and store metadata are not fetched at this stage.</p>
+
+        <div class="tip-box">
+          <p><strong>Tip:</strong> You only need to log in once. GRINDER refreshes your tokens automatically. If a token expires, clicking Sync GOG again will prompt you to re-authenticate.</p>
+        </div>
+
+        <h3>Epic Games</h3>
+        <p>Click <strong>Sync Epic</strong> in the sidebar. If not logged in, click <em>Login to Epic Games</em>. GRINDER opens a legendary authentication flow in a terminal-style output window. Follow the on-screen instructions (you will be asked to open a URL and paste a code). Once authenticated, your Epic library loads.</p>
+
+        <h3>What Gets Imported</h3>
+        <p>GRINDER imports the game title, store identifier, and install status. If a game is already installed on disk (from a previous GRINDER or Heroic install), GRINDER detects it and marks it accordingly. Uninstalled games show an Install button.</p>
+
+        <h2 id="man-5">5. INSTALLING GAMES</h2>
+
+        <h3>Starting an Install</h3>
+        <p>Select a game in the library list. The right panel shows its details. Click <strong>Install</strong>. For GOG games, a platform dialog appears first.</p>
+
+        <h3>Platform Selection (GOG only)</h3>
+        <p>Many GOG games ship both a <strong>Windows</strong> and a <strong>Linux</strong> native build. GRINDER asks which you want:</p>
+        <ul>
+          <li><strong>Linux</strong> &mdash; A native build that runs directly without Proton. Best performance, but not all games have a Linux build.</li>
+          <li><strong>Windows</strong> &mdash; Runs through Proton/Wine. Required for Windows-only titles and usually necessary for mod support.</li>
+        </ul>
+        <div class="tip-box">
+          <p><strong>Tip:</strong> When in doubt, choose Windows. Even games with Linux builds often have better mod and DLC support on the Windows version via Proton.</p>
+        </div>
+
+        <h3>Pre-Install Size Check</h3>
+        <p>GRINDER checks download size, unpacked size, and available disk space before starting. If there is not enough space, the Install button is disabled with a warning.</p>
+
+        <h3>Install Directory</h3>
+        <p>The default install directory is <code>~/Games/CafeNeurotico/</code>. You can change it per-install in the dialog, or set a global default in Settings &rarr; Launch Engine &rarr; Default Prefix Directory.</p>
+
+        <h3>Progress</h3>
+        <p>A progress panel shows real-time output from gogdl or legendary: percentage, bytes transferred, and the current file being written. You can cancel at any time.</p>
+
+        <h3>Automatic Compatibility Files (GOG)</h3>
+        <p>Immediately after a successful GOG install, GRINDER checks the game's declared dependencies and installs any required compatibility files (Visual C++ Redistributables, DirectX, etc.) through umu-run/Proton. This happens automatically without any user action required.</p>
+
+        <h3>Uninstalling</h3>
+        <p>Click <strong>Uninstall</strong> in the game's right panel. GRINDER removes:</p>
+        <ul>
+          <li>The game files from disk.</li>
+          <li>The game's Wine prefix.</li>
+          <li>The store's install record (legendary or gogdl manifest).</li>
+        </ul>
+        <div class="warn-box">
+          <p><strong>Warning:</strong> Uninstall is permanent. Save files stored inside the Wine prefix will also be removed. Back up your saves first if needed.</p>
+        </div>
+
+        <h2 id="man-6">6. LAUNCHING GAMES</h2>
+
+        <h3>Launch Chain</h3>
+        <p>When you click Play, GRINDER runs through this priority chain to find the best available runner:</p>
+        <table class="controls-table">
+          <tr><th>Priority</th><th>Runner</th><th>When Used</th></tr>
+          <tr><td>1</td><td><strong>umu-run + Proton</strong></td><td>umu-run is installed and a Proton path is set</td></tr>
+          <tr><td>2</td><td><strong>Proton direct</strong></td><td>Proton path is set but umu-run is absent</td></tr>
+          <tr><td>3</td><td><strong>Wine</strong></td><td>Last resort — no Proton configured</td></tr>
+          <tr><td>&mdash;</td><td><strong>Native binary</strong></td><td>Linux-native GOG games (no Proton involved)</td></tr>
+        </table>
+
+        <h3>Official Launch Arguments (GOG)</h3>
+        <p>GOG games declare their exact launch configuration in a <code>goggame-*.info</code> file inside the game folder. This file contains <em>playTasks</em> — the official list of launch options with executable paths and arguments. GRINDER reads this file at launch time and applies the arguments exactly as the publisher declared them.</p>
+        <p>This is what makes mods, expansions, and custom configs work without any manual setup. For example, Ashes 2063 declares five mod files and a config path that must be passed to GZDoom — GRINDER reads that and does it automatically.</p>
+
+        <h3>Launch Target</h3>
+        <p>Some games declare multiple play options in their playTasks: <em>Play</em>, <em>Editor</em>, <em>Mod Launcher</em>, <em>Addon</em>, etc. The <strong>Launch Target</strong> dropdown in the Edit screen lets you switch between them without touching the Executable field. The option marked <em>(default)</em> is what GOG considers the primary launch target.</p>
+
+        <h3>Additional Arguments</h3>
+        <p>The <strong>Additional Arguments</strong> field in the Edit screen lets you append your own flags to any game launch. These are added <em>after</em> the official playTask arguments, so mods and configs still load first.</p>
+        <p>Examples: <code>-windowed</code>, <code>+set com_allowConsole 1</code>, <code>--skip-intro</code>, <code>--fps-cap 60</code>.</p>
+        <p>Quoted arguments with spaces are supported: <code>-cfg "/path with spaces/my.cfg"</code>.</p>
+
+        <div class="tip-box">
+          <p><strong>Tip:</strong> If you want to completely override the official launch arguments (instead of appending), clear the Launch Target dropdown and write everything you need in the Additional Arguments field.</p>
+        </div>
+
+        <h3>.bat File Support</h3>
+        <p>Some GOG games use Windows batch files as their primary launcher. GRINDER detects <code>.bat</code> extensions automatically and converts the path to Wine's <code>Z:</code> drive format, which Wine routes through its internal <code>cmd.exe</code>. No manual workaround is needed.</p>
+
+        <h3>Working Directory</h3>
+        <p>All game spawns set the working directory to the game's install folder. This means relative paths in arguments and batch files resolve correctly without requiring absolute paths.</p>
+
+        <h2 id="man-7">7. PER-GAME SETTINGS</h2>
+        <p>Open the Edit screen for any game (pencil icon or double-click) to access its per-game configuration.</p>
+
+        <h3>Core Fields</h3>
+        <table class="controls-table">
+          <tr><th>Field</th><th>Purpose</th></tr>
+          <tr><td><strong>Executable</strong></td><td>Path to the game's main binary, relative to the install folder. Set automatically at install time from the primary playTask. Can be changed manually.</td></tr>
+          <tr><td><strong>Additional Arguments</strong></td><td>Extra flags appended to the launch command after official playTask arguments.</td></tr>
+          <tr><td><strong>Launch Target</strong></td><td>Dropdown of all declared play options from <code>goggame-*.info</code>. Overrides the Executable when set. GOG games only.</td></tr>
+          <tr><td><strong>Install Path</strong></td><td>Where the game files live on disk.</td></tr>
+          <tr><td><strong>Wine Prefix</strong></td><td>Path to the game's Wine prefix. Defaults to <code>~/.config/grinder/prefixes/&lt;Game Title&gt;/</code>.</td></tr>
+          <tr><td><strong>Proton Version</strong></td><td>Per-game Proton override. Overrides the system default for this game only.</td></tr>
+          <tr><td><strong>Notes</strong></td><td>Personal notes. Not used at launch.</td></tr>
+        </table>
+
+        <h3>Environment Variables</h3>
+        <p>The <strong>Environment Variables</strong> textarea accepts <code>KEY=value</code> pairs, one per line. These are applied at launch before any Proton or Wine environment. Useful for game-specific overrides like <code>DXVK_LOG_LEVEL=none</code> or <code>__GL_SHADER_DISK_CACHE=1</code>.</p>
+
+        <h3>Compatibility Toggles</h3>
+        <table class="controls-table">
+          <tr><th>Toggle</th><th>What It Does</th></tr>
+          <tr><td><strong>Esync</strong></td><td>Event-based synchronisation for better multi-thread performance. On by default.</td></tr>
+          <tr><td><strong>Fsync</strong></td><td>Futex-based synchronisation. Faster than Esync on supported kernels. On by default.</td></tr>
+          <tr><td><strong>DXVK-NVAPI</strong></td><td>NVIDIA API emulation layer. Enable for games that use DLSS or NVIDIA-specific features on GE-Proton.</td></tr>
+          <tr><td><strong>BattlEye</strong></td><td>Sets the BattlEye runtime path so anti-cheat protected games can start. Requires the runtime to be present in GRINDER's <code>runtimes/</code> folder or a Steam installation.</td></tr>
+          <tr><td><strong>EAC</strong></td><td>Same as BattlEye but for Easy Anti-Cheat.</td></tr>
+        </table>
+
+        <h2 id="man-8">8. PROTON MANAGEMENT</h2>
+
+        <h3>Proton Scanner</h3>
+        <p>Open Settings &rarr; <strong>Proton Versions</strong> and click <strong>Scan Proton Versions</strong>. GRINDER searches all standard locations:</p>
+        <ul>
+          <li><code>~/.steam/root/compatibilitytools.d/</code></li>
+          <li><code>~/.local/share/Steam/compatibilitytools.d/</code></li>
+          <li><code>~/.local/share/Steam/steamapps/common/</code> (Steam's official Proton)</li>
+          <li>Flatpak Steam equivalents under <code>~/.var/app/com.valvesoftware.Steam/</code></li>
+        </ul>
+        <p>Symlinks are resolved to avoid duplicates. Each found version is listed with its type and full path. Click <strong>Set Default</strong> next to any version to use it globally.</p>
+
+        <h3>GE-Proton Downloader</h3>
+        <p>Settings &rarr; <strong>Install GE-Proton</strong> lets you download and install GE-Proton directly from the GloriousEggroll GitHub releases — no ProtonUp-Qt required.</p>
+        <ol style="padding-left: 20px; color: var(--text_sec); font-size: 16px; line-height: 1.8;">
+          <li>Click <strong>Fetch Versions</strong> to load the latest 15 releases (tag, date, download size).</li>
+          <li>Pick a version from the dropdown.</li>
+          <li>Click <strong>Install Selected Version</strong>. A progress bar tracks the download in MB.</li>
+          <li>GRINDER extracts the archive to the first available <code>compatibilitytools.d</code> and auto-rescans the Proton list.</li>
+        </ol>
+        <p>You can cancel at any time. The partially downloaded archive is cleaned up automatically.</p>
+
+        <div class="tip-box">
+          <p><strong>Tip:</strong> Always use the latest GE-Proton for best game compatibility. It includes upstream fixes from Valve's Proton plus community patches not yet in the official build.</p>
+        </div>
+
+        <h3>Uninstalling Proton Versions</h3>
+        <p>In the Proton Versions list, any version installed inside <code>compatibilitytools.d</code> (GE-Proton and other custom builds) shows a <strong>Delete</strong> button. Click it to permanently remove that version from disk.</p>
+        <div class="warn-box">
+          <p><strong>Warning:</strong> If the version you delete is set as the default, GRINDER will warn you and clear the default setting. You will need to set a different Proton version before launching any Windows game.</p>
+        </div>
+        <p>Valve's official Proton versions (inside <code>steamapps/common/</code>) do not show a Delete button — those are managed by Steam.</p>
+
+        <h2 id="man-9">9. COMPATIBILITY TOOLS</h2>
+
+        <h3>Winetricks</h3>
+        <p>The <strong>Winetricks</strong> section in the Edit screen lets you install runtime components into a game's Wine prefix — Visual C++ Redistributables, DirectX, .NET, fonts, and hundreds of other packages that Windows games depend on.</p>
+        <ul>
+          <li>Enter the component names space-separated: <code>vcrun2019 d3dcompiler_47 dotnet48</code></li>
+          <li>Click <strong>Run Winetricks</strong>. A progress output shows the installation log.</li>
+          <li>Components are saved to the game record so you remember what was installed.</li>
+        </ul>
+        <div class="tip-box">
+          <p><strong>Tip:</strong> winetricks must be installed on your system. Install it via your package manager: <code>sudo dnf install winetricks</code> / <code>sudo apt install winetricks</code>.</p>
+        </div>
+
+        <h3>Run .exe on Prefix</h3>
+        <p>The <strong>Run .exe on Prefix</strong> button opens a file picker where you can select any <code>.exe</code>, <code>.msi</code>, or <code>.bat</code> file to run inside the game's Wine prefix using the same Proton and environment settings as the game itself. Use this for:</p>
+        <ul>
+          <li>Mod installers that ship as <code>.exe</code> files.</li>
+          <li>Patchers and launchers that must run in the game's prefix.</li>
+          <li>DirectX or Visual C++ redistributables that winetricks doesn't cover.</li>
+        </ul>
+
+        <h3>Install Compatibility Files</h3>
+        <p>The <strong>Install Compat. Files</strong> button in the Edit screen manually triggers the GOG redistributable installer for that game. This is the same process that runs automatically after a fresh install — useful if it was skipped or failed the first time.</p>
+        <p>GRINDER downloads the declared dependencies via gogdl, then runs each installer through umu-run/Proton with <code>GAMEID=umu-0</code> so they install correctly into the game's prefix.</p>
+
+        <h3>umu-run Installer</h3>
+        <p>If umu-run is not found on your system, Settings &rarr; External Tools shows an <strong>Install umu-run</strong> button. It runs <code>pipx install umu-launcher</code> (or <code>pip install --user</code> if pipx is unavailable) and shows the output live. Works on any distro.</p>
+
+        <h2 id="man-10">10. CNGM &amp; CREMA INTEGRATION</h2>
+
+        <h3>Auto-Detection</h3>
+        <p>Place <code>GRINDER.AppImage</code> in the same folder as <code>CNGM.AppImage</code>. CNGM detects GRINDER at startup by scanning for the file and reads GRINDER's database directly. No configuration, no pairing steps, no shared secrets.</p>
+
+        <h3>What CNGM Gets From GRINDER</h3>
+        <ul>
+          <li>Per-game install status (installed / not installed), synced on every CNGM startup.</li>
+          <li>INSTALL button in CNGM's library now opens GRINDER with the game name pre-filled in the search bar, for GOG and Epic games.</li>
+          <li>A <strong>GRINDER</strong> button in the game detail page hero area opens GRINDER pre-searched to that game.</li>
+          <li>Theme sync — GRINDER reads CNGM's active colour theme at startup and applies it before the window appears.</li>
+        </ul>
+
+        <h3>CREMA Headless Mode</h3>
+        <p>CREMA (the fullscreen gamepad companion) can trigger GRINDER installs and uninstalls without GRINDER's window ever appearing. GRINDER runs silently in the background and writes live progress to a shared JSON file that CREMA reads to power its own progress overlay.</p>
+        <p>From CREMA's game menu (Select button), GOG and Epic games show:</p>
+        <ul>
+          <li><strong>Install via GRINDER</strong> &mdash; shows a gamepad-friendly confirmation dialog with the install directory, then starts the download.</li>
+          <li><strong>Uninstall via GRINDER</strong> &mdash; confirms, then removes files and the Wine prefix.</li>
+        </ul>
+        <p>CREMA's progress overlay shows AUTH &rarr; DOWNLOAD &rarr; INSTALL &rarr; COMPAT steps with a live percentage bar. The entire process is controlled from the couch, with no keyboard or mouse required.</p>
+
+        <h3>CLI Arguments</h3>
+        <p>External callers (CNGM, CREMA, scripts) can control GRINDER via command-line arguments:</p>
+        <table class="controls-table">
+          <tr><th>Command</th><th>Action</th></tr>
+          <tr><td><code>GRINDER.AppImage launch &lt;id&gt;</code></td><td>Launch a game headlessly by its GRINDER ID.</td></tr>
+          <tr><td><code>GRINDER.AppImage search &lt;name&gt;</code></td><td>Open GRINDER with the search box pre-filled.</td></tr>
+          <tr><td><code>GRINDER.AppImage setup &lt;id&gt;</code></td><td>Open the Edit modal for a specific game.</td></tr>
+          <tr><td><code>GRINDER.AppImage install &lt;store&gt; &lt;id&gt; [dir]</code></td><td>Headless install (used by CREMA). Store: <code>gog</code> or <code>epic</code>.</td></tr>
+          <tr><td><code>GRINDER.AppImage uninstall-headless &lt;store&gt; &lt;id&gt;</code></td><td>Headless uninstall (used by CREMA).</td></tr>
+        </table>
+
+        <h2 id="man-11">11. SETTINGS REFERENCE</h2>
+
+        <h3>Launch Engine</h3>
+        <ul>
+          <li><strong>Default Proton Path</strong> &mdash; The Proton version used for all games that don't have a per-game override. Set this after scanning your Proton versions.</li>
+          <li><strong>Default Prefix Directory</strong> &mdash; Where Wine prefixes are created. Each game gets its own subfolder named after its title. Defaults to <code>~/.config/grinder/prefixes/</code>.</li>
+        </ul>
+
+        <h3>Epic Games (Legendary)</h3>
+        <p>Shows your login status. Login and Logout buttons appear as appropriate. legendary is bundled with GRINDER — no separate install is needed.</p>
+
+        <h3>GOG</h3>
+        <p>Shows your login status and whether gogdl is found. Login and Logout buttons appear as appropriate. Place the <code>gogdl</code> binary next to <code>GRINDER.AppImage</code> if it is not detected.</p>
+
+        <h3>Install GE-Proton</h3>
+        <p>Downloads GE-Proton releases directly from GitHub. See Section 8 for the full workflow.</p>
+
+        <h3>Proton Versions</h3>
+        <p>Lists all detected Proton versions with type (GE-Proton, Steam Proton, etc.) and path. Scan to update the list. Set Default and Delete buttons per version. See Section 8.</p>
+
+        <h3>External Tools</h3>
+        <p>Live status of legendary, gogdl, umu-run, and wine. Shows whether each is bundled, a system install, or not found. Includes the one-click umu-run installer when umu-run is absent.</p>
+
+        <h3>About</h3>
+        <p><strong>Show Welcome Screen</strong> &mdash; Reopens the first-launch guide with live tool status. The welcome screen also resets for next launch.</p>
+
+        <div class="support-box">
+          <h4>SUPPORT CAFE NEUROTICO</h4>
+          <p style="font-size: 14px; margin-bottom: 5px; color: var(--text_sec);">If this project helped you play your games on Linux, consider buying me a coffee! It helps keep the project alive. <b>"MORE CAFFEINE IS <u style="color: var(--text_main);">MORE GOOD</u>"</b></p>
+          <p style="font-size: 14px; margin-bottom: 25px; font-weight: bold; color: var(--text_main);">If you do so, <a href="mailto:shampooisalie@gmail.com" style="color: var(--accent); text-decoration: underline;">LET ME KNOW</a> so I can thank you personally! :)</p>
+          <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 30px;">
+            <a href="https://ko-fi.com/cafeneurotico" target="_blank" class="btn-secondary" style="padding: 10px 20px; font-size: 14px; border-color: #FF5E5B; color: #FF5E5B; text-decoration: none; font-weight: bold;">☕ Donate via Ko-fi (Intl)</a>
+            <button class="btn-secondary" style="padding: 10px 20px; font-size: 14px; border-color: #32BCAD; color: #32BCAD; font-weight: bold;" onclick="openPixModal()">🇧🇷 PIX Key: QR CODE</button>
+          </div>
+          <a href="https://ko-fi.com/cafeneurotico" target="_blank" style="display: block; text-decoration: none;">
+            <img src="assets/images/coffee_banner.jpg" alt="Cafe Neurotico - Buy us a coffee!" class="support-banner">
+          </a>
+        </div>
+
+        <div style="text-align: center; margin-top: 60px; padding: 20px; border: 1px solid var(--border_solid); background-color: var(--bg_panel); border-radius: 8px; margin-bottom: 20px;">
+          <p style="color: var(--accent); font-weight: bold;">=========================================</p>
+          <h3 style="color: var(--text_main); margin: 5px 0;">/// END OF FILE ///</h3>
+          <p style="color: var(--text_sec); font-family: monospace; font-size: 12px; margin: 2px;">GRIND COMPLETE. ALL BEANS ACCOUNTED FOR.</p>
+          <p style="color: var(--text_sec); font-family: monospace; font-size: 12px; margin: 2px;">COPYRIGHT &copy; 2026 Shampoo is a Lie.</p>
+          <p style="color: var(--text_sec); font-family: monospace; font-size: 12px; margin: 2px;">Not affiliated with GOG, Epic Games, GloriousEggroll, or Valve.</p>
+          <p style="color: var(--accent); font-weight: bold; margin-top: 15px;">NOW GO PLAY SOME GAMES.</p>
+          <p style="color: var(--accent); font-weight: bold; margin-bottom: 0;">=========================================</p>
+        </div>
+        <p style="text-align: center; font-size: 14px; margin-bottom: 30px;">Contact: <a href="mailto:shampooisalie@gmail.com" style="color: var(--accent); text-decoration: none; font-weight: bold;">shampooisalie@gmail.com</a></p>
+
+        <div style="display: flex; justify-content: center; gap: 12px; margin-bottom: 50px; flex-wrap: wrap;">
+          <a href="https://github.com/shampoo-is-a-lie/GRINDER" target="_blank" class="btn-secondary" style="display: flex; align-items: center; gap: 10px; padding: 10px 20px; text-decoration: none; font-weight: bold; font-size: 14px; border-color: var(--accent); color: var(--accent); border-radius: 8px;">
+            <img src="assets/images/github_cngm.svg" alt="GitHub" style="width: 24px; height: 24px;">
+            GRINDER on GitHub
+          </a>
+          <a href="manual.html" class="btn-secondary" style="display: flex; align-items: center; gap: 10px; padding: 10px 20px; text-decoration: none; font-weight: bold; font-size: 14px; border-color: var(--border_solid); border-radius: 8px;">
+            CNGM Manual
+          </a>
+          <a href="crema_manual.html" class="btn-secondary" style="display: flex; align-items: center; gap: 10px; padding: 10px 20px; text-decoration: none; font-weight: bold; font-size: 14px; border-color: var(--border_solid); border-radius: 8px;">
+            CREMA Manual
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openPixModal()  { document.getElementById('pix-modal').classList.remove('hidden'); }
+    function closePixModal() { document.getElementById('pix-modal').classList.add('hidden'); }
+    function copyPixKey() {
+      navigator.clipboard.writeText('b734a9e2-e479-42f9-abd6-c88d1b8b880e').then(() => {
+        const msg = document.getElementById('pix-copy-msg');
+        msg.style.opacity = 1;
+        setTimeout(() => { msg.style.opacity = 0; }, 2000);
+      });
+    }
+    window.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closePixModal();
+    });
+    function toggleMenu() {
+      document.getElementById('nav-links').classList.toggle('show');
+    }
+
+    // Sidebar navigation — scroll to section on click
+    document.querySelectorAll('.nav-btn[data-target]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const target = document.getElementById(btn.dataset.target);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Theme switcher
+    const THEMES = {
+      "DARK GRAY":  {bg:"#141414",bg_panel:"rgba(0,0,0,0.5)",bg_menu:"#222222",accent:"#9EAAB8",accent_menu:"#B8C8D8",text_main:"#ffffff",text_sec:"#bbbbbb",text_dim:"#777777",border:"rgba(255,255,255,0.1)",border_solid:"#555555"},
+      "CREMA":      {bg:"#2C1E16",bg_panel:"rgba(67,40,24,0.6)",bg_menu:"#432818",accent:"#D4A373",accent_menu:"#D4A373",text_main:"#FFE6A7",text_sec:"#E6CC98",text_dim:"#A47148",border:"rgba(212,163,115,0.2)",border_solid:"#8B5A2B"},
+      "CYBERPUNK":  {bg:"#09090b",bg_panel:"rgba(26,26,46,0.7)",bg_menu:"#1a1a2e",accent:"#f3e600",accent_menu:"#00ffcc",text_main:"#00ffcc",text_sec:"#e0e0e0",text_dim:"#ff003c",border:"rgba(243,230,0,0.2)",border_solid:"#ff003c"},
+      "VAPOUR OS":  {bg:"#171a21",bg_panel:"rgba(27,40,56,0.7)",bg_menu:"#1b2838",accent:"#66c0f4",accent_menu:"#66c0f4",text_main:"#c7d5e0",text_sec:"#8f98a0",text_dim:"#556b82",border:"rgba(102,192,244,0.2)",border_solid:"#2a475e"},
+      "DRACULA":    {bg:"#282a36",bg_panel:"rgba(68,71,90,0.7)",bg_menu:"#44475a",accent:"#bd93f9",accent_menu:"#ff79c6",text_main:"#f8f8f2",text_sec:"#8be9fd",text_dim:"#8290bc",border:"rgba(189,147,249,0.2)",border_solid:"#8290bc"},
+      "NORD":       {bg:"#2e3440",bg_panel:"rgba(59,66,82,0.8)",bg_menu:"#3b4252",accent:"#88c0d0",accent_menu:"#81a1c1",text_main:"#eceff4",text_sec:"#e5e9f0",text_dim:"#7a8ba0",border:"rgba(136,192,208,0.2)",border_solid:"#5e6f84"},
+    };
+    const sel = document.getElementById('theme-select');
+    Object.keys(THEMES).forEach(name => {
+      const opt = document.createElement('option');
+      opt.value = name; opt.textContent = name;
+      if (name === 'DARK GRAY') opt.selected = true;
+      sel.appendChild(opt);
+    });
+    sel.addEventListener('change', () => {
+      const t = THEMES[sel.value]; if (!t) return;
+      const r = document.documentElement.style;
+      Object.entries(t).forEach(([k, v]) => r.setProperty('--' + k, v));
+    });
+  </script>
+
+</body>
+</html>
