@@ -27,7 +27,8 @@
       --bg_panel: rgba(0,0,0,0.5);
       --bg_menu: #222222;
       --accent: #00e5ff;
-      --accent_alt: #D4A373; /* Crema Accent */
+      --accent_alt: #D4A373;    /* Crema Accent */
+      --accent_grinder: #9EAAB8; /* GRINDER steel grey */
       --text_main: #ffffff;
       --text_sec: #bbbbbb;
       --text_dim: #777777;
@@ -240,8 +241,9 @@
     .split-content h2 { font-size: clamp(32px, 4vw, 42px); font-weight: 900; margin-top: 0; margin-bottom: 20px; color: var(--text_main); line-height: 1.2; }
     .split-content p { font-size: 18px; color: var(--text_sec); margin-bottom: 30px; }
 
-    .cngm-accent { color: var(--accent) !important; }
-    .crema-accent { color: var(--accent_alt) !important; }
+    .cngm-accent    { color: var(--accent) !important; }
+    .crema-accent   { color: var(--accent_alt) !important; }
+    .grinder-accent { color: var(--accent_grinder) !important; }
 
     /* Features Grid */
     .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px; }
@@ -446,6 +448,7 @@
       <a href="index.html" style="color: var(--accent);">Home</a>
       <a href="#cngm">CNGM</a>
       <a href="#crema">CREMA</a>
+      <a href="#grinder">GRINDER</a>
       <a href="faq.html">FAQ</a>
       <a href="wallpapers.html">CN Wallpapers</a>
       <a href="#support">Buy me a coffee</a>
@@ -508,6 +511,29 @@
           <button class="car-btn car-prev" onclick="event.stopPropagation(); cremaCar.prev()">&#x276E;</button>
           <button class="car-btn car-next" onclick="event.stopPropagation(); cremaCar.next()">&#x276F;</button>
           <div class="car-counter" id="crema-counter">1 / 10</div>
+          <div class="car-hint">tap to open gallery</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="grinder">
+    <div class="split-section">
+      <div class="split-content">
+        <span class="section-tag grinder-accent">THE ROBOT-BARISTA</span>
+        <h2>Cafe Neurotico: GRINDER</h2>
+        <p>The engine room. Your personal robot-barista, built exclusively for GOG and Epic games. GRINDER handles the entire brew — downloading through gogdl and Legendary, configuring Proton, managing Wine prefixes, installing compatibility files, and reading each game's official launch arguments. Mechanical precision from authentication to first frame. Zero shortcuts, full control.</p>
+        <div class="btn-group">
+          <a href="https://github.com/shampoo-is-a-lie/GRINDER" target="_blank" class="btn btn-secondary" style="border-color: var(--accent_grinder); color: var(--accent_grinder);">⚙ View on GitHub</a>
+          <button class="btn btn-secondary" onclick="openGallery('grinder')" style="border-color: var(--accent_grinder); color: var(--accent_grinder);">🖼️ View Gallery</button>
+        </div>
+      </div>
+      <div class="split-image" style="border-color: var(--accent_grinder); overflow: hidden; padding: 0;">
+        <div class="screenshot-carousel" id="grinder-carousel" onclick="openGallery('grinder')">
+          <img id="grinder-slideshow" src="" alt="GRINDER Screenshot">
+          <button class="car-btn car-prev" onclick="event.stopPropagation(); grinderCar.prev()">&#x276E;</button>
+          <button class="car-btn car-next" onclick="event.stopPropagation(); grinderCar.next()">&#x276F;</button>
+          <div class="car-counter" id="grinder-counter">1 / 5</div>
           <div class="car-hint">tap to open gallery</div>
         </div>
       </div>
@@ -680,11 +706,13 @@
       return { next, prev };
     }
 
-    const cngmImages  = shuffleArray(Array.from({length: 14}, (_, i) => `assets/images/cngm_scr_${String(i+1).padStart(2,'0')}.jpg`));
-    const cremaImages = shuffleArray(Array.from({length: 14}, (_, i) => `assets/images/crema_scr_${String(i+1).padStart(2,'0')}.jpg`));
+    const cngmImages    = shuffleArray(Array.from({length: 14}, (_, i) => `assets/images/cngm_scr_${String(i+1).padStart(2,'0')}.jpg`));
+    const cremaImages   = shuffleArray(Array.from({length: 14}, (_, i) => `assets/images/crema_scr_${String(i+1).padStart(2,'0')}.jpg`));
+    const grinderImages = shuffleArray(Array.from({length: 5},  (_, i) => `assets/images/grinder_scr_${String(i+1).padStart(2,'0')}.jpg`));
 
-    const cngmCar  = makeCarousel('cngm-slideshow',  'cngm-counter',  'cngm-carousel',  cngmImages,  5000);
-    const cremaCar = makeCarousel('crema-slideshow', 'crema-counter', 'crema-carousel', cremaImages, 6500);
+    const cngmCar    = makeCarousel('cngm-slideshow',    'cngm-counter',    'cngm-carousel',    cngmImages,    5000);
+    const cremaCar   = makeCarousel('crema-slideshow',   'crema-counter',   'crema-carousel',   cremaImages,   6500);
+    const grinderCar = makeCarousel('grinder-slideshow', 'grinder-counter', 'grinder-carousel', grinderImages, 5500);
 
     // Hero Background Ken Burns Logic
     const heroBgContainer = document.getElementById('hero-bg-container');
@@ -708,8 +736,9 @@
     }, 8000);
 
     // Fullscreen Gallery Modal
-    const fullCngmGallery  = Array.from({length: 14}, (_, i) => `assets/images/cngm_scr_${String(i+1).padStart(2,'0')}.jpg`);
-    const fullCremaGallery = Array.from({length: 14}, (_, i) => `assets/images/crema_scr_${String(i+1).padStart(2,'0')}.jpg`);
+    const fullCngmGallery    = Array.from({length: 14}, (_, i) => `assets/images/cngm_scr_${String(i+1).padStart(2,'0')}.jpg`);
+    const fullCremaGallery   = Array.from({length: 14}, (_, i) => `assets/images/crema_scr_${String(i+1).padStart(2,'0')}.jpg`);
+    const fullGrinderGallery = Array.from({length: 5},  (_, i) => `assets/images/grinder_scr_${String(i+1).padStart(2,'0')}.jpg`);
 
     let activeGalleryArray = [];
     let activeGalleryIndex = 0;
@@ -719,9 +748,9 @@
     const galleryCounter  = document.getElementById('gallery-counter');
 
     function openGallery(appType) {
-      activeGalleryArray = appType === 'cngm' ? fullCngmGallery : fullCremaGallery;
+      activeGalleryArray = appType === 'cngm' ? fullCngmGallery : appType === 'grinder' ? fullGrinderGallery : fullCremaGallery;
       activeGalleryIndex = 0;
-      galleryImage.style.borderColor = appType === 'cngm' ? 'var(--accent)' : 'var(--accent_alt)';
+      galleryImage.style.borderColor = appType === 'cngm' ? 'var(--accent)' : appType === 'grinder' ? 'var(--accent_grinder)' : 'var(--accent_alt)';
       galleryImage.src = activeGalleryArray[0];
       galleryCounter.textContent = `1 / ${activeGalleryArray.length}`;
       galleryBackdrop.classList.remove('hidden');
