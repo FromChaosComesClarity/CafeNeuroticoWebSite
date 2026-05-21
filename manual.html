@@ -298,7 +298,7 @@
               <h2>1. MANIFESTO &amp; PHILOSOPHY</h2>
               <div class="manual-box">
                   <p class="manual-box-title">YOUR LIBRARY. MANAGEABLE. SEARCHABLE. PORTABLE.</p>
-                  <p>I wanted an app that could organize and launch all my games &mdash; from Steam, Heroic (Epic and GOG), Flatpak, Emulators, or whatever &mdash; in just one place.</p>
+                  <p>I wanted an app that could organize and launch all my games &mdash; from Steam, GOG, Epic, Flatpak, Emulators, or whatever &mdash; in just one place.</p>
                   <p>I wanted it to be complete with all the features I've always wished I had in a Linux game manager: checking YouTube videos, HowLongToBeat, and ProtonDB right from inside the app, among other things.</p>
                   <p>I wanted it to be simple, beautiful and themeable.</p>
                   <p>And most importantly, I wanted it to be completely <strong>PORTABLE</strong> and <strong>BACKUPABLE</strong>.</p>
@@ -313,7 +313,7 @@
 
                   <p class="manual-box-title">THE LAUNCH COMMAND</p>
                   <p>The crucial feature. Inside the Edit Details screen, there is a field where you can put a command to launch any game. Anything goes &mdash; if you can run it on Linux, you can run it from here.</p>
-                  <p><strong>If you imported your games via Steam or Heroic Sync, the launch commands are filled in automatically, even if the game is not installed. Clicking PLAY will prompt you to install it.</strong></p>
+                  <p><strong>If you imported your games via Steam sync or store sync (Heroic, GRINDER), the launch commands are filled in automatically, even if the game is not installed. Clicking PLAY will prompt you to install it.</strong></p>
               </div>
 
               <h2 id="man-2">2. QUICK START</h2>
@@ -339,7 +339,7 @@
               <h3>Recommended First-Run Workflow</h3>
               <ol>
                   <li>On first launch, the <strong>Welcome &amp; Setup Guide</strong> appears &mdash; follow its steps for the fastest setup.</li>
-                  <li>Open <strong>Connect</strong> and sync your stores &mdash; Heroic first, then Steam.</li>
+                  <li>Open <strong>Connect</strong> and sync your stores &mdash; Steam, and Heroic if you have it installed.</li>
                   <li>Open <strong>Tools &rarr; Library</strong> and run <strong>Batch Fetch Missing Data</strong> to pull artwork for all synced games at once.</li>
                   <li>Set up <strong>SteamGridDB</strong> (free key at steamgriddb.com) and <strong>IGDB</strong> (free Twitch dev key at dev.twitch.tv) in the Connect menu.</li>
                   <li>Place <code>CREMA.AppImage</code> in the same folder as CNGM to activate the fullscreen companion.</li>
@@ -349,8 +349,8 @@
               <h2 id="man-3">3. ADDING GAMES &amp; STORE SYNC</h2>
               <p>Click <strong>Connect</strong> in the sidebar. All data is stored locally &mdash; no cloud accounts required.</p>
 
-              <h3>Heroic Sync (Epic / GOG / Amazon) &mdash; Recommended</h3>
-              <p>CNGM reads Heroic&rsquo;s local config files directly &mdash; no login, no API key. It imports everything you own, installed or not, <strong>with the correct native launch commands already filled in</strong>. Amazon Games are also included if connected in Heroic.</p>
+              <h3>Heroic Sync (Epic / GOG) &mdash; Optional</h3>
+              <p>If you already have Heroic Games Launcher installed, CNGM can read its local config files directly &mdash; no login, no API key. It imports your Epic and GOG library with the correct native launch commands already filled in. Not needed if you use GRINDER for GOG and Epic.</p>
 
               <h3>Steam API Import</h3>
               <p>Get a free API Key at <code>steamcommunity.com/dev/apikey</code> and find your 17-digit <strong>SteamID64</strong> at steamid.io. Enter both in the Connect menu.</p>
@@ -362,7 +362,7 @@
               <p>Get free credentials at <code>dev.twitch.tv</code> &mdash; register a Twitch developer app and copy the Client ID and Secret into the Connect menu. Auto-Fetch then pulls IGDB data (franchise info, ratings, co-op data) alongside Steam data.</p>
 
               <h3>GOG Direct Login</h3>
-              <p>Opens a secure internal browser. Log in and close it &mdash; CNGM imports your owned GOG titles. <strong>This method cannot auto-generate launch commands</strong>, so connecting GOG to Heroic and using Heroic Sync is strongly recommended instead.</p>
+              <p>Opens a secure internal browser. Log in and close it &mdash; CNGM imports your owned GOG titles. <strong>This method cannot auto-generate launch commands.</strong> Use GRINDER (which handles the full download, install, and launch pipeline) or Heroic Sync if you want launch commands filled in automatically.</p>
 
               <h3>Adding Games Manually</h3>
               <p>Hit <strong>+ Add Game</strong>, enter the title, then use <strong>✨ Auto-Fetch</strong> in Edit Details to pull all metadata and artwork automatically. For Physical, Emulation, or other non-store games, type any terminal command in the Launch Command field.</p>
@@ -374,7 +374,7 @@
                 <p><strong>Recommended pattern:</strong> Use <code>Others, itch.io</code> instead of just <code>itch.io</code>. The comma-separated value means the game still shows under the <strong>Others</strong> sidebar filter (which matches anything containing the word &ldquo;others&rdquo;), and is also searchable by typing <code>itch.io</code>. Using just the custom name alone works fine too &mdash; it will be searchable but won&rsquo;t appear under any sidebar filter button.</p>
               </div>
               <div class="warn-box">
-                <p><strong>Avoid accidental keyword matches:</strong> Don&rsquo;t include <code>steam</code>, <code>epic</code>, <code>gog</code>, <code>heroic</code>, <code>amazon</code>, <code>physical</code>, <code>others</code>, <code>emulation</code>, or <code>apps</code> unintentionally in a custom name &mdash; the sidebar filters use a simple text match, so a store named <code>steam-like</code> would show up under the Steam filter.</p>
+                <p><strong>Avoid accidental keyword matches:</strong> Don&rsquo;t include <code>steam</code>, <code>epic</code>, <code>gog</code>, <code>heroic</code>, <code>physical</code>, <code>others</code>, <code>emulation</code>, or <code>apps</code> unintentionally in a custom name &mdash; the sidebar filters use a simple text match, so a store named <code>steam-like</code> would show up under the Steam filter.</p>
               </div>
 
               <h2 id="man-4">4. VIEWS &amp; NAVIGATION</h2>
@@ -389,7 +389,7 @@
               <h3>Sidebar Filters</h3>
               <ul>
                   <li><strong>All Games / Installed / Favs / Want</strong></li>
-                  <li><strong>Steam / Epic / GOG / Amazon</strong> &mdash; by store</li>
+                  <li><strong>Steam / Epic / GOG</strong> &mdash; by store</li>
                   <li><strong>Physical / Others / Emulation / Apps</strong> &mdash; manual categories</li>
               </ul>
 
@@ -405,14 +405,14 @@
               <h3>How Detection Works</h3>
               <ul>
                   <li><strong>Steam:</strong> Scans <code>appmanifest_*.acf</code> files across all Steam library folders (including secondary drives). A live file watcher updates status automatically when you install or uninstall in Steam.</li>
-                  <li><strong>Heroic (Epic / GOG / Amazon):</strong> Reads Heroic&rsquo;s <code>installed.json</code>. Refresh with Sync Heroic or Check Installed Games.</li>
+                  <li><strong>Heroic (Epic / GOG):</strong> If Heroic is installed, reads its <code>installed.json</code>. Refresh with Sync Heroic or Check Installed Games.</li>
                   <li><strong>Physical / Others / Emulation / Apps:</strong> Considered installed only if a Launch Command is saved. Adding the command marks it installed immediately.</li>
               </ul>
 
               <h3>Install / Play Buttons</h3>
-              <p>Uninstalled games show an <strong>INSTALL</strong> button in Gallery and List view. For Steam/Heroic it opens the relevant store install page. For manual categories it opens the Add Command dialog.</p>
+              <p>Uninstalled games show an <strong>INSTALL</strong> button in Gallery and List view. For Steam it opens the Steam install page; for GOG and Epic games it opens GRINDER. For manual categories it opens the Add Command dialog.</p>
               <div class="tip-box">
-                <p><strong>Check Installed Games</strong> in Tools &rarr; Library rescans your entire library at once. Use it after a Heroic library update.</p>
+                <p><strong>Check Installed Games</strong> in Tools &rarr; Library rescans your entire library at once &mdash; Steam appmanifests, GRINDER data, and Heroic files if present.</p>
               </div>
 
               <h2 id="man-6">6. THE GAMEPAGE</h2>
@@ -487,7 +487,7 @@
               <ul>
                   <li><strong>Refresh Heroic New Games:</strong> Opens Heroic, watches for library changes, auto-syncs when Heroic finishes. Use after buying a new game.</li>
                   <li><strong>Batch Fetch Missing Data:</strong> Scans all five asset types for every game and silently pulls whatever is missing from Steam.</li>
-                  <li><strong>Check Installed Games:</strong> Rescans Steam appmanifests and Heroic files, updating installed status for your entire library.</li>
+                  <li><strong>Check Installed Games:</strong> Rescans Steam appmanifests, GRINDER data, and Heroic files (if present), updating installed status for your entire library.</li>
                   <li><strong>Export / Import CSV:</strong> Move your library in and out of spreadsheet format. CSV Template downloads a blank sheet with all correct column headers.</li>
               </ul>
 
