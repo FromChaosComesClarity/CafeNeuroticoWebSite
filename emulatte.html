@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EmuLatte — I use RetroArch BTW</title>
+  <meta name="description" content="EmuLatte 1.0 — a ROM library manager for Linux. 56 systems, five scraping sources, RetroAchievements, trailers, and a gamepad-first Couch Mode for the TV. Local-only, no cloud.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Cafe Neurotico">
+  <meta property="og:title" content="EmuLatte 1.0 — I use RetroArch BTW">
+  <meta property="og:description" content="A ROM library manager for Linux: 56 systems, multi-source art, RetroAchievements, trailers, and a fullscreen Couch Mode for the TV.">
+  <meta property="og:image" content="https://shampoo-is-a-lie.github.io/CafeNeuroticoWebSite/assets/images/bg_01.jpg">
+  <meta property="og:url" content="https://shampoo-is-a-lie.github.io/CafeNeuroticoWebSite/emulatte.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Raleway:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --amber:#ffb000; --amber-dim:#9a6a00;
+      --chalk:#f4efe6; --chalk-dim:#bcae97;
+      --board:#1d2420; --board2:#161b18;
+      --crema:#D4A373; --kofi:#FF5E5B; --pix:#32BCAD;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{background:#0a0a0a;color:var(--chalk);font-family:'Raleway',sans-serif;overflow-x:hidden}
+    a{color:inherit}
+
+    /* ───────────── BOOT TERMINAL ───────────── */
+    #boot{
+      position:fixed;inset:0;z-index:100;background:#050805;
+      display:flex;align-items:center;justify-content:center;
+      font-family:'VT323',monospace;cursor:pointer;
+      transition:opacity .7s ease, transform .7s ease;
+    }
+    #boot.done{opacity:0;transform:scale(1.04);pointer-events:none}
+    #boot-inner{
+      width:min(760px,92vw);color:var(--amber);
+      font-size:clamp(15px,2.4vw,22px);line-height:1.5;
+      text-shadow:0 0 6px rgba(255,176,0,.45);padding:24px;
+      white-space:pre-wrap;
+    }
+    #boot-log .ok{color:#7CFC68;text-shadow:0 0 6px rgba(124,252,104,.45)}
+    #boot-log .big{color:var(--crema);text-shadow:0 0 10px rgba(212,163,115,.5)}
+    .cursor{display:inline-block;width:.6ch;background:var(--amber);
+      animation:blink 1s steps(1) infinite;text-shadow:none}
+    @keyframes blink{50%{opacity:0}}
+    #boot-skip{position:absolute;bottom:22px;left:0;right:0;text-align:center;
+      color:var(--amber-dim);font-size:14px;letter-spacing:1px;opacity:0;transition:opacity .5s}
+    /* CRT scanlines + flicker */
+    #boot::after{content:"";position:absolute;inset:0;pointer-events:none;
+      background:repeating-linear-gradient(rgba(0,0,0,0) 0 2px, rgba(0,0,0,.28) 2px 4px);
+      mix-blend-mode:multiply;animation:flick 5s infinite}
+    @keyframes flick{0%,100%{opacity:1}48%{opacity:.92}50%{opacity:.97}}
+
+    /* ───────────── CHALKBOARD ───────────── */
+    #chalk{
+      min-height:100%;opacity:0;transition:opacity .9s ease .15s;
+      background:
+        radial-gradient(120% 80% at 50% -10%, rgba(255,255,255,.05), transparent 60%),
+        radial-gradient(80% 60% at 80% 110%, rgba(212,163,115,.06), transparent 60%),
+        var(--board);
+      position:relative;
+    }
+    #chalk.show{opacity:1}
+    /* faint chalk-dust grain */
+    #chalk::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.04;
+      background-image:radial-gradient(circle at 20% 30%, #fff 0 1px, transparent 1px),
+        radial-gradient(circle at 70% 60%, #fff 0 1px, transparent 1px),
+        radial-gradient(circle at 40% 80%, #fff 0 1px, transparent 1px);
+      background-size:140px 140px,200px 200px,170px 170px}
+    .wrap{max-width:780px;margin:0 auto;padding:64px 24px 80px;text-align:center;position:relative;z-index:1}
+
+    .kicker{font-family:'Caveat',cursive;font-size:clamp(26px,5vw,40px);color:var(--chalk-dim);
+      transform:rotate(-2deg);margin-bottom:6px}
+    .wordmark{font-family:'Raleway',sans-serif;font-weight:900;letter-spacing:.14em;
+      font-size:clamp(30px,7vw,62px);line-height:1.05;text-transform:uppercase}
+    .wordmark .dot{color:var(--crema)}
+    .rule{width:min(380px,80%);height:0;border-top:2px dashed var(--chalk-dim);opacity:.5;margin:18px auto 8px}
+    .sub{font-family:'Caveat',cursive;font-size:clamp(22px,4vw,30px);color:var(--crema)}
+
+    /* ── download ── */
+    .download{margin:34px auto 6px}
+    .btn-dl{display:inline-flex;align-items:center;gap:12px;font-family:'Raleway';font-weight:900;
+      letter-spacing:.08em;font-size:clamp(15px,2.4vw,18px);text-transform:uppercase;
+      padding:16px 32px;border-radius:10px;border:2px solid var(--amber);color:#141414;
+      background:var(--amber);text-decoration:none;transition:.18s;
+      box-shadow:0 10px 30px rgba(255,176,0,.22)}
+    .btn-dl:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(255,176,0,.32)}
+    .dl-meta{font-family:'VT323',monospace;font-size:19px;color:var(--amber-dim);margin-top:12px;letter-spacing:1px}
+    .dl-meta b{color:var(--amber)}
+
+    .menu{margin:42px auto 8px;max-width:520px;text-align:left}
+    .item{display:flex;align-items:baseline;gap:14px;padding:13px 0;
+      border-bottom:1px dashed rgba(244,239,230,.18)}
+    .item .name{font-family:'Raleway';font-weight:900;letter-spacing:.12em;font-size:15px;min-width:132px;text-transform:uppercase}
+    .item .desc{font-family:'Caveat',cursive;font-size:22px;color:var(--chalk-dim);line-height:1.1}
+    .tagline{font-family:'Caveat',cursive;font-size:clamp(24px,4.5vw,34px);color:var(--chalk);margin:36px 0 4px;transform:rotate(-1deg)}
+
+    /* ── section headings ── */
+    .sect{margin-top:56px;padding-top:32px;border-top:2px dashed rgba(244,239,230,.18)}
+    .sect h4{font-family:'Caveat',cursive;font-size:clamp(28px,5vw,36px);color:var(--crema);margin-bottom:4px}
+    .sect .lead{color:var(--chalk-dim);font-size:14px;line-height:1.7;max-width:560px;margin:0 auto}
+
+    /* ── feature board ── */
+    .feats{margin:26px auto 0;max-width:600px;text-align:left}
+    .feat{padding:15px 0;border-bottom:1px dashed rgba(244,239,230,.14)}
+    .feat h5{font-family:'Raleway';font-weight:900;letter-spacing:.09em;font-size:13.5px;
+      text-transform:uppercase;color:var(--chalk);margin-bottom:5px}
+    .feat p{font-family:'Caveat',cursive;font-size:20px;line-height:1.35;color:var(--chalk-dim)}
+
+    /* ── ecosystem cards ── */
+    .eco{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:26px;text-align:left}
+    .eco-card{background:rgba(0,0,0,.22);border:1px solid rgba(244,239,230,.14);border-radius:12px;padding:20px}
+    .eco-card .tag{display:inline-block;font-family:'VT323',monospace;font-size:15px;letter-spacing:1px;
+      color:var(--amber);border:1px solid var(--amber-dim);border-radius:5px;padding:1px 9px;margin-bottom:10px}
+    .eco-card h5{font-family:'Raleway';font-weight:900;letter-spacing:.1em;font-size:15px;text-transform:uppercase;margin-bottom:4px}
+    .eco-card .quip{font-family:'Caveat',cursive;font-size:19px;color:var(--crema);margin-bottom:8px}
+    .eco-card p{color:var(--chalk-dim);font-size:13.5px;line-height:1.65}
+    .eco-card a{color:var(--crema);font-weight:700;text-decoration:none;font-size:13px;display:inline-block;margin-top:10px}
+    .eco-card a:hover{text-decoration:underline}
+
+    /* ── screenshot gallery ── */
+    /* breaks out of the 780px column so the shots are readable */
+    .shots{margin-top:24px;width:min(1120px,92vw);position:relative;left:50%;transform:translateX(-50%)}
+    .shots-group{margin-top:22px}
+    .shots-group > .glabel{font-family:'VT323',monospace;font-size:17px;letter-spacing:2px;
+      color:var(--amber);text-transform:uppercase;text-align:left;margin-bottom:10px;
+      border-bottom:1px dashed rgba(255,176,0,.25);padding-bottom:4px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+    /* a lone shot would otherwise stretch across the whole board */
+    .grid.solo{max-width:540px}
+    .shot{margin:0;cursor:zoom-in;text-align:left}
+    .shot img{width:100%;height:auto;display:block;border-radius:9px;border:1px solid rgba(244,239,230,.16);
+      background:var(--board2);box-shadow:0 8px 20px rgba(0,0,0,.42);transition:.2s}
+    .shot:hover img{transform:translateY(-3px);border-color:var(--crema);
+      box-shadow:0 14px 28px rgba(0,0,0,.55)}
+    .shot figcaption{font-family:'Caveat',cursive;font-size:18px;color:var(--chalk-dim);
+      line-height:1.2;margin-top:7px}
+
+    /* lightbox */
+    #lb{position:fixed;inset:0;z-index:300;background:rgba(5,6,5,.985);
+      display:flex;align-items:center;justify-content:center;flex-direction:column;padding:24px}
+    #lb.hidden{display:none}
+    #lb img{max-width:min(1500px,94vw);max-height:82vh;border-radius:10px;
+      border:1px solid rgba(244,239,230,.2);box-shadow:0 20px 60px rgba(0,0,0,.7)}
+    #lb-cap{font-family:'Caveat',cursive;font-size:22px;color:var(--crema);margin-top:14px;text-align:center}
+    #lb-count{font-family:'VT323',monospace;font-size:16px;color:var(--amber-dim);letter-spacing:2px;margin-top:2px}
+    .lb-btn{position:absolute;background:rgba(0,0,0,.5);border:1px solid rgba(244,239,230,.25);
+      color:var(--chalk);font-size:26px;line-height:1;width:46px;height:46px;border-radius:50%;
+      cursor:pointer;transition:.18s;display:flex;align-items:center;justify-content:center}
+    .lb-btn:hover{background:var(--crema);color:#141414;border-color:var(--crema)}
+    #lb-prev{left:18px;top:50%;transform:translateY(-50%)}
+    #lb-next{right:18px;top:50%;transform:translateY(-50%)}
+    #lb-close{top:18px;right:18px;font-size:20px}
+
+    /* support */
+    .support{margin-top:56px;padding-top:32px;border-top:2px dashed rgba(244,239,230,.18)}
+    .support h4{font-family:'Caveat',cursive;font-size:30px;color:var(--crema);margin-bottom:6px}
+    .support p{color:var(--chalk-dim);font-size:14px;line-height:1.7;max-width:520px;margin:0 auto 4px}
+    .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:22px 0 6px}
+    .btn{font-family:'Raleway';font-weight:700;font-size:14px;letter-spacing:.04em;
+      padding:11px 20px;border-radius:8px;border:1.5px solid;background:transparent;cursor:pointer;
+      text-decoration:none;transition:.18s;display:inline-flex;align-items:center;gap:9px}
+    .btn:hover{transform:translateY(-2px)}
+    .btn.kofi{border-color:var(--kofi);color:var(--kofi)}
+    .btn.kofi:hover{background:rgba(255,94,91,.12)}
+    .btn.pix{border-color:var(--pix);color:var(--pix)}
+    .btn.pix:hover{background:rgba(50,188,173,.12)}
+    .btn.gh{border-color:var(--chalk-dim);color:var(--chalk)}
+    .btn.gh:hover{background:rgba(244,239,230,.08)}
+    .banner{display:block;max-width:340px;width:80%;margin:8px auto 0;border-radius:10px;
+      opacity:.92;transition:.2s;box-shadow:0 12px 28px rgba(0,0,0,.5)}
+    .banner:hover{opacity:1;transform:scale(1.02)}
+    .foot{margin-top:46px;color:var(--chalk-dim);font-size:13px;line-height:1.9}
+    .foot a{color:var(--crema)}
+
+    /* PIX modal */
+    .modal{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.8);
+      display:flex;align-items:center;justify-content:center;padding:20px}
+    .modal.hidden{display:none}
+    .modal-card{background:var(--board2);border:1px solid var(--pix);border-radius:14px;
+      padding:28px;max-width:340px;text-align:center;position:relative}
+    .modal-card h3{color:var(--pix);font-weight:900;letter-spacing:1px;font-family:'Raleway'}
+    .modal-card .x{position:absolute;top:12px;right:14px;background:none;border:none;color:var(--chalk-dim);font-size:20px;cursor:pointer}
+    .modal-card img{width:230px;height:230px;border-radius:8px;margin:18px 0;border:2px solid var(--pix)}
+    .pixkey{font-size:13px;color:var(--chalk-dim);word-break:break-all;user-select:all;margin-bottom:16px}
+    #pix-msg{color:var(--pix);font-size:12px;font-weight:700;margin-top:10px;opacity:0;transition:opacity .3s}
+    @media(max-width:520px){.item{flex-direction:column;gap:2px}.item .name{min-width:0}}
+  </style>
+</head>
+<body>
+
+  <!-- ░░░░░ FAUX BOOT TERMINAL ░░░░░ -->
+  <div id="boot" title="click to skip">
+    <div id="boot-inner"><span id="boot-log"></span><span class="cursor">&nbsp;</span></div>
+    <div id="boot-skip">click anywhere to skip ▸</div>
+  </div>
+
+  <!-- ░░░░░ CHALKBOARD LANDING ░░░░░ -->
+  <main id="chalk">
+    <div class="wrap">
+      <div class="kicker">on the emulation side ☕</div>
+      <div class="wordmark">EmuLatte<span class="dot">.</span></div>
+      <div class="rule"></div>
+      <div class="sub">a ROM library, properly filed</div>
+
+      <div class="download">
+        <a class="btn-dl" href="https://github.com/shampoo-is-a-lie/EmuLatte/releases/latest" target="_blank" rel="noopener">⬇ Download for Linux</a>
+        <div class="dl-meta">version <b>1.0</b> · single AppImage · GPL-3.0</div>
+      </div>
+
+      <div class="menu">
+        <div class="item"><span class="name">Library</span><span class="desc">56 systems, filed the way you'd file them</span></div>
+        <div class="item"><span class="name">Scrapers</span><span class="desc">five sources, one picker, art that stays put</span></div>
+        <div class="item"><span class="name">Couch Mode</span><span class="desc">the fullscreen, gamepad-first face for the TV</span></div>
+      </div>
+
+      <div class="tagline">“I use <u>RetroArch</u> BTW”</div>
+
+      <!-- ░░ what's in the cup ░░ -->
+      <div class="sect">
+        <h4>what's in the cup</h4>
+        <p class="lead">A ROM library manager that does the boring parts properly — and a whole second face for when you're done managing and want to actually play something.</p>
+        <div class="feats">
+          <div class="feat">
+            <h5>56 systems, with opinions</h5>
+            <p>Every preset arrives with a RetroArch core already chosen and the platform IDs the scrapers need. You point it at a folder; it does the rest. Your ROM files are never moved, copied or renamed.</p>
+          </div>
+          <div class="feat">
+            <h5>It finds your emulators for you</h5>
+            <p>The emulator scanner sweeps the machine for what's already installed — RetroArch native, Flatpak, standalone cores — and maps them to systems without you typing a single launch command.</p>
+          </div>
+          <div class="feat">
+            <h5>Five scraping sources, one picker</h5>
+            <p>ScreenScraper, SteamGridDB, TheGamesDB, IGDB and MobyGames. Take metadata from one and artwork from another. Everything lands on your disk and stays there.</p>
+          </div>
+          <div class="feat">
+            <h5>Its own RetroArch, untouched by yours</h5>
+            <p>EmuLatte drives a config of its own — your <b>retroarch.cfg</b> is never read and never written. Per-system and per-game overrides for the one game that needs a different core.</p>
+          </div>
+          <div class="feat">
+            <h5>Achievements, trailers, and the actual manual</h5>
+            <p>RetroAchievements progress per game. Trailers fetched with a bundled yt-dlp. And the scanned booklet that came in the box, pulled straight from ScreenScraper.</p>
+          </div>
+          <div class="feat">
+            <h5>Couch Mode</h5>
+            <p>Fullscreen, gamepad-first, play-only — with three real layouts including a genuine 640×480 CRT mode. Save states, a screenshot screensaver, ambient sound, and a return combo that brings you back mid-game.</p>
+          </div>
+          <div class="feat">
+            <h5>92 themes, 10 families</h5>
+            <p>Both faces carry all of them — including twenty retro operating systems, each with its own era typeface. MS-DOS, Workbench, NeXTSTEP, green phosphor. Fonts bundled; nothing phones home.</p>
+          </div>
+          <div class="feat">
+            <h5>Local-only. Yours.</h5>
+            <p>One folder next to the AppImage holds the lot. No account, no telemetry, no cloud. Copy the folder and your library comes with you.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ░░ screenshots ░░ -->
+      <div class="sect">
+        <h4>a look inside</h4>
+        <p class="lead">Click any shot to open it full size.</p>
+        <div class="shots">
+          <!-- SHOTS GO HERE -->
+        </div>
+      </div>
+
+      <!-- ░░ the rest of the ecosystem ░░ -->
+      <div class="sect">
+        <h4>also on the menu</h4>
+        <p class="lead">Separate apps, same roof. EmuLatte is complete on its own — these are here if you want them.</p>
+        <div class="eco">
+          <div class="eco-card">
+            <span class="tag">OPTIONAL</span>
+            <h5>Cafe Neurotico</h5>
+            <div class="quip">“more caffeine is more good”</div>
+            <p>The rest of the library — Steam, GOG, Epic, Flatpak, itch.io and PICO-8 — in one Electron binary with three faces: the Manager, GRINDER and CREMA. Your ROM collection stays here in EmuLatte; you pick which games cross over by <b>exporting them to Cafe Neurotico from inside EmuLatte</b>, and those arrive as ordinary entries under an <b>Emulation</b> category.</p>
+            <a href="index.html">Get Cafe Neurotico ▸</a>
+          </div>
+          <div class="eco-card">
+            <span class="tag">OPTIONAL</span>
+            <h5>CafeNeurotico Clock</h5>
+            <div class="quip">“a desk clock with taste”</div>
+            <p>A standalone clock that runs a slow slideshow of your library's artwork — Ken Burns pans, configurable faces. Point it at your collection and let it sit on a second screen.</p>
+            <a href="https://github.com/shampoo-is-a-lie/CafeNeuroticoClock" target="_blank" rel="noopener">Get the Clock ▸</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- support -->
+      <div class="support" id="support">
+        <h4>tip the barista</h4>
+        <p>If EmuLatte sorted out your ROM collection, consider buying me a coffee — it keeps the pot warm.</p>
+        <p style="color:var(--chalk)"><b>If you do, <a href="mailto:shampooisalie@gmail.com" style="color:var(--crema)">let me know</a> so I can thank you personally! :)</b></p>
+        <div class="btns">
+          <a href="https://ko-fi.com/cafeneurotico" target="_blank" rel="noopener" class="btn kofi">☕ Ko-fi (Intl)</a>
+          <button class="btn pix" onclick="openPix()">🇧🇷 PIX — QR Code</button>
+          <a href="https://github.com/shampoo-is-a-lie/EmuLatte" target="_blank" rel="noopener" class="btn gh">★ GitHub</a>
+        </div>
+        <a href="https://ko-fi.com/cafeneurotico" target="_blank" rel="noopener">
+          <img class="banner" src="assets/images/coffee_banner.jpg" alt="Cafe Neurotico — buy us a coffee!">
+        </a>
+      </div>
+
+      <div class="foot">
+        Built by J.R.A. · Contact: <a href="mailto:shampooisalie@gmail.com">shampooisalie@gmail.com</a><br>
+        <a href="index.html">Cafe Neurotico</a> · <a href="support.html">support page</a> · <a href="https://github.com/shampoo-is-a-lie/EmuLatte" target="_blank" rel="noopener">source on GitHub</a> · GPL-3.0-or-later
+      </div>
+    </div>
+  </main>
+
+  <!-- screenshot lightbox -->
+  <div id="lb" class="hidden" role="dialog" aria-modal="true" aria-label="Screenshot viewer">
+    <button class="lb-btn" id="lb-close" aria-label="Close">✕</button>
+    <button class="lb-btn" id="lb-prev" aria-label="Previous">‹</button>
+    <button class="lb-btn" id="lb-next" aria-label="Next">›</button>
+    <img id="lb-img" src="" alt="">
+    <div id="lb-cap"></div>
+    <div id="lb-count"></div>
+  </div>
+
+  <!-- PIX modal -->
+  <div id="pix-modal" class="modal hidden">
+    <div class="modal-card">
+      <button class="x" onclick="closePix()">✕</button>
+      <h3>DONATE VIA PIX</h3>
+      <img src="assets/images/pixqrcode.jpg" alt="PIX QR Code">
+      <div class="pixkey">b734a9e2-e479-42f9-abd6-c88d1b8b880e</div>
+      <button class="btn pix" style="width:100%;justify-content:center" onclick="copyPix()">COPY PIX KEY</button>
+      <div id="pix-msg">Copied to clipboard!</div>
+    </div>
+  </div>
+
+  <script>
+    // ── Boot sequence ──
+    const log = document.getElementById('boot-log');
+    const boot = document.getElementById('boot');
+    const chalk = document.getElementById('chalk');
+    const skip = document.getElementById('boot-skip');
+    const PROMPT = 'emulatte@linux';
+    // [innerHTML, delayAfter(ms)]
+    const LINES = [
+      [PROMPT + ':~$ ./pour', 380],
+      ['[ <b class="ok">ok</b> ] mounting ROM libraries......... 56 systems', 260],
+      ['[ <b class="ok">ok</b> ] scanning installed cores....... found',     260],
+      ['[ <b class="ok">ok</b> ] waking RetroArch............... own config',260],
+      ['[ <b class="ok">ok</b> ] warming the couch.............. ready',     420],
+      ['', 120],
+      ['<b class="big">▓▓ EMULATTE 1.0 ▓▓</b>', 160],
+      ['&gt; I use RetroArch BTW.', 700],
+    ];
+    let done = false;
+    function enter(){
+      if(done) return; done = true;
+      // Own key, so this intro and Cafe Neurotico's don't suppress each other.
+      try{ sessionStorage.setItem('el_booted','1'); }catch(e){}
+      boot.classList.add('done');
+      chalk.classList.add('show');
+      setTimeout(()=>{ boot.style.display='none'; }, 800);
+    }
+    boot.addEventListener('click', enter);
+    document.addEventListener('keydown', ()=>{ if(!done) enter(); });
+
+    function typeLine(i){
+      if(i >= LINES.length){ skip.style.opacity=0; setTimeout(()=>{ if(!done) enter(); }, 900); return; }
+      log.innerHTML += (i ? '\n' : '') + LINES[i][0];
+      setTimeout(()=>typeLine(i+1), LINES[i][1]);
+    }
+
+    // Returning visitors this session skip straight to the board.
+    let alreadyBooted = false;
+    try{ alreadyBooted = sessionStorage.getItem('el_booted') === '1'; }catch(e){}
+    if(alreadyBooted){ done=true; boot.style.display='none'; chalk.classList.add('show'); }
+    else { setTimeout(()=>skip.style.opacity=1, 1200); typeLine(0); }
+
+    // ── Screenshot lightbox ──
+    const shots = Array.from(document.querySelectorAll('.shot'));
+    const lb = document.getElementById('lb');
+    const lbImg = document.getElementById('lb-img');
+    const lbCap = document.getElementById('lb-cap');
+    const lbCount = document.getElementById('lb-count');
+    let lbIndex = 0;
+
+    function showShot(i){
+      lbIndex = (i + shots.length) % shots.length;
+      const fig = shots[lbIndex];
+      lbImg.src = fig.dataset.full;
+      lbImg.alt = fig.querySelector('img').alt;
+      lbCap.textContent = fig.querySelector('figcaption').textContent;
+      lbCount.textContent = (lbIndex + 1) + ' / ' + shots.length;
+    }
+    function openLb(i){ showShot(i); lb.classList.remove('hidden'); }
+    function closeLb(){ lb.classList.add('hidden'); lbImg.src = ''; }
+
+    shots.forEach((fig, i) => fig.addEventListener('click', () => openLb(i)));
+    document.getElementById('lb-close').addEventListener('click', closeLb);
+    document.getElementById('lb-prev').addEventListener('click', e => { e.stopPropagation(); showShot(lbIndex - 1); });
+    document.getElementById('lb-next').addEventListener('click', e => { e.stopPropagation(); showShot(lbIndex + 1); });
+    lb.addEventListener('click', e => { if(e.target === lb || e.target === lbImg) closeLb(); });
+    document.addEventListener('keydown', e => {
+      if(lb.classList.contains('hidden')) return;
+      if(e.key === 'Escape') closeLb();
+      if(e.key === 'ArrowLeft') showShot(lbIndex - 1);
+      if(e.key === 'ArrowRight') showShot(lbIndex + 1);
+    });
+
+    // ── PIX modal ──
+    function openPix(){ document.getElementById('pix-modal').classList.remove('hidden'); }
+    function closePix(){ document.getElementById('pix-modal').classList.add('hidden'); }
+    function copyPix(){
+      navigator.clipboard.writeText('b734a9e2-e479-42f9-abd6-c88d1b8b880e').then(()=>{
+        const m=document.getElementById('pix-msg'); m.style.opacity=1; setTimeout(()=>m.style.opacity=0,2000);
+      });
+    }
+    document.getElementById('pix-modal').addEventListener('click', e=>{ if(e.target.id==='pix-modal') closePix(); });
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePix(); });
+  </script>
+</body>
+</html>
