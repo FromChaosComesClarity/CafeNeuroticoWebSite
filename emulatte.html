@@ -130,6 +130,9 @@
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
     /* a lone shot would otherwise stretch across the whole board */
     .grid.solo{max-width:540px}
+    /* Couch Mode shots are 21:9 — at the default track width they'd come out postage-stamp tall */
+    .grid.wide{grid-template-columns:repeat(auto-fit,minmax(420px,1fr))}
+    @media(max-width:480px){.grid.wide{grid-template-columns:1fr}}
     .shot{margin:0;cursor:zoom-in;text-align:left}
     .shot img{width:100%;height:auto;display:block;border-radius:9px;border:1px solid rgba(244,239,230,.16);
       background:var(--board2);box-shadow:0 8px 20px rgba(0,0,0,.42);transition:.2s}
@@ -263,7 +266,92 @@
         <h4>a look inside</h4>
         <p class="lead">Click any shot to open it full size.</p>
         <div class="shots">
-          <!-- SHOTS GO HERE -->
+
+          <div class="shots-group">
+            <div class="glabel">▸ The desktop face</div>
+            <div class="grid">
+              <figure class="shot" data-full="assets/screens/desktop-library.webp">
+                <img src="assets/screens/desktop-library-thumb.webp" loading="lazy" width="640" height="447" alt="The library view: a wide hero banner above a grid of game covers, with a search bar and system rail">
+                <figcaption>the whole collection, one shelf</figcaption>
+              </figure>
+              <figure class="shot" data-full="assets/screens/desktop-systems.webp">
+                <img src="assets/screens/desktop-systems-thumb.webp" loading="lazy" width="640" height="447" alt="The Sega Dreamcast system filtered in the sidebar, with its own hero art and cover grid below">
+                <figcaption>one system at a time, with its own hero</figcaption>
+              </figure>
+              <figure class="shot" data-full="assets/screens/desktop-edit.webp">
+                <img src="assets/screens/desktop-edit-thumb.webp" loading="lazy" width="640" height="444" alt="The edit screen for Altered Beast, showing editable metadata fields beside the cover, hero and logo art slots">
+                <figcaption>for when the scraper guesses wrong</figcaption>
+              </figure>
+              <figure class="shot" data-full="assets/screens/desktop-playlists.webp">
+                <img src="assets/screens/desktop-playlists-thumb.webp" loading="lazy" width="640" height="447" alt="The Add to Playlist dialog listing playlists such as Arcade Best, Fight, Multiplayer and Racing">
+                <figcaption>playlists that cut across systems</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <div class="shots-group">
+            <div class="glabel">▸ RetroArch &amp; save states</div>
+            <div class="grid">
+              <figure class="shot" data-full="assets/screens/ra-express.webp">
+                <img src="assets/screens/ra-express-thumb.webp" loading="lazy" width="640" height="446" alt="The Express RetroArch settings pane in a light theme, with plain-language options for screen, ratio and shaders">
+                <figcaption>RetroArch, explained in plain language</figcaption>
+              </figure>
+              <figure class="shot" data-full="assets/screens/ra-per-game.webp">
+                <img src="assets/screens/ra-per-game-thumb.webp" loading="lazy" width="640" height="446" alt="Per-game RetroArch settings for Altered Beast, overriding monitor, fullscreen, aspect ratio and shader">
+                <figcaption>for the one game that needs something different</figcaption>
+              </figure>
+              <figure class="shot" data-full="assets/screens/save-manager.webp">
+                <img src="assets/screens/save-manager-thumb.webp" loading="lazy" width="640" height="447" alt="The save-state manager: a grid of save thumbnails across 125 games, styled like a console memory card">
+                <figcaption>every save state you own, memory-card style</figcaption>
+              </figure>
+              <figure class="shot" data-full="assets/screens/save-states-game.webp">
+                <img src="assets/screens/save-states-game-thumb.webp" loading="lazy" width="640" height="447" alt="The save states for Altered Beast, showing one labelled save with its in-game screenshot">
+                <figcaption>drop straight back into a save</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <div class="shots-group">
+            <div class="glabel">▸ Themes, trailers &amp; manuals</div>
+            <div class="grid">
+              <figure class="shot" data-full="assets/screens/themes-systems.webp">
+                <img src="assets/screens/themes-systems-thumb.webp" loading="lazy" width="640" height="446" alt="The theme picker open on the Systems family, each swatch previewing a retro operating system in its own era typeface">
+                <figcaption>twenty retro systems, each in its own typeface</figcaption>
+              </figure>
+              <figure class="shot" data-full="assets/screens/trailer-player.webp">
+                <img src="assets/screens/trailer-player-thumb.webp" loading="lazy" width="640" height="444" alt="A game trailer playing in the built-in video player">
+                <figcaption>trailers downloaded, not streamed</figcaption>
+              </figure>
+              <figure class="shot" data-full="assets/screens/game-manual.webp">
+                <!-- thumb is a top crop so this portrait page doesn't blow out the row height; the lightbox shows it whole -->
+                <img src="assets/screens/game-manual-thumb.webp" loading="lazy" width="640" height="446" alt="The scanned Rush'n Attack instruction booklet for the NES, open in the game manual viewer">
+                <figcaption>the booklet that came in the box</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <div class="shots-group">
+            <div class="glabel">▸ Couch Mode — the TV face</div>
+            <div class="grid wide">
+              <figure class="shot" data-full="assets/screens/couch-carousel.webp">
+                <img src="assets/screens/couch-carousel-thumb.webp" loading="lazy" width="640" height="268" alt="Couch Mode's start carousel, showing systems as large cards with Atari 2600 selected">
+                <figcaption>pick a system without getting up</figcaption>
+              </figure>
+              <figure class="shot" data-full="assets/screens/couch-wall.webp">
+                <img src="assets/screens/couch-wall-thumb.webp" loading="lazy" width="640" height="268" alt="Couch Mode's cover wall for Sega Mega Drive, with a hero banner above the grid">
+                <figcaption>the cover wall, on the television</figcaption>
+              </figure>
+              <figure class="shot" data-full="assets/screens/couch-list.webp">
+                <img src="assets/screens/couch-list-thumb.webp" loading="lazy" width="640" height="268" alt="Couch Mode browsing the Atari 2600 as a list, with artwork and metadata for H.E.R.O. beside it">
+                <figcaption>list and details, gamepad-first</figcaption>
+              </figure>
+              <figure class="shot" data-full="assets/screens/couch-gamepage.webp">
+                <img src="assets/screens/couch-gamepage-thumb.webp" loading="lazy" width="640" height="268" alt="The Couch Mode game page for Snatcher on Sega CD, with hero art, metadata and screenshots">
+                <figcaption>the game page, built for a sofa</figcaption>
+              </figure>
+            </div>
+          </div>
+
         </div>
       </div>
 
