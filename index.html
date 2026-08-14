@@ -133,6 +133,11 @@
     .board .bcta{font-family:'VT323',monospace;font-size:20px;color:var(--crema);letter-spacing:.5px;
       display:inline-block;margin-top:14px}
     a.board:hover .bcta{text-decoration:underline}
+    /* The headline board states the main thing; the two specials sit under it as a pair. */
+    .board.wide{grid-column:1/-1;border-color:rgba(255,176,0,.42)}
+    a.board.wide:hover{border-color:var(--amber)}
+    .board.wide h3{font-size:clamp(19px,3vw,25px)}
+    .board.wide p{font-size:14.5px;max-width:66ch}
 
     /* ── ecosystem cards ── */
     .eco{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:26px;text-align:left}
@@ -246,6 +251,16 @@
       <!-- ░░ the specials boards ░░ -->
       <div class="boards">
 
+        <a class="board wide" href="#cup">
+          <span class="bmark">the house blend &#9749;</span>
+          <h3>One Library, Every Store</h3>
+          <p><b>Steam, GOG, Epic, Flatpak, itch.io, PICO-8, emulators</b> &mdash; and anything else you can start
+             from a command line. One shelf, with the covers, the hero art, the playtime and the manuals kept on
+             your own disk. Sign in to GOG and Epic without ever leaving the app: installs, updates and save
+             backups all happen in the same window.</p>
+          <span class="bcta">&rsaquo; what&rsquo;s in the cup</span>
+        </a>
+
         <a class="board" href="fixes.html">
           <span class="bmark">the specials board &#128295;</span>
           <h3>Fixed Individually</h3>
@@ -267,13 +282,13 @@
       </div>
 
       <!-- ░░ what's in the cup ░░ -->
-      <div class="sect">
+      <div class="sect" id="cup">
         <h4>what's in the cup</h4>
         <p class="lead">Three apps that used to ship separately, now one Electron binary with three faces — one runtime, one database, one download.</p>
         <div class="feats">
           <div class="feat">
             <h5>One library, every store</h5>
-            <p>Steam, GOG, Epic, Flatpak, itch.io, PICO-8, emulators — and anything else you can start from a command line. Sign in to GOG and Epic without ever leaving the app.</p>
+            <p>Every shop on one shelf — Steam, GOG, Epic, Flatpak, itch.io, PICO-8 and your emulators — alongside anything you can start from a command line. Own the same game twice? It is one entry, and pressing Play asks which copy.</p>
           </div>
           <div class="feat">
             <h5>Installs that stay in the app</h5>
