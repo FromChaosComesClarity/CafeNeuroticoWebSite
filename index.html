@@ -118,7 +118,6 @@
       text-transform:uppercase;color:var(--chalk);margin-bottom:5px}
     .only-item p{font-family:'Caveat',cursive;font-size:20px;line-height:1.35;color:var(--chalk-dim)}
 
-    /* ── by-name game fixes ── */
     /* ── the specials boards ── */
     .boards{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:18px;margin:46px 0 4px;text-align:left}
     .board{position:relative;background:rgba(0,0,0,.3);border:2px solid rgba(212,163,115,.42);border-radius:14px;
@@ -134,18 +133,6 @@
     .board .bcta{font-family:'VT323',monospace;font-size:20px;color:var(--crema);letter-spacing:.5px;
       display:inline-block;margin-top:14px}
     a.board:hover .bcta{text-decoration:underline}
-    .board .bnote{font-family:'Caveat',cursive;font-size:20px;color:var(--crema);display:block;margin-top:14px;line-height:1.3}
-
-    .fixes{display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:14px;margin-top:26px;text-align:left}
-    .fix{background:rgba(0,0,0,.22);border:1px solid rgba(244,239,230,.14);border-radius:12px;padding:18px 20px}
-    .fix .game{font-family:'Raleway';font-weight:900;letter-spacing:.06em;font-size:14px;color:var(--crema);margin-bottom:9px;line-height:1.3}
-    .fix .sym{font-family:'Caveat',cursive;font-size:19px;color:var(--chalk);line-height:1.3;margin-bottom:9px}
-    .fix .why{color:var(--chalk-dim);font-size:12.5px;line-height:1.6}
-    .fix .why b{color:var(--chalk);font-weight:700}
-    /* An odd card left alone on the last row reads as a mistake; centre it. */
-    .fix:last-child:nth-child(odd){grid-column:1/-1;justify-self:center;max-width:calc(50% - 7px)}
-    @media(max-width:620px){.fix:last-child:nth-child(odd){max-width:none}}
-    .fixnote{font-family:'Caveat',cursive;font-size:19px;color:var(--chalk-dim);margin-top:22px;line-height:1.4}
 
     /* ── ecosystem cards ── */
     .eco{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:26px;text-align:left}
@@ -262,29 +249,20 @@
         <a class="board" href="fixes.html">
           <span class="bmark">the specials board &#128295;</span>
           <h3>Fixed Individually</h3>
-          <p>Not &ldquo;improved compatibility&rdquo;. Named games, named faults. <b>OutRun 2006</b> opens to a
-             white screen and looks frozen on the SEGA logo &mdash; it is really grinding through a minute of
-             intro videos, so the intro is skipped. <b>Resident Evil 2</b> came up untranslated because Wine
-             loaded its own graphics library over the Classic REbirth patch &mdash; the game&rsquo;s own copy
-             now wins.</p>
-          <p style="margin-top:10px">Each one cost an evening to work out. None of them needs to be configured,
-             and the list keeps growing.</p>
+          <p>Not &ldquo;improved compatibility&rdquo;. <b>Named games, named faults</b> &mdash; the white screen
+             on OutRun 2006, the untranslated Resident Evil 2, the DOSBox window that vanishes. Each one an
+             evening&rsquo;s work, none of them anything you have to configure.</p>
           <span class="bcta">&rsaquo; see the whole list</span>
         </a>
 
-        <div class="board">
+        <a class="board" href="ports.html">
           <span class="bmark">also on the board &#127918;</span>
-          <h3>Source Ports &amp; Mods, Easy-Peasy</h3>
-          <p>Nobody sets out to install GZDoom; they set out to play <b>Brutal Doom</b>. So mods, source ports
-             and Build-engine games are entries in their own right &mdash; Ironwail, vkQuake, Raze, ECWolf,
-             Blood, Duke Nukem 3D, PowerSlave, OpenBOR titles &mdash; each installing its engine if you
-             haven&rsquo;t got one and landing in your library under the game&rsquo;s own name.</p>
-          <p style="margin-top:10px"><b>You bring the download; the game data comes from the library you
-             already own.</b> Install Ironwail and Quake&rsquo;s paks are linked out of your GOG copy. Install a
-             Doom mod and every IWAD you own is offered when you press Play &mdash; because which Doom to run
-             it on is an evening&rsquo;s mood, not an install-time decision.</p>
-          <span class="bnote">no wiki, no command line, no launcher of its own</span>
-        </div>
+          <h3>Source Ports &amp; Mods</h3>
+          <p>Nobody sets out to install GZDoom; they set out to play <b>Brutal Doom</b>. So the mod is the
+             entry, the engine comes with it, and <b>the game data is taken from the library you already
+             own</b>. Twenty-five of them, one click each.</p>
+          <span class="bcta">&rsaquo; see what&rsquo;s on the menu</span>
+        </a>
 
       </div>
 
@@ -389,35 +367,6 @@
           </div></div>
 
         </div>
-      </div>
-
-      <!-- ░░ games that have been fixed individually ░░ -->
-      <div class="sect">
-        <h4>games that have been fixed individually</h4>
-        <p class="lead">Not "improved compatibility". These are real games that did not work on Linux, and what turned out to be wrong with each one.</p>
-        <div class="fixes">
-
-          <div class="fix">
-            <div class="game">Fallout: New California</div>
-            <div class="sym">“Fallout: New Vegas does not appear to be installed.” Please insert the DVD.</div>
-            <p class="why">Every file downloaded perfectly — but GOG's installer normally performs three finishing steps afterwards, and nothing on Linux was doing them. <b>Now applied at launch</b>, repairing an install you already have, no reinstall.</p>
-          </div>
-
-          <div class="fix">
-            <div class="game">Realms of Arkania 1 &amp; 2 · Albion</div>
-            <div class="sym">DOSBox opens for half a second, then vanishes.</div>
-            <p class="why">Two faults at once: the configuration files GOG's installer copies were never copied, and the game was being started from the wrong folder — so DOSBox looked for the game one level too high and quit. <b>Both fixed.</b></p>
-          </div>
-
-          <div class="fix">
-            <div class="game">Colony Ship</div>
-            <div class="sym">Stuck at 50.5% for an hour. Downloading fast. Getting nowhere.</div>
-            <p class="why">One file was damaged on one of GOG's servers — half of it, then the connection closed, every single time — and the download kept asking that same server for it. <b>Now it checks each piece and switches servers.</b></p>
-          </div>
-
-
-        </div>
-        <p class="fixnote">Six of them so far, and counting — <a href="fixes.html" style="color:var(--crema)">see the whole list</a>.<br>Found one that misbehaves? <a href="https://github.com/shampoo-is-a-lie/CafeNeurotico/issues" target="_blank" rel="noopener" style="color:var(--crema)">Open an issue</a> — this list is how it gets fixed.</p>
       </div>
 
       <!-- ░░ screenshots ░░ -->
