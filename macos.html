@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cafe Neurotico — macOS, Experimental</title>
+  <meta name="description" content="Cafe Neurotico now runs on Apple Silicon Macs — the same codebase, a second host, still labelled Experimental. What works today, what doesn't yet, and how to install an unsigned build.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Cafe Neurotico">
+  <meta property="og:title" content="Cafe Neurotico on macOS — Experimental">
+  <meta property="og:description" content="A second host, same codebase. Steam/GOG/Epic, the full library, and native GOG/Epic installs work today; Windows games are next.">
+  <meta property="og:image" content="https://shampoo-is-a-lie.github.io/CafeNeuroticoWebSite/assets/images/coffee_banner.jpg">
+  <meta property="og:url" content="https://shampoo-is-a-lie.github.io/CafeNeuroticoWebSite/macos.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Raleway:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --amber:#ffb000; --amber-dim:#9a6a00;
+      --chalk:#f4efe6; --chalk-dim:#bcae97;
+      --board:#1d2420; --board2:#161b18;
+      --crema:#D4A373; --kofi:#FF5E5B; --pix:#32BCAD;
+      --mac:#e58a70;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{min-height:100%}
+    body{background:#0a0a0a;color:var(--chalk);font-family:'Raleway',sans-serif;overflow-x:hidden}
+    a{color:inherit}
+
+    #chalk{
+      min-height:100vh;
+      background:
+        radial-gradient(120% 80% at 50% -10%, rgba(255,255,255,.05), transparent 60%),
+        radial-gradient(80% 60% at 80% 110%, rgba(212,163,115,.06), transparent 60%),
+        var(--board);
+      position:relative;
+    }
+    #chalk::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.04;
+      background-image:radial-gradient(circle at 20% 30%, #fff 0 1px, transparent 1px),
+        radial-gradient(circle at 70% 60%, #fff 0 1px, transparent 1px),
+        radial-gradient(circle at 40% 80%, #fff 0 1px, transparent 1px);
+      background-size:140px 140px,200px 200px,170px 170px}
+    .wrap{max-width:820px;margin:0 auto;padding:30px 24px 80px;text-align:center;position:relative;z-index:1}
+
+    .back{display:inline-block;font-family:'VT323',monospace;font-size:19px;color:var(--chalk-dim);
+      text-decoration:none;letter-spacing:.5px;margin-bottom:34px;transition:.18s}
+    .back:hover{color:var(--crema)}
+
+    .kicker{font-family:'Caveat',cursive;font-size:clamp(26px,5vw,40px);color:var(--chalk-dim);
+      transform:rotate(-2deg);margin-bottom:6px}
+    .wordmark{font-family:'Raleway',sans-serif;font-weight:900;letter-spacing:.14em;
+      font-size:clamp(26px,6vw,48px);line-height:1.05;text-transform:uppercase}
+    .wordmark .badge{display:inline-block;vertical-align:middle;font-family:'VT323',monospace;
+      font-size:15px;letter-spacing:2px;color:var(--mac);border:1px solid var(--mac);
+      border-radius:6px;padding:3px 10px;margin-left:10px;text-transform:uppercase}
+    .rule{width:min(380px,80%);height:0;border-top:2px dashed var(--chalk-dim);opacity:.5;margin:18px auto 8px}
+    .sub{font-family:'Caveat',cursive;font-size:clamp(22px,4vw,30px);color:var(--crema)}
+
+    .lead{color:var(--chalk-dim);font-size:14px;line-height:1.8;max-width:640px;margin:26px auto 0}
+    .lead b{color:var(--chalk)}
+
+    .sect{margin-top:52px;padding-top:34px;border-top:2px dashed rgba(244,239,230,.18);text-align:left}
+    .sect h4{font-family:'Caveat',cursive;font-size:30px;color:var(--crema);margin-bottom:6px;text-align:center}
+    .sect .lead2{color:var(--chalk-dim);font-size:14px;line-height:1.8;max-width:640px;margin:0 auto 22px;text-align:center}
+
+    .only{margin:0 auto;max-width:640px}
+    .only-item{display:flex;gap:14px;padding:15px 0;border-bottom:1px dashed rgba(244,239,230,.14)}
+    .only-mark{font-family:'VT323',monospace;font-size:19px;flex-shrink:0;line-height:1.5;opacity:.9}
+    .only-mark.ok{color:#7CFC68}
+    .only-mark.no{color:var(--chalk-dim)}
+    .only-item h5{font-family:'Raleway';font-weight:900;letter-spacing:.09em;font-size:13.5px;
+      text-transform:uppercase;color:var(--chalk);margin-bottom:5px}
+    .only-item p{color:var(--chalk-dim);font-size:13.5px;line-height:1.6}
+
+    .steps{margin:0 auto;max-width:640px;counter-reset:step}
+    .step{display:flex;gap:16px;padding:14px 0;border-bottom:1px dashed rgba(244,239,230,.14)}
+    .step:last-child{border-bottom:none}
+    .step .n{counter-increment:step;font-family:'VT323',monospace;font-size:20px;color:var(--mac);
+      flex-shrink:0;width:26px;text-align:center}
+    .step .n::before{content:counter(step)}
+    .step p{color:var(--chalk-dim);font-size:13.5px;line-height:1.7}
+    .step p b{color:var(--chalk)}
+    .step code{background:rgba(0,0,0,.4);border:1px solid rgba(244,239,230,.18);border-radius:5px;
+      padding:1px 6px;font-family:'VT323',monospace;font-size:14px;color:var(--amber)}
+    .codeblock{display:block;background:rgba(0,0,0,.4);border:1px solid rgba(244,239,230,.18);
+      border-radius:8px;padding:12px 14px;margin-top:8px;font-family:'VT323',monospace;
+      font-size:15px;color:var(--amber);overflow-x:auto;white-space:pre}
+
+    table.paths{width:100%;border-collapse:collapse;margin:0 auto;max-width:640px;font-size:13px}
+    table.paths th{font-family:'Raleway';font-weight:900;letter-spacing:.06em;text-transform:uppercase;
+      font-size:11.5px;color:var(--chalk-dim);text-align:left;padding:0 0 10px;border-bottom:1px dashed rgba(244,239,230,.25)}
+    table.paths td{padding:12px 0;border-bottom:1px dashed rgba(244,239,230,.14);color:var(--chalk-dim);vertical-align:top}
+    table.paths td:first-child{color:var(--chalk);padding-right:14px;white-space:nowrap}
+    table.paths td code{font-family:'VT323',monospace;font-size:14px;color:var(--amber)}
+
+    .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:26px 0 8px}
+    .btn{font-family:'Raleway';font-weight:700;font-size:14px;letter-spacing:.04em;
+      padding:11px 20px;border-radius:8px;border:1.5px solid;background:transparent;
+      text-decoration:none;transition:.18s;display:inline-flex;align-items:center;gap:9px}
+    .btn:hover{transform:translateY(-2px)}
+    .btn.gh{border-color:var(--chalk-dim);color:var(--chalk)}
+    .btn.gh:hover{background:rgba(244,239,230,.08)}
+    .btn.dl{border-color:var(--mac);color:var(--mac)}
+    .btn.dl:hover{background:rgba(229,138,112,.12)}
+
+    .note{font-family:'Caveat',cursive;font-size:20px;color:var(--chalk-dim);margin-top:26px;line-height:1.5;text-align:center}
+    .note a{color:var(--crema)}
+
+    .foot{margin-top:46px;color:var(--chalk-dim);font-size:13px;line-height:1.9;text-align:center}
+    .foot a{color:var(--crema)}
+  </style>
+</head>
+<body>
+  <div id="chalk">
+    <div class="wrap">
+      <a class="back" href="index.html">&lt; back to cafeneurotico</a>
+
+      <div class="kicker">a second host &#127822;</div>
+      <div class="wordmark">macOS<span class="badge">experimental</span></div>
+      <div class="rule"></div>
+      <div class="sub">same codebase · Apple Silicon</div>
+
+      <p class="lead">Linux stays the primary platform &mdash; it is what gets tested first and ships
+        fastest. The macOS build lives behind its own file in the same codebase rather than a fork, and
+        it is real, not a proof of concept: <b>Steam, GOG and Epic sign-in, the full library, and
+        installing and launching native GOG/Epic games all work today</b>, through the app&rsquo;s own
+        download engine, not a browser hand-off. It is labelled Experimental because it is younger and
+        unsigned, not because it is a demo.</p>
+
+      <div class="btns">
+        <a class="btn dl" href="https://github.com/shampoo-is-a-lie/CafeNeurotico/releases/latest" target="_blank" rel="noopener">⤓ Download for macOS</a>
+        <a class="btn gh" href="https://github.com/shampoo-is-a-lie/CafeNeurotico" target="_blank" rel="noopener">Source on GitHub</a>
+      </div>
+
+      <div class="sect">
+        <h4>what works today</h4>
+        <div class="only">
+          <div class="only-item"><span class="only-mark ok">&#10003;</span><div>
+            <h5>The full library</h5>
+            <p>Steam, GOG and Epic sign-in, sync and browsing, across all three faces &mdash; the Manager, CREMA, and GRINDER.</p>
+          </div></div>
+          <div class="only-item"><span class="only-mark ok">&#10003;</span><div>
+            <h5>Native GOG &amp; Epic installs</h5>
+            <p>Real downloads through the suite&rsquo;s own <code style="font-family:'VT323',monospace;color:var(--amber)">gogdl</code>/<code style="font-family:'VT323',monospace;color:var(--amber)">legendary</code>, for games that ship an Apple Silicon build &mdash; not a link out to a browser.</p>
+          </div></div>
+          <div class="only-item"><span class="only-mark ok">&#10003;</span><div>
+            <h5>Knowing which games are actually native</h5>
+            <p>A Mac-Native filter sits next to Steam/GOG/Epic in the library, with a small apple badge on the cover art of anything that qualifies. GOG/Epic are checked instantly from data the app already has; Steam needs one manual scan since it is a live per-game lookup.</p>
+          </div></div>
+          <div class="only-item"><span class="only-mark ok">&#10003;</span><div>
+            <h5>Everything that is not platform-specific</h5>
+            <p>Artwork, genres, playlists, save-game backups, themes &mdash; all of it, because almost all of the app is the same code that runs on Linux.</p>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="sect">
+        <h4>what doesn't work yet</h4>
+        <div class="only">
+          <div class="only-item"><span class="only-mark no">&#9656;</span><div>
+            <h5>Windows games</h5>
+            <p>No compatibility layer is wired in yet, so a Windows-only GOG/Epic title will not install or launch. This is the current focus, and it is not a small gap &mdash; it is the next real chunk of the port.</p>
+          </div></div>
+          <div class="only-item"><span class="only-mark no">&#9656;</span><div>
+            <h5>A picker for which screen a game opens on</h5>
+            <p>A KDE-only feature on Linux; no macOS equivalent exists yet.</p>
+          </div></div>
+          <div class="only-item"><span class="only-mark no">&#9656;</span><div>
+            <h5>Custom installers, source ports and mods</h5>
+            <p>The whole recipe catalogue &mdash; Ironwail, GZDoom, the Build-engine games and the rest &mdash; is Linux-only for now.</p>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="sect">
+        <h4>install</h4>
+        <p class="lead2">The build is not signed &mdash; there is no Apple Developer account behind it yet &mdash; so the first launch needs one extra step. That is the standard cost of an app that has not gone through notarization, not a sign that something is broken.</p>
+        <div class="steps">
+          <div class="step"><span class="n"></span><p>Download the <code>.dmg</code> (or the <code>.zip</code>) from the <a href="https://github.com/shampoo-is-a-lie/CafeNeurotico/releases/latest" target="_blank" rel="noopener" style="color:var(--crema)">latest release</a> &mdash; the macOS asset is separate from the Linux AppImage.</p></div>
+          <div class="step"><span class="n"></span><p>Open the <code>.dmg</code> and drag <b>Cafe Neurotico</b> into <b>Applications</b> (or unzip and move the <code>.app</code> there directly).</p></div>
+          <div class="step"><span class="n"></span><p><b>Right-click (or Control-click) the app &rarr; Open &rarr; Open</b> still works on most macOS versions for the first launch. If that option does not appear, a normal double-click gets blocked once &mdash; go to <b>System Settings &rarr; Privacy &amp; Security</b> and click <b>Open Anyway</b> next to the message about Cafe Neurotico, then confirm once more.</p></div>
+          <div class="step"><span class="n"></span><p>If neither shows anything, from Terminal:
+            <span class="codeblock">xattr -dr com.apple.quarantine "/Applications/Cafe Neurotico.app"</span>
+            This strips the quarantine flag macOS attaches to anything downloaded from the internet. It only needs doing once per install.</p></div>
+        </div>
+      </div>
+
+      <div class="sect">
+        <h4>where things live</h4>
+        <p class="lead2">Everything is under <code style="font-family:'VT323',monospace;color:var(--amber)">~/Library/Application Support/</code>. Deleting the app and installing a new build never touches the library.</p>
+        <table class="paths">
+          <tr><th>What</th><th>Where</th></tr>
+          <tr><td>Your library (games, artwork, playlists, settings)</td><td><code>CafeNeurotico/GameManagerConfig/</code></td></tr>
+          <tr><td>GOG/Epic install state, auth, launch logs</td><td><code>CafeNeurotico/GRINDERConfig/</code></td></tr>
+          <tr><td>Installed games (default location)</td><td><code>~/Games/CafeNeurotico/</code></td></tr>
+        </table>
+      </div>
+
+      <div class="sect" style="border-top:none;margin-top:40px;padding-top:0">
+        <p class="note">Something look wrong, or missing from this list? <a href="https://github.com/shampoo-is-a-lie/CafeNeurotico/issues" target="_blank" rel="noopener">Open an issue</a> &mdash; macOS reports are genuinely useful right now, this build needs them.</p>
+      </div>
+
+      <div class="foot">
+        <a href="index.html">cafeneurotico</a> &middot;
+        <a href="fixes.html">fixed individually</a> &middot;
+        <a href="ports.html">source ports &amp; mods</a> &middot;
+        <a href="support.html">support</a> &middot;
+        <a href="https://github.com/shampoo-is-a-lie/CafeNeurotico" target="_blank" rel="noopener">github</a><br>
+        more caffeine is more good
+      </div>
+    </div>
+  </div>
+</body>
+</html>
