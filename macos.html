@@ -8,7 +8,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Cafe Neurotico">
   <meta property="og:title" content="Cafe Neurotico on macOS — Experimental">
-  <meta property="og:description" content="A second host, same codebase. Steam/GOG/Epic, the full library, native GOG/Epic installs — and since 1.9, Windows games through CrossOver.">
+  <meta property="og:description" content="A second host, same codebase. Steam and GOG, the full library, native GOG installs — and since 1.9, Windows games through CrossOver.">
   <meta property="og:image" content="https://shampoo-is-a-lie.github.io/CafeNeuroticoWebSite/assets/images/coffee_banner.jpg">
   <meta property="og:url" content="https://shampoo-is-a-lie.github.io/CafeNeuroticoWebSite/macos.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -108,6 +108,8 @@
 
     .foot{margin-top:46px;color:var(--chalk-dim);font-size:13px;line-height:1.9;text-align:center}
     .foot a{color:var(--crema)}
+    .macver{font-family:'VT323',monospace;font-size:19px;color:var(--amber-dim);letter-spacing:.5px;margin:14px 0 0}
+    .macver b{color:var(--amber)}
   </style>
 </head>
 <body>
@@ -122,14 +124,16 @@
 
       <p class="lead">Linux stays the primary platform &mdash; it is what gets tested first and ships
         fastest. The macOS build lives behind its own file in the same codebase rather than a fork, and
-        it is real, not a proof of concept: <b>Steam, GOG and Epic sign-in, the full library, and
-        installing and launching native GOG/Epic games all work today</b>, through the app&rsquo;s own
+        it is real, not a proof of concept: <b>Steam and GOG sign-in, the full library, and
+        installing and launching native GOG games all work today</b>, through the app&rsquo;s own
         download engine, not a browser hand-off. <b>Since 1.9, Windows games run too</b>, through
         CrossOver. It is labelled Experimental because it is younger and unsigned, not because it is a
         demo.</p>
 
+      <p class="macver">current macOS build: <b>1.9.0</b> &middot; Linux is on 1.9.1, a Linux-only fix &mdash; the two hosts are not always on the same number.</p>
+
       <div class="btns">
-        <a class="btn dl" href="https://github.com/shampoo-is-a-lie/CafeNeurotico/releases/latest" target="_blank" rel="noopener">⤓ Download for macOS</a>
+        <a class="btn dl" href="https://github.com/shampoo-is-a-lie/CafeNeurotico/releases/tag/v1.9.0" target="_blank" rel="noopener">⤓ Download for macOS &mdash; 1.9.0</a>
         <a class="btn gh" href="https://github.com/shampoo-is-a-lie/CafeNeurotico" target="_blank" rel="noopener">Source on GitHub</a>
       </div>
 
@@ -138,11 +142,11 @@
         <div class="only">
           <div class="only-item"><span class="only-mark ok">&#10003;</span><div>
             <h5>The full library</h5>
-            <p>Steam, GOG and Epic sign-in, sync and browsing, across all three faces &mdash; the Manager, CREMA, and GRINDER.</p>
+            <p>Steam and GOG sign-in, sync and browsing, across all three faces &mdash; the Manager, CREMA, and GRINDER.</p>
           </div></div>
           <div class="only-item"><span class="only-mark ok">&#10003;</span><div>
-            <h5>Native GOG &amp; Epic installs</h5>
-            <p>Real downloads through <code style="font-family:'VT323',monospace;color:var(--amber)">gogdl</code> and <code style="font-family:'VT323',monospace;color:var(--amber)">legendary</code> directly, for games that ship an Apple Silicon build &mdash; not a link out to a browser.</p>
+            <h5>Native GOG installs</h5>
+            <p>Real downloads through <code style="font-family:'VT323',monospace;color:var(--amber)">gogdl</code> directly, for games that ship an Apple Silicon build &mdash; not a link out to a browser.</p>
           </div></div>
           <div class="only-item"><span class="only-mark ok">&#10003;</span><div>
             <h5>Windows games, through CrossOver <span style="font-family:'VT323',monospace;font-size:14px;color:var(--mac);letter-spacing:1px;">NEW IN 1.9</span></h5>
@@ -158,7 +162,7 @@
           </div></div>
           <div class="only-item"><span class="only-mark ok">&#10003;</span><div>
             <h5>Knowing which games are actually native</h5>
-            <p>A Mac-Native filter sits next to Steam/GOG/Epic in the library, with a small apple badge on the cover art of anything that qualifies. GOG/Epic are checked instantly from data the app already has; Steam needs one manual scan since it is a live per-game lookup.</p>
+            <p>A Mac-Native filter sits next to the store filters in the library, with a small apple badge on the cover art of anything that qualifies. GOG is checked instantly from data the app already has; Steam needs one manual scan since it is a live per-game lookup.</p>
           </div></div>
           <div class="only-item"><span class="only-mark ok">&#10003;</span><div>
             <h5>Everything that is not platform-specific</h5>
@@ -170,6 +174,13 @@
       <div class="sect">
         <h4>what doesn't work yet</h4>
         <div class="only">
+          <div class="only-item"><span class="only-mark no">&#9656;</span><div>
+            <h5>Epic sign-in</h5>
+            <p>Signing in to Epic does not yet hold on macOS &mdash; the browser-based approval completes,
+               but the credentials are not written where <code style="font-family:'VT323',monospace;color:var(--amber)">legendary</code>
+               looks for them, so the library sync comes back empty. Steam and GOG are unaffected. This is
+               being worked on; until it lands, treat macOS as a Steam-and-GOG build.</p>
+          </div></div>
           <div class="only-item"><span class="only-mark no">&#9656;</span><div>
             <h5>Anti-cheat</h5>
             <p>BattlEye and EAC are not wired up. CrossOver advertises its own support for both, but nothing here has been tested against a game that uses them, so assume multiplayer titles that rely on anti-cheat will not run.</p>
@@ -189,7 +200,7 @@
         <h4>install</h4>
         <p class="lead2">The build is not signed &mdash; there is no Apple Developer account behind it yet &mdash; so the first launch needs one extra step. That is the standard cost of an app that has not gone through notarization, not a sign that something is broken.</p>
         <div class="steps">
-          <div class="step"><span class="n"></span><p>Download the <code>.dmg</code> (or the <code>.zip</code>) from the <a href="https://github.com/shampoo-is-a-lie/CafeNeurotico/releases/latest" target="_blank" rel="noopener" style="color:var(--crema)">latest release</a> &mdash; the macOS asset is separate from the Linux AppImage.</p></div>
+          <div class="step"><span class="n"></span><p>Download the <code>.dmg</code> (or the <code>.zip</code>) from the <a href="https://github.com/shampoo-is-a-lie/CafeNeurotico/releases/tag/v1.9.0" target="_blank" rel="noopener" style="color:var(--crema)">1.9.0 release</a> &mdash; the macOS asset is separate from the Linux AppImage, and it sits on that release rather than the newest one.</p></div>
           <div class="step"><span class="n"></span><p>Open the <code>.dmg</code> and drag <b>Cafe Neurotico</b> into <b>Applications</b> (or unzip and move the <code>.app</code> there directly).</p></div>
           <div class="step"><span class="n"></span><p><b>Right-click (or Control-click) the app &rarr; Open &rarr; Open</b> still works on most macOS versions for the first launch. If that option does not appear, a normal double-click gets blocked once &mdash; go to <b>System Settings &rarr; Privacy &amp; Security</b> and click <b>Open Anyway</b> next to the message about Cafe Neurotico, then confirm once more.</p></div>
           <div class="step"><span class="n"></span><p>If neither shows anything, from Terminal:
