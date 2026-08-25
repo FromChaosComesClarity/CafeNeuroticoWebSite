@@ -8,7 +8,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Cafe Neurotico">
   <meta property="og:title" content="Cafe Neurotico on macOS — Experimental">
-  <meta property="og:description" content="A second host, same codebase. Steam/GOG/Epic, the full library, and native GOG/Epic installs work today; Windows games are next.">
+  <meta property="og:description" content="A second host, same codebase. Steam/GOG/Epic, the full library, native GOG/Epic installs — and since 1.9, Windows games through CrossOver.">
   <meta property="og:image" content="https://shampoo-is-a-lie.github.io/CafeNeuroticoWebSite/assets/images/coffee_banner.jpg">
   <meta property="og:url" content="https://shampoo-is-a-lie.github.io/CafeNeuroticoWebSite/macos.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -124,8 +124,9 @@
         fastest. The macOS build lives behind its own file in the same codebase rather than a fork, and
         it is real, not a proof of concept: <b>Steam, GOG and Epic sign-in, the full library, and
         installing and launching native GOG/Epic games all work today</b>, through the app&rsquo;s own
-        download engine, not a browser hand-off. It is labelled Experimental because it is younger and
-        unsigned, not because it is a demo.</p>
+        download engine, not a browser hand-off. <b>Since 1.9, Windows games run too</b>, through
+        CrossOver. It is labelled Experimental because it is younger and unsigned, not because it is a
+        demo.</p>
 
       <div class="btns">
         <a class="btn dl" href="https://github.com/shampoo-is-a-lie/CafeNeurotico/releases/latest" target="_blank" rel="noopener">⤓ Download for macOS</a>
@@ -144,6 +145,18 @@
             <p>Real downloads through <code style="font-family:'VT323',monospace;color:var(--amber)">gogdl</code> and <code style="font-family:'VT323',monospace;color:var(--amber)">legendary</code> directly, for games that ship an Apple Silicon build &mdash; not a link out to a browser.</p>
           </div></div>
           <div class="only-item"><span class="only-mark ok">&#10003;</span><div>
+            <h5>Windows games, through CrossOver <span style="font-family:'VT323',monospace;font-size:14px;color:var(--mac);letter-spacing:1px;">NEW IN 1.9</span></h5>
+            <p>Titles that only ship a Windows build are no longer off-limits. Cafe Neurotico drives
+               <b>CrossOver</b> directly, giving each game its own bottle under the same per-game scheme the
+               Linux build already uses &mdash; created once on first launch, reused after that. Nothing to
+               configure.</p>
+            <p style="margin-top:8px"><b style="color:var(--chalk)">Two honest caveats.</b> CrossOver is
+               commercial software from <a href="https://www.codeweavers.com" target="_blank" rel="noopener" style="color:var(--crema)">CodeWeavers</a>
+               and is not bundled &mdash; you install it yourself, and without it this simply reports as
+               unavailable. And while the plumbing is verified end to end, it has not been run against a
+               large library of real games yet, so treat per-title compatibility as unproven.</p>
+          </div></div>
+          <div class="only-item"><span class="only-mark ok">&#10003;</span><div>
             <h5>Knowing which games are actually native</h5>
             <p>A Mac-Native filter sits next to Steam/GOG/Epic in the library, with a small apple badge on the cover art of anything that qualifies. GOG/Epic are checked instantly from data the app already has; Steam needs one manual scan since it is a live per-game lookup.</p>
           </div></div>
@@ -158,8 +171,8 @@
         <h4>what doesn't work yet</h4>
         <div class="only">
           <div class="only-item"><span class="only-mark no">&#9656;</span><div>
-            <h5>Windows games</h5>
-            <p>No compatibility layer is wired in yet, so a Windows-only GOG/Epic title will not install or launch. This is the current focus, and it is not a small gap &mdash; it is the next real chunk of the port.</p>
+            <h5>Anti-cheat</h5>
+            <p>BattlEye and EAC are not wired up. CrossOver advertises its own support for both, but nothing here has been tested against a game that uses them, so assume multiplayer titles that rely on anti-cheat will not run.</p>
           </div></div>
           <div class="only-item"><span class="only-mark no">&#9656;</span><div>
             <h5>A picker for which screen a game opens on</h5>
