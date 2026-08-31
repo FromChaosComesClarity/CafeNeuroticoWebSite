@@ -1,637 +1,318 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cafe Neurotico — your Linux game library, brewed into one app</title>
-  <meta name="description" content="Cafe Neurotico 1.9.1 — your Linux game library, brewed into one app, now also on macOS (Experimental). The Manager, GRINDER and CREMA in a single build. Steam, GOG, Epic, Flatpak, itch.io, PICO-8 and emulators. Local-only, no cloud.">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Cafe Neurotico">
-  <meta property="og:title" content="Cafe Neurotico 1.9.1 — three faces, one brew">
-  <meta property="og:description" content="The Linux game-library suite — The Manager, GRINDER and CREMA unified into one binary. Version 1.9.1 is out, and the macOS build now runs Windows games too.">
-  <meta property="og:image" content="https://fromchaoscomesclarity.github.io/CafeNeuroticoWebSite/assets/images/bg_01.jpg">
-  <meta property="og:url" content="https://fromchaoscomesclarity.github.io/CafeNeuroticoWebSite/">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Raleway:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --amber:#ffb000; --amber-dim:#9a6a00;
-      --chalk:#f4efe6; --chalk-dim:#bcae97;
-      --board:#1d2420; --board2:#161b18;
-      --crema:#D4A373; --kofi:#FF5E5B; --pix:#32BCAD;
-    }
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%}
-    body{background:#0a0a0a;color:var(--chalk);font-family:'Raleway',sans-serif;overflow-x:hidden}
-    a{color:inherit}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cafe Neurotico — the game center for Omarchy</title>
+<meta name="description" content="Cafe Neurotico is becoming the game center for Omarchy: every game you own — Steam, GOG, Epic, itch, PICO-8, emulators, fan games and source ports — in one place, in the bar, one keystroke away. 2.0 is being built now.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cafe Neurotico">
+<meta property="og:title" content="Cafe Neurotico — the game center for Omarchy">
+<meta property="og:description" content="Every game you own, in one place, at home on Omarchy. 2.0 is being built and tested now.">
+<meta property="og:image" content="https://fromchaoscomesclarity.github.io/CafeNeuroticoWebSite/assets/shots/shot-1.webp">
+<meta property="og:url" content="https://fromchaoscomesclarity.github.io/CafeNeuroticoWebSite/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ── Identity ────────────────────────────────────────────────────────────────
+   After cliamp.stream, as chosen for this phase: near-black ground, one cyan
+   accent with magenta as the second voice, monospace throughout, box-drawing
+   rules rather than cards, numbered file-name section labels, flat surfaces.
+   The coffee-shop theme is deliberately retired here. */
+:root{
+  --ground:#08090a;
+  --surface:#0e1113;
+  --line:#1e2629;
+  --ink:#dfe8e8;
+  --muted:#7d9295;
+  --dim:#4f6265;
+  --cyan:#2fe0d6;
+  --cyan-dim:#177c77;
+  --magenta:#ff5fa2;
+  --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ground);color:var(--ink);
+  font-family:var(--mono);font-size:15px;line-height:1.7;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+a{color:var(--cyan);text-decoration:none;border-bottom:1px solid var(--cyan-dim)}
+a:hover{border-bottom-color:var(--cyan)}
+a:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 clamp(18px,4vw,48px)}
 
-    /* ───────────── BOOT TERMINAL ───────────── */
-    #boot{
-      position:fixed;inset:0;z-index:100;background:#050805;
-      display:flex;align-items:center;justify-content:center;
-      font-family:'VT323',monospace;cursor:pointer;
-      transition:opacity .7s ease, transform .7s ease;
-    }
-    #boot.done{opacity:0;transform:scale(1.04);pointer-events:none}
-    #boot-inner{
-      width:min(760px,92vw);color:var(--amber);
-      font-size:clamp(15px,2.4vw,22px);line-height:1.5;
-      text-shadow:0 0 6px rgba(255,176,0,.45);padding:24px;
-      white-space:pre-wrap;
-    }
-    #boot-log .ok{color:#7CFC68;text-shadow:0 0 6px rgba(124,252,104,.45)}
-    #boot-log .big{color:var(--crema);text-shadow:0 0 10px rgba(212,163,115,.5)}
-    .cursor{display:inline-block;width:.6ch;background:var(--amber);
-      animation:blink 1s steps(1) infinite;text-shadow:none}
-    @keyframes blink{50%{opacity:0}}
-    #boot-skip{position:absolute;bottom:22px;left:0;right:0;text-align:center;
-      color:var(--amber-dim);font-size:14px;letter-spacing:1px;opacity:0;transition:opacity .5s}
-    /* CRT scanlines + flicker */
-    #boot::after{content:"";position:absolute;inset:0;pointer-events:none;
-      background:repeating-linear-gradient(rgba(0,0,0,0) 0 2px, rgba(0,0,0,.28) 2px 4px);
-      mix-blend-mode:multiply;animation:flick 5s infinite}
-    @keyframes flick{0%,100%{opacity:1}48%{opacity:.92}50%{opacity:.97}}
+/* ── Top bar ─────────────────────────────────────────────────────────────── */
+header.top{
+  position:sticky;top:0;z-index:20;
+  background:rgba(8,9,10,0.86);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.topin{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;flex-wrap:wrap}
+.brand{font-weight:700;letter-spacing:.14em;font-size:.92rem;text-transform:uppercase}
+.brand .dot{color:var(--cyan)}
+nav.links{display:flex;gap:18px;font-size:.8rem;letter-spacing:.08em;flex-wrap:wrap}
+nav.links a{border:0;color:var(--muted)}
+nav.links a:hover{color:var(--cyan)}
 
-    /* ───────────── CHALKBOARD ───────────── */
-    #chalk{
-      min-height:100%;opacity:0;transition:opacity .9s ease .15s;
-      background:
-        radial-gradient(120% 80% at 50% -10%, rgba(255,255,255,.05), transparent 60%),
-        radial-gradient(80% 60% at 80% 110%, rgba(212,163,115,.06), transparent 60%),
-        var(--board);
-      position:relative;
-    }
-    #chalk.show{opacity:1}
-    /* faint chalk-dust grain */
-    #chalk::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.04;
-      background-image:radial-gradient(circle at 20% 30%, #fff 0 1px, transparent 1px),
-        radial-gradient(circle at 70% 60%, #fff 0 1px, transparent 1px),
-        radial-gradient(circle at 40% 80%, #fff 0 1px, transparent 1px);
-      background-size:140px 140px,200px 200px,170px 170px}
-    .wrap{max-width:780px;margin:0 auto;padding:64px 24px 80px;text-align:center;position:relative;z-index:1}
+/* ── Hero ────────────────────────────────────────────────────────────────── */
+.hero{padding:clamp(48px,9vh,110px) 0 clamp(28px,5vh,56px)}
+.eyebrow{
+  font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+}
+.eyebrow .tag{border:1px solid var(--magenta);color:var(--magenta);padding:2px 8px;letter-spacing:.14em}
+h1{
+  font-size:clamp(2rem,6.2vw,4.1rem);line-height:1.05;font-weight:700;
+  letter-spacing:-.03em;margin:22px 0 0;text-wrap:balance;
+}
+h1 .em{color:var(--cyan)}
+.sub{max-width:62ch;color:var(--muted);margin-top:20px;font-size:clamp(.95rem,1.6vw,1.08rem)}
+.cta{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap}
+.btn{
+  border:1px solid var(--cyan-dim);color:var(--cyan);background:rgba(47,224,214,.06);
+  padding:11px 20px;font-family:var(--mono);font-size:.85rem;letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.btn:hover{background:rgba(47,224,214,.14);border-color:var(--cyan)}
+.btn.ghost{border-color:var(--line);color:var(--muted);background:transparent}
+.btn.ghost:hover{color:var(--ink);border-color:var(--muted)}
 
-    .kicker{font-family:'Caveat',cursive;font-size:clamp(26px,5vw,40px);color:var(--chalk-dim);
-      transform:rotate(-2deg);margin-bottom:6px}
-    .wordmark{font-family:'Raleway',sans-serif;font-weight:900;letter-spacing:.14em;
-      font-size:clamp(30px,7vw,62px);line-height:1.05;text-transform:uppercase}
-    .wordmark .dot{color:var(--crema)}
-    .rule{width:min(380px,80%);height:0;border-top:2px dashed var(--chalk-dim);opacity:.5;margin:18px auto 8px}
-    .sub{font-family:'Caveat',cursive;font-size:clamp(22px,4vw,30px);color:var(--crema)}
+/* ── Section furniture ───────────────────────────────────────────────────── */
+section{padding:clamp(40px,7vh,90px) 0}
+.label{
+  font-size:.72rem;letter-spacing:.2em;color:var(--dim);
+  display:flex;align-items:center;gap:12px;margin-bottom:18px;
+}
+.label::after{content:"";flex:1;height:1px;background:var(--line)}
+h2{font-size:clamp(1.25rem,2.8vw,1.85rem);font-weight:700;letter-spacing:-.02em;margin-bottom:14px;text-wrap:balance}
+p.body{max-width:66ch;color:var(--muted)}
+p.body + p.body{margin-top:14px}
+p.body strong{color:var(--ink);font-weight:500}
 
-    /* ── download ── */
-    .download{margin:34px auto 6px}
-    .btn-dl{display:inline-flex;align-items:center;gap:12px;font-family:'Raleway';font-weight:900;
-      letter-spacing:.08em;font-size:clamp(15px,2.4vw,18px);text-transform:uppercase;
-      padding:16px 32px;border-radius:10px;border:2px solid var(--amber);color:#141414;
-      background:var(--amber);text-decoration:none;transition:.18s;
-      box-shadow:0 10px 30px rgba(255,176,0,.22)}
-    .btn-dl:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(255,176,0,.32)}
-    .dl-meta{font-family:'VT323',monospace;font-size:19px;color:var(--amber-dim);margin-top:12px;letter-spacing:1px}
-    .dl-meta b{color:var(--amber)}
+/* ── Slideshow ───────────────────────────────────────────────────────────── */
+.shots{border:1px solid var(--line);background:var(--surface);position:relative}
+.stage{position:relative;aspect-ratio:16/9;overflow:hidden;background:#000}
+.stage img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;transition:opacity .6s ease;
+}
+.stage img.on{opacity:1}
+.shotbar{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:12px 16px;border-top:1px solid var(--line);flex-wrap:wrap;
+}
+.caption{font-size:.78rem;color:var(--muted);letter-spacing:.04em}
+.caption b{color:var(--cyan);font-weight:500}
+.dots{display:flex;gap:8px}
+.dot{
+  width:26px;height:3px;background:var(--line);border:0;padding:0;cursor:pointer;
+}
+.dot[aria-current="true"]{background:var(--cyan)}
+.dot:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
 
-    .menu{margin:42px auto 8px;max-width:520px;text-align:left}
-    .item{display:flex;align-items:baseline;gap:14px;padding:13px 0;
-      border-bottom:1px dashed rgba(244,239,230,.18)}
-    .item .name{font-family:'Raleway';font-weight:900;letter-spacing:.12em;font-size:15px;min-width:132px;text-transform:uppercase}
-    .item .desc{font-family:'Caveat',cursive;font-size:22px;color:var(--chalk-dim);line-height:1.1}
-    .tagline{font-family:'Caveat',cursive;font-size:clamp(24px,4.5vw,34px);color:var(--chalk);margin:36px 0 4px;transform:rotate(-1deg)}
+/* ── Facts ───────────────────────────────────────────────────────────────── */
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.fact{background:var(--surface);padding:22px}
+.fact h3{font-size:.95rem;font-weight:500;color:var(--cyan);margin-bottom:8px;letter-spacing:.02em}
+.fact p{font-size:.85rem;color:var(--muted)}
 
-    /* ── section headings ── */
-    .sect{margin-top:56px;padding-top:32px;border-top:2px dashed rgba(244,239,230,.18)}
-    .sect h4{font-family:'Caveat',cursive;font-size:clamp(28px,5vw,36px);color:var(--crema);margin-bottom:4px}
-    .sect .lead{color:var(--chalk-dim);font-size:14px;line-height:1.7;max-width:560px;margin:0 auto}
+/* ── Status note ─────────────────────────────────────────────────────────── */
+.note{border:1px solid var(--magenta);background:linear-gradient(180deg,rgba(255,95,162,.07),rgba(255,95,162,.02));padding:20px 22px}
+.note .h{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--magenta);margin-bottom:8px}
+.note p{color:var(--ink);max-width:68ch;font-size:.92rem}
 
-    /* ── feature board ── */
-    .feats{margin:26px auto 0;max-width:600px;text-align:left}
-    .feat{padding:15px 0;border-bottom:1px dashed rgba(244,239,230,.14)}
-    .feat h5{font-family:'Raleway';font-weight:900;letter-spacing:.09em;font-size:13.5px;
-      text-transform:uppercase;color:var(--chalk);margin-bottom:5px}
-    .feat p{font-family:'Caveat',cursive;font-size:20px;line-height:1.35;color:var(--chalk-dim)}
+footer{border-top:1px solid var(--line);padding:28px 0 60px;color:var(--dim);font-size:.76rem;letter-spacing:.06em}
+footer .fin{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{color:var(--muted);border:0}
+footer a:hover{color:var(--cyan)}
 
-    .mono{font-family:'VT323',monospace;font-size:19px;color:var(--amber);letter-spacing:.5px}
-    /* ── only-here list ── */
-    .only{margin:26px auto 0;max-width:620px;text-align:left}
-    .only-item{display:flex;gap:14px;padding:15px 0;border-bottom:1px dashed rgba(244,239,230,.14)}
-    .only-mark{font-family:'VT323',monospace;font-size:19px;color:var(--crema);flex-shrink:0;line-height:1.5;opacity:.85}
-    .only-item h5{font-family:'Raleway';font-weight:900;letter-spacing:.09em;font-size:13.5px;
-      text-transform:uppercase;color:var(--chalk);margin-bottom:5px}
-    .only-item p{font-family:'Caveat',cursive;font-size:20px;line-height:1.35;color:var(--chalk-dim)}
-
-    /* ── the specials boards ── */
-    .boards{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:18px;margin:46px 0 4px;text-align:left}
-    .board{position:relative;background:rgba(0,0,0,.3);border:2px solid rgba(212,163,115,.42);border-radius:14px;
-      padding:24px 24px 22px;transition:.2s;text-decoration:none;display:block;
-      box-shadow:0 14px 34px rgba(0,0,0,.35), inset 0 0 0 1px rgba(244,239,230,.05)}
-    a.board:hover{transform:translateY(-3px);border-color:var(--crema);box-shadow:0 18px 42px rgba(0,0,0,.45)}
-    .board .bmark{font-family:'Caveat',cursive;font-size:23px;color:var(--chalk-dim);display:block;
-      transform:rotate(-1.6deg);margin-bottom:2px}
-    .board h3{font-family:'Raleway';font-weight:900;letter-spacing:.09em;text-transform:uppercase;
-      font-size:clamp(17px,2.5vw,22px);color:var(--amber);line-height:1.2;margin:4px 0 12px}
-    .board p{color:var(--chalk-dim);font-size:13.5px;line-height:1.7}
-    .board p b{color:var(--chalk)}
-    .board .bcta{font-family:'VT323',monospace;font-size:20px;color:var(--crema);letter-spacing:.5px;
-      display:inline-block;margin-top:14px}
-    a.board:hover .bcta{text-decoration:underline}
-    /* The headline board states the main thing; the two specials sit under it as a pair. */
-    .board.wide{grid-column:1/-1;border-color:rgba(255,176,0,.42)}
-    a.board.wide:hover{border-color:var(--amber)}
-    .board.wide h3{font-size:clamp(19px,3vw,25px)}
-    .board.wide p{font-size:14.5px;max-width:66ch}
-
-    /* ── ecosystem cards ── */
-    .eco{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:26px;text-align:left}
-    .eco-card{background:rgba(0,0,0,.22);border:1px solid rgba(244,239,230,.14);border-radius:12px;padding:20px}
-    .eco-card .tag{display:inline-block;font-family:'VT323',monospace;font-size:15px;letter-spacing:1px;
-      color:var(--amber);border:1px solid var(--amber-dim);border-radius:5px;padding:1px 9px;margin-bottom:10px}
-    .eco-card h5{font-family:'Raleway';font-weight:900;letter-spacing:.1em;font-size:15px;text-transform:uppercase;margin-bottom:4px}
-    .eco-card .quip{font-family:'Caveat',cursive;font-size:19px;color:var(--crema);margin-bottom:8px}
-    .eco-card p{color:var(--chalk-dim);font-size:13.5px;line-height:1.65}
-    .eco-card a{color:var(--crema);font-weight:700;text-decoration:none;font-size:13px;display:inline-block;margin-top:10px}
-    .eco-card a:hover{text-decoration:underline}
-
-    /* ── screenshot gallery ── */
-    /* breaks out of the 780px column so the shots are readable */
-    .shots{margin-top:24px;width:min(1120px,92vw);position:relative;left:50%;transform:translateX(-50%)}
-    .shots-group{margin-top:22px}
-    .shots-group > .glabel{font-family:'VT323',monospace;font-size:17px;letter-spacing:2px;
-      color:var(--amber);text-transform:uppercase;text-align:left;margin-bottom:10px;
-      border-bottom:1px dashed rgba(255,176,0,.25);padding-bottom:4px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
-    /* a lone shot would otherwise stretch across the whole board */
-    .grid.solo{max-width:540px}
-    .shot{margin:0;cursor:zoom-in;text-align:left}
-    .shot img{width:100%;height:auto;display:block;border-radius:9px;border:1px solid rgba(244,239,230,.16);
-      background:var(--board2);box-shadow:0 8px 20px rgba(0,0,0,.42);transition:.2s}
-    .shot:hover img{transform:translateY(-3px);border-color:var(--crema);
-      box-shadow:0 14px 28px rgba(0,0,0,.55)}
-    .shot figcaption{font-family:'Caveat',cursive;font-size:18px;color:var(--chalk-dim);
-      line-height:1.2;margin-top:7px}
-
-    /* lightbox */
-    #lb{position:fixed;inset:0;z-index:300;background:rgba(5,6,5,.985);
-      display:flex;align-items:center;justify-content:center;flex-direction:column;padding:24px}
-    #lb.hidden{display:none}
-    #lb img{max-width:min(1500px,94vw);max-height:82vh;border-radius:10px;
-      border:1px solid rgba(244,239,230,.2);box-shadow:0 20px 60px rgba(0,0,0,.7)}
-    #lb-cap{font-family:'Caveat',cursive;font-size:22px;color:var(--crema);margin-top:14px;text-align:center}
-    #lb-count{font-family:'VT323',monospace;font-size:16px;color:var(--amber-dim);letter-spacing:2px;margin-top:2px}
-    .lb-btn{position:absolute;background:rgba(0,0,0,.5);border:1px solid rgba(244,239,230,.25);
-      color:var(--chalk);font-size:26px;line-height:1;width:46px;height:46px;border-radius:50%;
-      cursor:pointer;transition:.18s;display:flex;align-items:center;justify-content:center}
-    .lb-btn:hover{background:var(--crema);color:#141414;border-color:var(--crema)}
-    #lb-prev{left:18px;top:50%;transform:translateY(-50%)}
-    #lb-next{right:18px;top:50%;transform:translateY(-50%)}
-    #lb-close{top:18px;right:18px;font-size:20px}
-
-    /* support */
-    .support{margin-top:56px;padding-top:32px;border-top:2px dashed rgba(244,239,230,.18)}
-    .support h4{font-family:'Caveat',cursive;font-size:30px;color:var(--crema);margin-bottom:6px}
-    .support p{color:var(--chalk-dim);font-size:14px;line-height:1.7;max-width:520px;margin:0 auto 4px}
-    .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:22px 0 6px}
-    .btn{font-family:'Raleway';font-weight:700;font-size:14px;letter-spacing:.04em;
-      padding:11px 20px;border-radius:8px;border:1.5px solid;background:transparent;cursor:pointer;
-      text-decoration:none;transition:.18s;display:inline-flex;align-items:center;gap:9px}
-    .btn:hover{transform:translateY(-2px)}
-    .btn.kofi{border-color:var(--kofi);color:var(--kofi)}
-    .btn.kofi:hover{background:rgba(255,94,91,.12)}
-    .btn.pix{border-color:var(--pix);color:var(--pix)}
-    .btn.pix:hover{background:rgba(50,188,173,.12)}
-    .btn.gh{border-color:var(--chalk-dim);color:var(--chalk)}
-    .btn.gh:hover{background:rgba(244,239,230,.08)}
-    .banner{display:block;max-width:340px;width:80%;margin:8px auto 0;border-radius:10px;
-      opacity:.92;transition:.2s;box-shadow:0 12px 28px rgba(0,0,0,.5)}
-    .banner:hover{opacity:1;transform:scale(1.02)}
-    .foot{margin-top:46px;color:var(--chalk-dim);font-size:13px;line-height:1.9}
-    .foot a{color:var(--crema)}
-
-    /* PIX modal */
-    .modal{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.8);
-      display:flex;align-items:center;justify-content:center;padding:20px}
-    .modal.hidden{display:none}
-    .modal-card{background:var(--board2);border:1px solid var(--pix);border-radius:14px;
-      padding:28px;max-width:340px;text-align:center;position:relative}
-    .modal-card h3{color:var(--pix);font-weight:900;letter-spacing:1px;font-family:'Raleway'}
-    .modal-card .x{position:absolute;top:12px;right:14px;background:none;border:none;color:var(--chalk-dim);font-size:20px;cursor:pointer}
-    .modal-card img{width:230px;height:230px;border-radius:8px;margin:18px 0;border:2px solid var(--pix)}
-    .pixkey{font-size:13px;color:var(--chalk-dim);word-break:break-all;user-select:all;margin-bottom:16px}
-    #pix-msg{color:var(--pix);font-size:12px;font-weight:700;margin-top:10px;opacity:0;transition:opacity .3s}
-    @media(max-width:520px){.item{flex-direction:column;gap:2px}.item .name{min-width:0}}
-  </style>
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
 </head>
 <body>
 
-  <!-- ░░░░░ FAUX BOOT TERMINAL ░░░░░ -->
-  <div id="boot" title="click to skip">
-    <div id="boot-inner"><span id="boot-log"></span><span class="cursor">&nbsp;</span></div>
-    <div id="boot-skip">click anywhere to skip ▸</div>
+<header class="top">
+  <div class="wrap topin">
+    <div class="brand">cafe<span class="dot">.</span>neurotico</div>
+    <nav class="links">
+      <a href="#what">What it is</a>
+      <a href="#shots">Screens</a>
+      <a href="#omarchy">Omarchy</a>
+      <a href="ports.html">Fan games &amp; ports</a>
+      <a href="fixes.html">Game fixes</a>
+      <a href="support.html">Support</a>
+    </nav>
   </div>
+</header>
 
-  <!-- ░░░░░ CHALKBOARD LANDING ░░░░░ -->
-  <main id="chalk">
-    <div class="wrap">
-      <div class="kicker">today's brew ☕</div>
-      <div class="wordmark">Cafe Neurotico<span class="dot">.</span></div>
-      <div class="rule"></div>
-      <div class="sub">one shot · three notes</div>
+<div class="wrap">
 
-      <div class="download">
-        <a class="btn-dl" href="https://github.com/FromChaosComesClarity/CafeNeurotico/releases/latest" target="_blank" rel="noopener">⬇ Download for Linux</a>
-        <div class="dl-meta">version <b>1.9.1</b> · AppImage · GPL-3.0 · <a href="macos.html" style="color:var(--amber-dim);text-decoration:underline">macOS build (Experimental) &rsaquo;</a></div>
-      </div>
-
-      <div class="menu">
-        <div class="item"><span class="name">The Manager</span><span class="desc">your whole Linux game library, one shelf</span></div>
-        <div class="item"><span class="name">GRINDER</span><span class="desc">roasts &amp; installs your GOG / Epic games</span></div>
-        <div class="item"><span class="name">CREMA</span><span class="desc">the fullscreen, gamepad-first crema on top</span></div>
-      </div>
-
-      <div class="tagline">“more caffeine is <u>more good</u>”</div>
-
-      <!-- ░░ the specials boards ░░ -->
-      <div class="boards">
-
-        <a class="board wide" href="#cup">
-          <span class="bmark">the house blend &#9749;</span>
-          <h3>One Library, Every Store</h3>
-          <p><b>Steam, GOG, Epic, Flatpak, itch.io, PICO-8, emulators</b> &mdash; and anything else you can start
-             from a command line. One shelf, with the covers, the hero art, the playtime and the manuals kept on
-             your own disk. Sign in to GOG and Epic without ever leaving the app: installs, updates and save
-             backups all happen in the same window.</p>
-          <span class="bcta">&rsaquo; what&rsquo;s in the cup</span>
-        </a>
-
-        <a class="board" href="fixes.html">
-          <span class="bmark">the specials board &#128295;</span>
-          <h3>Fixed Individually</h3>
-          <p>Not &ldquo;improved compatibility&rdquo;. <b>Named games, named faults</b> &mdash; the white screen
-             on OutRun 2006, the untranslated Resident Evil 2, the DOSBox window that vanishes. Each one an
-             evening&rsquo;s work, none of them anything you have to configure.</p>
-          <span class="bcta">&rsaquo; see the whole list</span>
-        </a>
-
-        <a class="board" href="ports.html">
-          <span class="bmark">also on the board &#127918;</span>
-          <h3>Source Ports &amp; Mods</h3>
-          <p>Nobody sets out to install GZDoom; they set out to play <b>Brutal Doom</b>. So the mod is the
-             entry, the engine comes with it, and <b>the game data is taken from the library you already
-             own</b>. Twenty-five of them, one click each.</p>
-          <span class="bcta">&rsaquo; see what&rsquo;s on the menu</span>
-        </a>
-
-        <a class="board" href="macos.html">
-          <span class="bmark">a second host &#127822;</span>
-          <h3>macOS &mdash; Experimental</h3>
-          <p>Same codebase, an Apple Silicon Mac. The full library, native GOG installs, and &mdash; new in
-             1.9 &mdash; <b>Windows games, through CrossOver</b>. Still Experimental, on its own 1.9.0 build,
-             and honest on the page about what that means.</p>
-          <span class="bcta">&rsaquo; what works, what doesn't, how to install</span>
-        </a>
-
-      </div>
-
-      <!-- ░░ what's in the cup ░░ -->
-      <div class="sect" id="cup">
-        <h4>what's in the cup</h4>
-        <p class="lead">Three apps that used to ship separately, now one Electron binary with three faces — one runtime, one database, one download.</p>
-        <div class="feats">
-          <div class="feat">
-            <h5>One library, every store</h5>
-            <p>Every shop on one shelf — Steam, GOG, Epic, Flatpak, itch.io, PICO-8 and your emulators — alongside anything you can start from a command line. Own the same game twice? It is one entry, and pressing Play asks which copy.</p>
-          </div>
-          <div class="feat">
-            <h5>Installs that stay in the app</h5>
-            <p>GOG and Epic games download in-process with live progress, a queue and disk-space checks. Per-game Proton, prefixes and winetricks when you want them.</p>
-          </div>
-          <div class="feat">
-            <h5>Artwork that never rots</h5>
-            <p>Covers, hero art, logos, screenshots, HowLongToBeat, Metacritic and ProtonDB — scraped once and kept on your disk. No broken images when a storefront changes its mind.</p>
-          </div>
-          <div class="feat">
-            <h5>Save games, backed up honestly</h5>
-            <p>Find them, zip them, put them back. Portable archives that restore correctly on a different PC, and a snapshot taken before every restore.</p>
-          </div>
-          <div class="feat">
-            <h5>A living room that isn't an afterthought</h5>
-            <p>CREMA is fullscreen and gamepad-first: TV typography, immersive gamepages, achievements, a jukebox for your own music, a screensaver made of your own screenshots.</p>
-          </div>
-          <div class="feat">
-            <h5>93 themes, 10 families</h5>
-            <p>Catppuccin, Gruvbox, Nord, Dracula, Game Boy, Pip-Boy — and twenty retro operating systems, each with its own era typeface. Shared by all three faces.</p>
-          </div>
-          <div class="feat">
-            <h5>Updates you asked for</h5>
-            <p>One press checks your installed GOG and Epic games for new versions and updates them in place; Steam's pending downloads are flagged and handed to Steam. The app itself never phones home — it shows you its version and a link to the releases page, and the rest is your call.</p>
-          </div>
-          <div class="feat">
-            <h5>Windows games that just run</h5>
-            <p>Proton is found on your machine whatever the folder is called, and handed over explicitly — no guessing, no game that starts and silently isn't there. Don't have Proton? One click installs it. When something genuinely can't run, the app tells you why instead of shrugging.</p>
-          </div>
-          <div class="feat">
-            <h5>Genres that mean something</h5>
-            <p>Not "Action, Adventure, Indie" — ARPG, CRPG, FPS, Metroidvania, Soulslike, Shmup. Read from the tags players actually voted on, because that's the only source that can tell a Diablo-like from a Baldur's Gate-like. Filter by it, or let a playlist fill itself from it forever.</p>
-          </div>
-          <div class="feat">
-            <h5>The manual, where the game kept it</h5>
-            <p>RPGs still expect you to read something, and the PDF has usually been sitting in the game folder all along. One button finds it — GOG even names its own cluebooks and reference cards — or fetches the scanned original from the store. Keep as many as the game needs.</p>
-          </div>
-          <div class="feat">
-            <h5>DOS games that actually start</h5>
-            <p>GOG's DOS titles need a config its installer copies and a folder it starts them from; get either wrong and the window opens and closes. Both handled. Prefer a native DOSBox? It reads the very same GOG config, so every tweak made for that game survives.</p>
-          </div>
-          <div class="feat">
-            <h5>Local-only. Yours.</h5>
-            <p>Everything lives in one folder next to the AppImage. Copy it to a thumb drive and your library comes with you. No account, no telemetry, no cloud.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- ░░ only here ░░ -->
-      <div class="sect">
-        <h4>only here</h4>
-        <p class="lead">Things Cafe Neurotico does that you won't find in another Linux launcher — because most of them come from actually playing the games and noticing what was broken.</p>
-        <div class="only">
-
-          <div class="only-item"><span class="only-mark">&#9656;</span><div>
-            <h5>It knows an ARPG from a CRPG</h5>
-            <p>Storefronts file everything under “Action, Adventure, Indie”. Cafe Neurotico sorts your library into real genres — ARPG, CRPG, FPS, Metroidvania, Soulslike, Shmup, Survival Horror — read from the tags players themselves voted on, which is the only source that can tell Diablo from Baldur's Gate. Then it filters by them, and fills playlists from them forever.</p>
-          </div></div>
-
-          <div class="only-item"><span class="only-mark">&#9656;</span><div>
-            <h5>It finds the manual you never knew you had</h5>
-            <p>GOG puts manuals, cluebooks and reference cards inside the game folder and never tells you. One button surfaces them — named, because GOG names them — or fetches the scanned original from the store. Read it in its own window on a second monitor while you play.</p>
-          </div></div>
-
-          <div class="only-item"><span class="only-mark">&#9656;</span><div>
-            <h5>It finishes GOG's installation</h5>
-            <p>GOG ships a list of finishing touches its own installer performs after the files land — registry entries, config files, DOSBox setups. Downloading the game is not the same as installing it, and nothing else on Linux does that second part. Cafe Neurotico does, which is why some games only work here.</p>
-          </div></div>
-
-          <div class="only-item"><span class="only-mark">&#9656;</span><div>
-            <h5>It survives a bad file on GOG's end</h5>
-            <p>GOG serves your game from more than one server, and now and then one of them holds a damaged copy of a file. Anything that keeps asking the same server waits for ever. Cafe Neurotico checks each piece as it arrives and moves to the other server when one is wrong.</p>
-          </div></div>
-
-          <div class="only-item"><span class="only-mark">&#9656;</span><div>
-            <h5>It asks which shop you meant</h5>
-            <p>Own a game on Steam <i>and</i> GOG? It's one entry in your library, and pressing Play asks which copy — showing you which ones are installed and offering to install the ones that aren't.</p>
-          </div></div>
-
-          <div class="only-item"><span class="only-mark">&#9656;</span><div>
-            <h5>DOS games on a real DOSBox — keeping GOG's own settings</h5>
-            <p>Every GOG DOS game ships the same thing: a <i>Windows</i> build of DOSBox from 2010. On Linux that means emulating a DOS machine inside a Windows program inside a compatibility layer — three deep, to run a game from 1992.</p>
-            <p style="margin-top:8px">Cafe Neurotico can skip the middle one. Install <span class="mono">dosbox-staging</span> from your distribution and it hands the game to that instead — no Proton, better sound and fullscreen, and an emulator that is still actively maintained.</p>
-            <p style="margin-top:8px">The part that matters: <b style="color:var(--chalk)">it reads the very same configuration file GOG wrote for that game</b>. Cycle counts, machine type, sound cards, the startup commands GOG tuned per title — all of it kept exactly, because only the emulator changes. Nothing on your disk is rewritten, and nothing is guessed.</p>
-            <p style="margin-top:8px">Haven't installed one? Then nothing changes and GOG's own DOSBox is used, as before. The Control Panel tells you which one is running and gives you the exact command for <i>your</i> distribution if you want the better one.</p>
-          </div></div>
-
-          <div class="only-item"><span class="only-mark">&#9656;</span><div>
-            <h5>Desk and sofa, one binary, one library</h5>
-            <p>A desktop manager, a download engine and a fullscreen gamepad interface in a single file, sharing one database. Mark a favourite on the couch and it's there on the desktop. No syncing, no second install, no account.</p>
-          </div></div>
-
-        </div>
-      </div>
-
-      <!-- ░░ screenshots ░░ -->
-      <div class="sect">
-        <h4>a look inside</h4>
-        <p class="lead">Click any shot to open it full size.</p>
-        <div class="shots">
-
-          <div class="shots-group">
-            <div class="glabel">▸ The Manager — desk mode</div>
-            <div class="grid">
-              <figure class="shot" data-full="assets/screens/manager-library.webp">
-                <img src="assets/screens/manager-library-thumb.webp" loading="lazy" width="640" height="445" alt="The Manager's library grid with a hero banner above the covers">
-                <figcaption>the whole library, one shelf</figcaption>
-              </figure>
-              <figure class="shot" data-full="assets/screens/manager-gamepage.webp">
-                <img src="assets/screens/manager-gamepage-thumb.webp" loading="lazy" width="640" height="445" alt="A game page floating over the library, showing Fallout's hero art and action buttons">
-                <figcaption>the gamepage floats over the shelf</figcaption>
-              </figure>
-              <figure class="shot" data-full="assets/screens/manager-themes.webp">
-                <img src="assets/screens/manager-themes-thumb.webp" loading="lazy" width="640" height="445" alt="The theme picker, showing the Linux Ricing family of colour schemes">
-                <figcaption>93 themes, sorted into 10 families</figcaption>
-              </figure>
-              <figure class="shot" data-full="assets/screens/manager-now-playing.webp">
-                <img src="assets/screens/manager-now-playing-thumb.webp" loading="lazy" width="640" height="446" alt="A small Now Playing card confirming that Fallout has launched">
-                <figcaption>a quiet “now playing” card on launch</figcaption>
-              </figure>
-            </div>
-          </div>
-
-          <div class="shots-group">
-            <div class="glabel">▸ GRINDER — the engine room</div>
-            <div class="grid solo">
-              <figure class="shot" data-full="assets/screens/grinder-library.webp">
-                <img src="assets/screens/grinder-library-thumb.webp" loading="lazy" width="640" height="408" alt="GRINDER's list of GOG, Epic and custom games with install, launch and log buttons">
-                <figcaption>installs, launches, logs and disk sizes</figcaption>
-              </figure>
-            </div>
-          </div>
-
-          <div class="shots-group">
-            <div class="glabel">▸ CREMA — couch mode</div>
-            <div class="grid">
-              <figure class="shot" data-full="assets/screens/crema-home.webp">
-                <img src="assets/screens/crema-home-thumb.webp" loading="lazy" width="640" height="367" alt="CREMA's home dashboard with library stats, today's pick and a recently imported row">
-                <figcaption>home: stats, today's pick, quick rows</figcaption>
-              </figure>
-              <figure class="shot" data-full="assets/screens/crema-home-news.webp">
-                <img src="assets/screens/crema-home-news-thumb.webp" loading="lazy" width="640" height="368" alt="Wishlist prices, free-this-week giveaways and gaming news headlines on CREMA's home screen">
-                <figcaption>wishlist prices, freebies, headlines</figcaption>
-              </figure>
-              <figure class="shot" data-full="assets/screens/crema-categories.webp">
-                <img src="assets/screens/crema-categories-thumb.webp" loading="lazy" width="640" height="361" alt="CREMA's category carousel with screenshot cards above a row of store and playlist icons">
-                <figcaption>categories, with your music still playing</figcaption>
-              </figure>
-              <figure class="shot" data-full="assets/screens/crema-gallery.webp">
-                <img src="assets/screens/crema-gallery-thumb.webp" loading="lazy" width="640" height="360" alt="A full-screen grid of game covers filtered to installed games">
-                <figcaption>the gallery, built for a TV</figcaption>
-              </figure>
-              <figure class="shot" data-full="assets/screens/crema-gamepage.webp">
-                <img src="assets/screens/crema-gamepage-thumb.webp" loading="lazy" width="640" height="360" alt="CREMA's immersive game page for Tainted Grail, with full-bleed art and info chips">
-                <figcaption>immersive gamepages, full bleed</figcaption>
-              </figure>
-              <figure class="shot" data-full="assets/screens/crema-details.webp">
-                <img src="assets/screens/crema-details-thumb.webp" loading="lazy" width="640" height="360" alt="A details panel with the full store description and screenshots for Tainted Grail">
-                <figcaption>the full write-up and screenshots</figcaption>
-              </figure>
-              <figure class="shot" data-full="assets/screens/crema-achievements.webp">
-                <img src="assets/screens/crema-achievements-thumb.webp" loading="lazy" width="640" height="360" alt="An achievements list showing unlocked and locked entries with a completion percentage">
-                <figcaption>achievements, without leaving the couch</figcaption>
-              </figure>
-              <figure class="shot" data-full="assets/screens/crema-game-options.webp">
-                <img src="assets/screens/crema-game-options-thumb.webp" loading="lazy" width="640" height="360" alt="A game options menu with trailer, playlist, rename and scraping entries">
-                <figcaption>every game option on one button</figcaption>
-              </figure>
-              <figure class="shot" data-full="assets/screens/crema-list-gog.webp">
-                <img src="assets/screens/crema-list-gog-thumb.webp" loading="lazy" width="640" height="371" alt="CREMA's classic list layout: a recently-played list beside a gameplay screenshot, box art and a metadata column">
-                <figcaption>prefer a list? that's a layout too</figcaption>
-              </figure>
-              <figure class="shot" data-full="assets/screens/crema-tv-reader.webp">
-                <img src="assets/screens/crema-tv-reader-thumb.webp" loading="lazy" width="640" height="360" alt="A gaming news article rendered in large type for reading from a TV">
-                <figcaption>TV reader: news in couch-sized type</figcaption>
-              </figure>
-              <figure class="shot" data-full="assets/screens/crema-search.webp">
-                <img src="assets/screens/crema-search-thumb.webp" loading="lazy" width="640" height="360" alt="An on-screen keyboard for searching the library with a gamepad">
-                <figcaption>search without getting up</figcaption>
-              </figure>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- ░░ the rest of the ecosystem ░░ -->
-      <div class="sect">
-        <h4>also on the menu</h4>
-        <p class="lead">Separate apps, same roof. Cafe Neurotico is complete on its own — these are here if you want them.</p>
-        <div class="eco">
-          <div class="eco-card">
-            <span class="tag">OPTIONAL</span>
-            <h5>EmuLatte</h5>
-            <div class="quip">“I use RetroArch BTW”</div>
-            <p>The emulation pillar, and a fully standalone app in its own right — ROM library, emulator scanner, multi-source scraping and RetroAchievements. Use it entirely on its own, or drop it next to Cafe Neurotico and the suite picks it up automatically. Your ROM collection stays in EmuLatte: you pick which games cross over by <b>exporting them to Cafe Neurotico from inside EmuLatte</b>, and those arrive as ordinary entries under an <b>Emulation</b> category.</p>
-            <a href="emulatte.html">Get EmuLatte ▸</a>
-          </div>
-          <div class="eco-card">
-            <span class="tag">OPTIONAL</span>
-            <h5>CafeNeurotico Clock</h5>
-            <div class="quip">“a desk clock with taste”</div>
-            <p>A standalone clock that runs a slow slideshow of your library's artwork — Ken Burns pans, configurable faces. Point it at your collection and let it sit on a second screen.</p>
-            <a href="clock.html">Get the Clock ▸</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- support -->
-      <div class="support" id="support">
-        <h4>tip the barista</h4>
-        <p>If Cafe Neurotico organized your gaming life, consider buying me a coffee — it keeps the pot warm.</p>
-        <p style="color:var(--chalk)"><b>If you do, <a href="mailto:shampooisalie@gmail.com" style="color:var(--crema)">let me know</a> so I can thank you personally! :)</b></p>
-        <div class="btns">
-          <a href="https://ko-fi.com/cafeneurotico" target="_blank" rel="noopener" class="btn kofi">☕ Ko-fi (Intl)</a>
-          <button class="btn pix" onclick="openPix()">🇧🇷 PIX — QR Code</button>
-          <a href="https://github.com/FromChaosComesClarity/CafeNeurotico" target="_blank" rel="noopener" class="btn gh">★ GitHub</a>
-        </div>
-        <a href="https://ko-fi.com/cafeneurotico" target="_blank" rel="noopener">
-          <img class="banner" src="assets/images/coffee_banner.jpg" alt="Cafe Neurotico — buy us a coffee!">
-        </a>
-      </div>
-
-      <div class="foot">
-        Built by J.R.A. · Contact: <a href="mailto:shampooisalie@gmail.com">shampooisalie@gmail.com</a><br>
-        <a href="macos.html">macOS (Experimental)</a> · <a href="support.html">support page</a> · <a href="https://github.com/FromChaosComesClarity/CafeNeurotico" target="_blank" rel="noopener">source on GitHub</a> · GPL-3.0-or-later
-      </div>
+  <div class="hero">
+    <div class="eyebrow">
+      <span>01_now_building</span>
+      <span class="tag">2.0 in progress</span>
     </div>
-  </main>
-
-  <!-- screenshot lightbox -->
-  <div id="lb" class="hidden" role="dialog" aria-modal="true" aria-label="Screenshot viewer">
-    <button class="lb-btn" id="lb-close" aria-label="Close">✕</button>
-    <button class="lb-btn" id="lb-prev" aria-label="Previous">‹</button>
-    <button class="lb-btn" id="lb-next" aria-label="Next">›</button>
-    <img id="lb-img" src="" alt="">
-    <div id="lb-cap"></div>
-    <div id="lb-count"></div>
-  </div>
-
-  <!-- PIX modal -->
-  <div id="pix-modal" class="modal hidden">
-    <div class="modal-card">
-      <button class="x" onclick="closePix()">✕</button>
-      <h3>DONATE VIA PIX</h3>
-      <img src="assets/images/pixqrcode.jpg" alt="PIX QR Code">
-      <div class="pixkey">b734a9e2-e479-42f9-abd6-c88d1b8b880e</div>
-      <button class="btn pix" style="width:100%;justify-content:center" onclick="copyPix()">COPY PIX KEY</button>
-      <div id="pix-msg">Copied to clipboard!</div>
+    <h1>The game center<br><span class="em">for Omarchy.</span></h1>
+    <p class="sub">
+      Every game you own — Steam, GOG, Epic, itch, PICO-8, emulators, fan games, source ports
+      and mods — in one place. In the bar. One keystroke away. Cafe Neurotico is being rebuilt
+      around that idea, and <strong>2.0 is what it is becoming.</strong>
+    </p>
+    <div class="cta">
+      <a class="btn" href="https://github.com/FromChaosComesClarity/CafeNeurotico/releases">See what is shipping</a>
+      <a class="btn ghost" href="https://github.com/FromChaosComesClarity/CafeNeurotico">The code</a>
     </div>
   </div>
 
-  <script>
-    // ── Boot sequence ──
-    const log = document.getElementById('boot-log');
-    const boot = document.getElementById('boot');
-    const chalk = document.getElementById('chalk');
-    const skip = document.getElementById('boot-skip');
-    const PROMPT = 'cafeneurotico@linux';
-    // [innerHTML, delayAfter(ms)]
-    const LINES = [
-      [PROMPT + ':~$ ./brew', 380],
-      ['[ <b class="ok">ok</b> ] mounting library................ Manager',  260],
-      ['[ <b class="ok">ok</b> ] roasting GOG/Epic engine........ GRINDER',  260],
-      ['[ <b class="ok">ok</b> ] pouring fullscreen interface.... CREMA',    260],
-      ['[ <b class="ok">ok</b> ] blending into one shot.......... done',     420],
-      ['', 120],
-      ['<b class="big">▓▓ CAFE NEUROTICO 1.9.1 ▓▓</b>', 160],
-      ['&gt; three faces, one binary. served.', 700],
-    ];
-    let done = false;
-    function enter(){
-      if(done) return; done = true;
-      try{ sessionStorage.setItem('cn_booted','1'); }catch(e){}
-      boot.classList.add('done');
-      chalk.classList.add('show');
-      setTimeout(()=>{ boot.style.display='none'; }, 800);
-    }
-    boot.addEventListener('click', enter);
-    document.addEventListener('keydown', ()=>{ if(!done) enter(); });
+  <section id="what">
+    <div class="label">02_what_it_is.md</div>
+    <h2>One app, three faces, all your games</h2>
+    <p class="body">
+      <strong>The Manager</strong> is the desk: import, organise, scrape, install, launch, with
+      a mouse and keyboard. <strong>CREMA</strong> is the sofa: fullscreen, gamepad-first, made
+      for a television across a room. <strong>GRINDER</strong> works underneath both, installing
+      GOG and Epic games without a store client.
+    </p>
+    <p class="body">
+      It is one AppImage. Nothing to install alongside it, and your library, artwork and settings
+      live in a folder beside it — portable, backed up by copying, gone when you delete it.
+    </p>
+  </section>
 
-    function typeLine(i){
-      if(i >= LINES.length){ skip.style.opacity=0; setTimeout(()=>{ if(!done) enter(); }, 900); return; }
-      log.innerHTML += (i ? '\n' : '') + LINES[i][0];
-      setTimeout(()=>typeLine(i+1), LINES[i][1]);
-    }
+  <section id="shots">
+    <div class="label">03_screens.webp</div>
+    <h2>What it looks like right now</h2>
+    <p class="body" style="margin-bottom:22px">
+      Shot on Omarchy, on the machine it is developed on. Nothing here is a mockup.
+    </p>
 
-    // Returning visitors this session skip straight to the board.
-    let alreadyBooted = false;
-    try{ alreadyBooted = sessionStorage.getItem('cn_booted') === '1'; }catch(e){}
-    if(alreadyBooted){ done=true; boot.style.display='none'; chalk.classList.add('show'); }
-    else { setTimeout(()=>skip.style.opacity=1, 1200); typeLine(0); }
+    <div class="shots">
+      <div class="stage" id="stage">
+        <img class="on" src="assets/shots/shot-1.webp" alt="The Cafe Neurotico launcher overlay open on an Omarchy desktop, showing a fuzzy list of games." width="1600" height="900">
+        <img src="assets/shots/shot-2.webp" alt="CREMA's game page for Teenage Mutant Ninja Turtles: Shredder's Revenge, fullscreen with artwork and metadata." width="1600" height="900">
+        <img src="assets/shots/shot-3.webp" alt="CREMA's gallery, browsing cover art in a three-dimensional card flow." width="1600" height="900">
+        <img src="assets/shots/shot-4.webp" alt="CREMA's home screen with library statistics, today's pick and recently imported games." width="1600" height="900">
+        <img src="assets/shots/shot-5.webp" alt="The Manager showing a GOG library grid with install and play buttons on every cover." width="1600" height="900">
+        <img src="assets/shots/shot-6.webp" alt="CREMA's home screen featuring a game with its key art as the backdrop." width="1600" height="900">
+      </div>
+      <div class="shotbar">
+        <div class="caption" id="caption"><b>01</b> — the launcher, one keystroke from anywhere</div>
+        <div class="dots" id="dots"></div>
+      </div>
+    </div>
+  </section>
 
-    // ── Screenshot lightbox ──
-    const shots = Array.from(document.querySelectorAll('.shot'));
-    const lb = document.getElementById('lb');
-    const lbImg = document.getElementById('lb-img');
-    const lbCap = document.getElementById('lb-cap');
-    const lbCount = document.getElementById('lb-count');
-    let lbIndex = 0;
+  <section id="omarchy">
+    <div class="label">04_at_home_on_omarchy.md</div>
+    <h2>It found a home</h2>
+    <p class="body">
+      Cafe Neurotico runs on any Linux desktop, and it is <strong>built and tested on Omarchy</strong>
+      — which is why it now behaves like part of it rather than a visitor.
+    </p>
 
-    function showShot(i){
-      lbIndex = (i + shots.length) % shots.length;
-      const fig = shots[lbIndex];
-      lbImg.src = fig.dataset.full;
-      lbImg.alt = fig.querySelector('img').alt;
-      lbCap.textContent = fig.querySelector('figcaption').textContent;
-      lbCount.textContent = (lbIndex + 1) + ' / ' + shots.length;
-    }
-    function openLb(i){ showShot(i); lb.classList.remove('hidden'); }
-    function closeLb(){ lb.classList.add('hidden'); lbImg.src = ''; }
+    <div class="facts" style="margin-top:26px">
+      <div class="fact">
+        <h3>In the bar</h3>
+        <p>A widget showing what is installed and what is playing, with a menu one click from the library, the couch face and your storage.</p>
+      </div>
+      <div class="fact">
+        <h3>One keystroke away</h3>
+        <p>A launcher overlay: type a few letters, press Enter, play. Cover art, genre and a sentence about whatever you are pointing at.</p>
+      </div>
+      <div class="fact">
+        <h3>Your theme, not ours</h3>
+        <p>It reads the palette your desktop is actually using. Change it with <code>omarchy theme set</code> and the app follows.</p>
+      </div>
+      <div class="fact">
+        <h3>Games open properly</h3>
+        <p>Fullscreen on the screen you chose, at the resolution you expect — including the X11 detail that made games pick the smallest monitor.</p>
+      </div>
+    </div>
+  </section>
 
-    shots.forEach((fig, i) => fig.addEventListener('click', () => openLb(i)));
-    document.getElementById('lb-close').addEventListener('click', closeLb);
-    document.getElementById('lb-prev').addEventListener('click', e => { e.stopPropagation(); showShot(lbIndex - 1); });
-    document.getElementById('lb-next').addEventListener('click', e => { e.stopPropagation(); showShot(lbIndex + 1); });
-    lb.addEventListener('click', e => { if(e.target === lb || e.target === lbImg) closeLb(); });
-    document.addEventListener('keydown', e => {
-      if(lb.classList.contains('hidden')) return;
-      if(e.key === 'Escape') closeLb();
-      if(e.key === 'ArrowLeft') showShot(lbIndex - 1);
-      if(e.key === 'ArrowRight') showShot(lbIndex + 1);
+  <section>
+    <div class="label">05_where_it_stands.txt</div>
+    <div class="note">
+      <div class="h">⚠ Experimental, and honest about it</div>
+      <p>
+        What you can download today is the <strong>1.11.x experimental line</strong> — the work
+        in progress, not a settled release. It is used daily on the machine it is built on, and
+        it will have rough edges. <strong>2.0 is the destination</strong>, and there is no date
+        on it. If you want the calm version, wait for that one.
+      </p>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap fin">
+    <span>Cafe Neurotico · GPL-3.0-or-later · built in Brazil 🇧🇷</span>
+    <span>
+      <a href="macos.html">macOS</a> ·
+      <a href="clock.html">Clock</a> ·
+      <a href="emulatte.html">EmuLatte</a> ·
+      <a href="support.html">Support the project</a> ·
+      <a href="https://github.com/FromChaosComesClarity/CafeNeurotico">GitHub</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+/* The slideshow. Auto-advances, pauses on hover or focus, and stops entirely for anyone
+   who asked for reduced motion — where it becomes a plain set of dots you click. */
+(function () {
+  var stage = document.getElementById('stage');
+  var slides = stage ? Array.prototype.slice.call(stage.querySelectorAll('img')) : [];
+  if (slides.length < 2) return;
+
+  var captions = [
+    'the launcher, one keystroke from anywhere',
+    'a game page on the couch face',
+    'browsing covers in CREMA',
+    'the home screen, with what you actually play',
+    'the library on the desk',
+    'CREMA, opened on a game'
+  ];
+  var dotsWrap = document.getElementById('dots');
+  var caption = document.getElementById('caption');
+  var index = 0, timer = 0;
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function show(next) {
+    index = (next + slides.length) % slides.length;
+    slides.forEach(function (img, i) { img.classList.toggle('on', i === index); });
+    Array.prototype.forEach.call(dotsWrap.children, function (d, i) {
+      d.setAttribute('aria-current', i === index ? 'true' : 'false');
     });
+    caption.innerHTML = '<b>' + String(index + 1).padStart(2, '0') + '</b> — ' + captions[index];
+  }
+  function start() { if (!reduced) { stop(); timer = setInterval(function () { show(index + 1); }, 5200); } }
+  function stop() { if (timer) { clearInterval(timer); timer = 0; } }
 
-    // ── PIX modal ──
-    function openPix(){ document.getElementById('pix-modal').classList.remove('hidden'); }
-    function closePix(){ document.getElementById('pix-modal').classList.add('hidden'); }
-    function copyPix(){
-      navigator.clipboard.writeText('b734a9e2-e479-42f9-abd6-c88d1b8b880e').then(()=>{
-        const m=document.getElementById('pix-msg'); m.style.opacity=1; setTimeout(()=>m.style.opacity=0,2000);
-      });
-    }
-    document.getElementById('pix-modal').addEventListener('click', e=>{ if(e.target.id==='pix-modal') closePix(); });
-    document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePix(); });
-  </script>
+  slides.forEach(function (_, i) {
+    var b = document.createElement('button');
+    b.className = 'dot';
+    b.type = 'button';
+    b.setAttribute('aria-label', 'Screenshot ' + (i + 1));
+    b.addEventListener('click', function () { show(i); start(); });
+    dotsWrap.appendChild(b);
+  });
+
+  stage.addEventListener('mouseenter', stop);
+  stage.addEventListener('mouseleave', start);
+  dotsWrap.addEventListener('focusin', stop);
+  dotsWrap.addEventListener('focusout', start);
+
+  show(0);
+  start();
+})();
+</script>
 </body>
 </html>
