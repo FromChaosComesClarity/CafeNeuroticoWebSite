@@ -1,0 +1,99 @@
+/* ── Cafe Neurotico — the shared identity ───────────────────────────────────
+   After cliamp.stream, chosen for this phase: near-black ground, one cyan accent
+   with magenta as the second voice, monospace throughout, box-drawing rules
+   rather than cards, numbered file-name section labels, flat surfaces.
+
+   ⚠️ Every page links this file. The coffee-shop theme (amber / chalk / Caveat)
+   that each page used to carry inline is retired; anything still declaring it is
+   a page that has not been converted yet. */
+
+:root{
+  --ground:#08090a;
+  --surface:#0e1113;
+  --raised:#141819;
+  --line:#1e2629;
+  --ink:#dfe8e8;
+  --muted:#7d9295;
+  --dim:#4f6265;
+  --cyan:#2fe0d6;
+  --cyan-dim:#177c77;
+  --magenta:#ff5fa2;
+  --amber:#e8b765;
+  --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ground);color:var(--ink);
+  font-family:var(--mono);font-size:15px;line-height:1.7;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+a{color:var(--cyan);text-decoration:none;border-bottom:1px solid var(--cyan-dim)}
+a:hover{border-bottom-color:var(--cyan)}
+a:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+code{font-family:var(--mono);background:var(--raised);border:1px solid var(--line);border-radius:3px;padding:.08em .36em;color:var(--amber);font-size:.88em}
+strong,b{color:#f2fbfa;font-weight:700}
+em,i{color:var(--ink)}
+img{max-width:100%;height:auto}
+
+.wrap{max-width:1080px;margin:0 auto;padding:0 clamp(18px,4vw,48px)}
+.narrow{max-width:780px}
+
+/* ── Top bar ─────────────────────────────────────────────────────────────── */
+header.top{position:sticky;top:0;z-index:20;background:rgba(8,9,10,.86);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topin{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;flex-wrap:wrap}
+.brand{font-weight:700;letter-spacing:.14em;font-size:.92rem;text-transform:uppercase;color:var(--ink);border:0}
+.brand:hover{color:var(--cyan)}
+.brand .dot{color:var(--cyan)}
+nav.links{display:flex;gap:18px;font-size:.8rem;letter-spacing:.08em;flex-wrap:wrap}
+nav.links a{border:0;color:var(--muted)}
+nav.links a:hover{color:var(--cyan)}
+
+/* ── Page furniture ──────────────────────────────────────────────────────── */
+section{padding:clamp(40px,7vh,90px) 0}
+.label{font-size:.72rem;letter-spacing:.2em;color:var(--dim);display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.label::after{content:"";flex:1;height:1px;background:var(--line)}
+h1{font-size:clamp(1.9rem,5.4vw,3.4rem);line-height:1.06;font-weight:700;letter-spacing:-.03em;text-wrap:balance}
+h1 .em{color:var(--cyan)}
+h2{font-size:clamp(1.25rem,2.8vw,1.85rem);font-weight:700;letter-spacing:-.02em;margin-bottom:14px;text-wrap:balance}
+h3{font-size:1rem;font-weight:700;color:var(--cyan);margin:26px 0 8px;letter-spacing:.01em}
+p.body,p.lead{max-width:66ch;color:var(--muted)}
+p.body+p.body{margin-top:14px}
+p.body strong,p.lead strong{color:var(--ink);font-weight:700}
+.eyebrow{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.eyebrow .tag{border:1px solid var(--magenta);color:var(--magenta);padding:2px 8px;letter-spacing:.14em}
+.back{display:inline-block;font-size:.78rem;letter-spacing:.1em;color:var(--muted);border:0;margin:26px 0 0}
+.back:hover{color:var(--cyan)}
+.rule{height:1px;background:var(--line);border:0;margin:26px 0}
+
+ul.list{list-style:none;display:grid;gap:10px;margin:16px 0 0;max-width:66ch}
+ul.list li{position:relative;padding-left:1.5rem;color:var(--muted)}
+ul.list li::before{content:"▸";position:absolute;left:0;color:var(--cyan)}
+ul.list li strong{color:var(--ink)}
+
+.btn{display:inline-block;border:1px solid var(--cyan-dim);color:var(--cyan);background:rgba(47,224,214,.06);padding:11px 20px;font-family:var(--mono);font-size:.85rem;letter-spacing:.1em;text-transform:uppercase}
+.btn:hover{background:rgba(47,224,214,.14);border-color:var(--cyan)}
+.btn.ghost{border-color:var(--line);color:var(--muted);background:transparent}
+.btn.ghost:hover{color:var(--ink);border-color:var(--muted)}
+
+/* Panels: a flat bordered block, the page's only container shape. */
+.panel{border:1px solid var(--line);background:var(--surface);padding:22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.grid > .cell{background:var(--surface);padding:22px}
+.grid > .cell h3{margin-top:0}
+.grid > .cell p{font-size:.86rem;color:var(--muted)}
+
+.note{border:1px solid var(--magenta);background:linear-gradient(180deg,rgba(255,95,162,.07),rgba(255,95,162,.02));padding:20px 22px}
+.note .h{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--magenta);margin-bottom:8px}
+.note p{color:var(--ink);max-width:68ch;font-size:.92rem}
+
+footer{border-top:1px solid var(--line);padding:28px 0 60px;color:var(--dim);font-size:.76rem;letter-spacing:.06em}
+footer .fin{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{color:var(--muted);border:0}
+footer a:hover{color:var(--cyan)}
+
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+  html{scroll-behavior:auto}
+}

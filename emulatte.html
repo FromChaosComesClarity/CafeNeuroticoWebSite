@@ -13,30 +13,30 @@
   <meta property="og:url" content="https://fromchaoscomesclarity.github.io/CafeNeuroticoWebSite/emulatte.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Raleway:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --amber:#ffb000; --amber-dim:#9a6a00;
-      --chalk:#f4efe6; --chalk-dim:#bcae97;
-      --board:#1d2420; --board2:#161b18;
-      --crema:#D4A373; --kofi:#FF5E5B; --pix:#32BCAD;
+      --amber:#2fe0d6; --amber-dim:#177c77;
+      --chalk:#dfe8e8; --chalk-dim:#7d9295;
+      --board:#0e1113; --board2:#141819;
+      --mono-stack:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace; --crema:#ff5fa2; --kofi:#FF5E5B; --pix:#32BCAD;
     }
     *{box-sizing:border-box;margin:0;padding:0}
     html,body{height:100%}
-    body{background:#0a0a0a;color:var(--chalk);font-family:'Raleway',sans-serif;overflow-x:hidden}
+    body{background:#08090a;color:var(--chalk);font-family:var(--mono-stack);overflow-x:hidden}
     a{color:inherit}
 
     /* ───────────── BOOT TERMINAL ───────────── */
     #boot{
       position:fixed;inset:0;z-index:100;background:#050805;
       display:flex;align-items:center;justify-content:center;
-      font-family:'VT323',monospace;cursor:pointer;
+      font-family:var(--mono-stack);cursor:pointer;
       transition:opacity .7s ease, transform .7s ease;
     }
     #boot.done{opacity:0;transform:scale(1.04);pointer-events:none}
     #boot-inner{
       width:min(760px,92vw);color:var(--amber);
-      font-size:clamp(15px,2.4vw,22px);line-height:1.5;
+      font-size:clamp(13px,2.4vw,18px);line-height:1.5;
       text-shadow:0 0 6px rgba(255,176,0,.45);padding:24px;
       white-space:pre-wrap;
     }
@@ -71,51 +71,51 @@
       background-size:140px 140px,200px 200px,170px 170px}
     .wrap{max-width:780px;margin:0 auto;padding:64px 24px 80px;text-align:center;position:relative;z-index:1}
 
-    .kicker{font-family:'Caveat',cursive;font-size:clamp(26px,5vw,40px);color:var(--chalk-dim);
+    .kicker{font-family:var(--mono-stack);font-size:clamp(13px,5vw,20px);color:var(--chalk-dim);
       transform:rotate(-2deg);margin-bottom:6px}
-    .wordmark{font-family:'Raleway',sans-serif;font-weight:900;letter-spacing:.14em;
-      font-size:clamp(30px,7vw,62px);line-height:1.05;text-transform:uppercase}
+    .wordmark{font-family:var(--mono-stack);font-weight:900;letter-spacing:.14em;
+      font-size:clamp(15px,7vw,31px);line-height:1.05;text-transform:uppercase}
     .wordmark .dot{color:var(--crema)}
     .rule{width:min(380px,80%);height:0;border-top:2px dashed var(--chalk-dim);opacity:.5;margin:18px auto 8px}
-    .sub{font-family:'Caveat',cursive;font-size:clamp(22px,4vw,30px);color:var(--crema)}
+    .sub{font-family:var(--mono-stack);font-size:clamp(13px,4vw,18px);color:var(--crema)}
 
     /* ── download ── */
     .download{margin:34px auto 6px}
-    .btn-dl{display:inline-flex;align-items:center;gap:12px;font-family:'Raleway';font-weight:900;
-      letter-spacing:.08em;font-size:clamp(15px,2.4vw,18px);text-transform:uppercase;
+    .btn-dl{display:inline-flex;align-items:center;gap:12px;font-family:var(--mono-stack);font-weight:900;
+      letter-spacing:.08em;font-size:clamp(13px,2.4vw,18px);text-transform:uppercase;
       padding:16px 32px;border-radius:10px;border:2px solid var(--amber);color:#141414;
       background:var(--amber);text-decoration:none;transition:.18s;
       box-shadow:0 10px 30px rgba(255,176,0,.22)}
     .btn-dl:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(255,176,0,.32)}
-    .dl-meta{font-family:'VT323',monospace;font-size:19px;color:var(--amber-dim);margin-top:12px;letter-spacing:1px}
+    .dl-meta{font-family:var(--mono-stack);font-size:19px;color:var(--amber-dim);margin-top:12px;letter-spacing:1px}
     .dl-meta b{color:var(--amber)}
 
     .menu{margin:42px auto 8px;max-width:520px;text-align:left}
     .item{display:flex;align-items:baseline;gap:14px;padding:13px 0;
       border-bottom:1px dashed rgba(244,239,230,.18)}
-    .item .name{font-family:'Raleway';font-weight:900;letter-spacing:.12em;font-size:15px;min-width:132px;text-transform:uppercase}
-    .item .desc{font-family:'Caveat',cursive;font-size:22px;color:var(--chalk-dim);line-height:1.1}
-    .tagline{font-family:'Caveat',cursive;font-size:clamp(24px,4.5vw,34px);color:var(--chalk);margin:36px 0 4px;transform:rotate(-1deg)}
+    .item .name{font-family:var(--mono-stack);font-weight:900;letter-spacing:.12em;font-size:15px;min-width:132px;text-transform:uppercase}
+    .item .desc{font-family:var(--mono-stack);font-size:22px;color:var(--chalk-dim);line-height:1.1}
+    .tagline{font-family:var(--mono-stack);font-size:clamp(13px,4.5vw,18px);color:var(--chalk);margin:36px 0 4px;transform:rotate(-1deg)}
 
     /* ── section headings ── */
     .sect{margin-top:56px;padding-top:32px;border-top:2px dashed rgba(244,239,230,.18)}
-    .sect h4{font-family:'Caveat',cursive;font-size:clamp(28px,5vw,36px);color:var(--crema);margin-bottom:4px}
+    .sect h4{font-family:var(--mono-stack);font-size:clamp(14px,5vw,18px);color:var(--crema);margin-bottom:4px}
     .sect .lead{color:var(--chalk-dim);font-size:14px;line-height:1.7;max-width:560px;margin:0 auto}
 
     /* ── feature board ── */
     .feats{margin:26px auto 0;max-width:600px;text-align:left}
     .feat{padding:15px 0;border-bottom:1px dashed rgba(244,239,230,.14)}
-    .feat h5{font-family:'Raleway';font-weight:900;letter-spacing:.09em;font-size:13.5px;
+    .feat h5{font-family:var(--mono-stack);font-weight:900;letter-spacing:.09em;font-size:13.5px;
       text-transform:uppercase;color:var(--chalk);margin-bottom:5px}
-    .feat p{font-family:'Caveat',cursive;font-size:20px;line-height:1.35;color:var(--chalk-dim)}
+    .feat p{font-family:var(--mono-stack);font-size:20px;line-height:1.35;color:var(--chalk-dim)}
 
     /* ── ecosystem cards ── */
     .eco{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:26px;text-align:left}
     .eco-card{background:rgba(0,0,0,.22);border:1px solid rgba(244,239,230,.14);border-radius:12px;padding:20px}
-    .eco-card .tag{display:inline-block;font-family:'VT323',monospace;font-size:15px;letter-spacing:1px;
+    .eco-card .tag{display:inline-block;font-family:var(--mono-stack);font-size:15px;letter-spacing:1px;
       color:var(--amber);border:1px solid var(--amber-dim);border-radius:5px;padding:1px 9px;margin-bottom:10px}
-    .eco-card h5{font-family:'Raleway';font-weight:900;letter-spacing:.1em;font-size:15px;text-transform:uppercase;margin-bottom:4px}
-    .eco-card .quip{font-family:'Caveat',cursive;font-size:19px;color:var(--crema);margin-bottom:8px}
+    .eco-card h5{font-family:var(--mono-stack);font-weight:900;letter-spacing:.1em;font-size:15px;text-transform:uppercase;margin-bottom:4px}
+    .eco-card .quip{font-family:var(--mono-stack);font-size:19px;color:var(--crema);margin-bottom:8px}
     .eco-card p{color:var(--chalk-dim);font-size:13.5px;line-height:1.65}
     .eco-card a{color:var(--crema);font-weight:700;text-decoration:none;font-size:13px;display:inline-block;margin-top:10px}
     .eco-card a:hover{text-decoration:underline}
@@ -124,7 +124,7 @@
     /* breaks out of the 780px column so the shots are readable */
     .shots{margin-top:24px;width:min(1120px,92vw);position:relative;left:50%;transform:translateX(-50%)}
     .shots-group{margin-top:22px}
-    .shots-group > .glabel{font-family:'VT323',monospace;font-size:17px;letter-spacing:2px;
+    .shots-group > .glabel{font-family:var(--mono-stack);font-size:17px;letter-spacing:2px;
       color:var(--amber);text-transform:uppercase;text-align:left;margin-bottom:10px;
       border-bottom:1px dashed rgba(255,176,0,.25);padding-bottom:4px}
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
@@ -138,7 +138,7 @@
       background:var(--board2);box-shadow:0 8px 20px rgba(0,0,0,.42);transition:.2s}
     .shot:hover img{transform:translateY(-3px);border-color:var(--crema);
       box-shadow:0 14px 28px rgba(0,0,0,.55)}
-    .shot figcaption{font-family:'Caveat',cursive;font-size:18px;color:var(--chalk-dim);
+    .shot figcaption{font-family:var(--mono-stack);font-size:18px;color:var(--chalk-dim);
       line-height:1.2;margin-top:7px}
 
     /* lightbox */
@@ -147,8 +147,8 @@
     #lb.hidden{display:none}
     #lb img{max-width:min(1500px,94vw);max-height:82vh;border-radius:10px;
       border:1px solid rgba(244,239,230,.2);box-shadow:0 20px 60px rgba(0,0,0,.7)}
-    #lb-cap{font-family:'Caveat',cursive;font-size:22px;color:var(--crema);margin-top:14px;text-align:center}
-    #lb-count{font-family:'VT323',monospace;font-size:16px;color:var(--amber-dim);letter-spacing:2px;margin-top:2px}
+    #lb-cap{font-family:var(--mono-stack);font-size:22px;color:var(--crema);margin-top:14px;text-align:center}
+    #lb-count{font-family:var(--mono-stack);font-size:16px;color:var(--amber-dim);letter-spacing:2px;margin-top:2px}
     .lb-btn{position:absolute;background:rgba(0,0,0,.5);border:1px solid rgba(244,239,230,.25);
       color:var(--chalk);font-size:26px;line-height:1;width:46px;height:46px;border-radius:50%;
       cursor:pointer;transition:.18s;display:flex;align-items:center;justify-content:center}
@@ -159,10 +159,10 @@
 
     /* support */
     .support{margin-top:56px;padding-top:32px;border-top:2px dashed rgba(244,239,230,.18)}
-    .support h4{font-family:'Caveat',cursive;font-size:30px;color:var(--crema);margin-bottom:6px}
+    .support h4{font-family:var(--mono-stack);font-size:30px;color:var(--crema);margin-bottom:6px}
     .support p{color:var(--chalk-dim);font-size:14px;line-height:1.7;max-width:520px;margin:0 auto 4px}
     .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:22px 0 6px}
-    .btn{font-family:'Raleway';font-weight:700;font-size:14px;letter-spacing:.04em;
+    .btn{font-family:var(--mono-stack);font-weight:700;font-size:14px;letter-spacing:.04em;
       padding:11px 20px;border-radius:8px;border:1.5px solid;background:transparent;cursor:pointer;
       text-decoration:none;transition:.18s;display:inline-flex;align-items:center;gap:9px}
     .btn:hover{transform:translateY(-2px)}
@@ -184,7 +184,7 @@
     .modal.hidden{display:none}
     .modal-card{background:var(--board2);border:1px solid var(--pix);border-radius:14px;
       padding:28px;max-width:340px;text-align:center;position:relative}
-    .modal-card h3{color:var(--pix);font-weight:900;letter-spacing:1px;font-family:'Raleway'}
+    .modal-card h3{color:var(--pix);font-weight:900;letter-spacing:1px;font-family:var(--mono-stack)}
     .modal-card .x{position:absolute;top:12px;right:14px;background:none;border:none;color:var(--chalk-dim);font-size:20px;cursor:pointer}
     .modal-card img{width:230px;height:230px;border-radius:8px;margin:18px 0;border:2px solid var(--pix)}
     .pixkey{font-size:13px;color:var(--chalk-dim);word-break:break-all;user-select:all;margin-bottom:16px}
@@ -203,7 +203,7 @@
   <!-- ░░░░░ CHALKBOARD LANDING ░░░░░ -->
   <main id="chalk">
     <div class="wrap">
-      <div class="kicker">on the emulation side ☕</div>
+      <div class="kicker">on the emulation side</div>
       <div class="wordmark">EmuLatte<span class="dot">.</span></div>
       <div class="rule"></div>
       <div class="sub">a ROM library, properly filed</div>
@@ -384,20 +384,19 @@
       <!-- support -->
       <div class="support" id="support">
         <h4>tip the barista</h4>
-        <p>If EmuLatte sorted out your ROM collection, consider buying me a coffee — it keeps the pot warm.</p>
-        <p style="color:var(--chalk)"><b>If you do, <a href="mailto:shampooisalie@gmail.com" style="color:var(--crema)">let me know</a> so I can thank you personally! :)</b></p>
+        <p>If EmuLatte sorted out your ROM collection, consider chipping in — it keeps the pot warm.</p>
+        <p style="color:var(--chalk)"><b>If you do, <a href="mailto:joserobertoazevedo@hey.com" style="color:var(--crema)">let me know</a> so I can thank you personally! :)</b></p>
         <div class="btns">
           <a href="https://ko-fi.com/cafeneurotico" target="_blank" rel="noopener" class="btn kofi">☕ Ko-fi (Intl)</a>
           <button class="btn pix" onclick="openPix()">🇧🇷 PIX — QR Code</button>
           <a href="https://github.com/FromChaosComesClarity/EmuLatte" target="_blank" rel="noopener" class="btn gh">★ GitHub</a>
         </div>
         <a href="https://ko-fi.com/cafeneurotico" target="_blank" rel="noopener">
-          <img class="banner" src="assets/images/coffee_banner.jpg" alt="Cafe Neurotico — buy us a coffee!">
-        </a>
+          </a>
       </div>
 
       <div class="foot">
-        Built by J.R.A. · Contact: <a href="mailto:shampooisalie@gmail.com">shampooisalie@gmail.com</a><br>
+        Built by J.R.A. · Contact: <a href="mailto:joserobertoazevedo@hey.com">joserobertoazevedo@hey.com</a><br>
         <a href="index.html">Cafe Neurotico</a> · <a href="support.html">support page</a> · <a href="https://github.com/FromChaosComesClarity/EmuLatte" target="_blank" rel="noopener">source on GitHub</a> · GPL-3.0-or-later
       </div>
     </div>

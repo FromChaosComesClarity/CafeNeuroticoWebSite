@@ -4,26 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cafe Neurotico — Support &amp; Donate</title>
-  <meta name="description" content="Support Cafe Neurotico — every way to help the project, from buying a coffee (Ko-fi / PIX) to free ways like starring on GitHub and spreading the word.">
+  <meta name="description" content="Support Cafe Neurotico — every way to help the project, from a contribution (Ko-fi / PIX) to free ways like starring on GitHub and spreading the word.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Cafe Neurotico">
   <meta property="og:title" content="Support Cafe Neurotico">
   <meta property="og:description" content="All the ways to support the project — buy a coffee or help out for free.">
-  <meta property="og:image" content="https://fromchaoscomesclarity.github.io/CafeNeuroticoWebSite/assets/images/coffee_banner.jpg">
+  <meta property="og:image" content="https://fromchaoscomesclarity.github.io/CafeNeuroticoWebSite/assets/shots/shot-1.webp">
   <meta property="og:url" content="https://fromchaoscomesclarity.github.io/CafeNeuroticoWebSite/support.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Raleway:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --amber:#ffb000; --amber-dim:#9a6a00;
-      --chalk:#f4efe6; --chalk-dim:#bcae97;
-      --board:#1d2420; --board2:#161b18;
-      --crema:#D4A373; --kofi:#FF5E5B; --pix:#32BCAD;
+      --amber:#2fe0d6; --amber-dim:#177c77;
+      --chalk:#dfe8e8; --chalk-dim:#7d9295;
+      --board:#0e1113; --board2:#141819;
+      --mono-stack:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace; --crema:#ff5fa2; --kofi:#FF5E5B; --pix:#32BCAD;
     }
     *{box-sizing:border-box;margin:0;padding:0}
     html,body{min-height:100%}
-    body{background:#0a0a0a;color:var(--chalk);font-family:'Raleway',sans-serif;overflow-x:hidden}
+    body{background:#08090a;color:var(--chalk);font-family:var(--mono-stack);overflow-x:hidden}
     a{color:inherit}
 
     /* ───────────── CHALKBOARD ───────────── */
@@ -42,25 +42,25 @@
       background-size:140px 140px,200px 200px,170px 170px}
     .wrap{max-width:780px;margin:0 auto;padding:30px 24px 80px;text-align:center;position:relative;z-index:1}
 
-    .back{display:inline-block;font-family:'VT323',monospace;font-size:19px;color:var(--chalk-dim);
+    .back{display:inline-block;font-family:var(--mono-stack);font-size:13px;color:var(--chalk-dim);
       text-decoration:none;letter-spacing:.5px;margin-bottom:34px;transition:.18s}
     .back:hover{color:var(--crema)}
 
     .heart{width:30px;height:26px;vertical-align:-3px;margin-right:8px;filter:drop-shadow(0 0 5px rgba(255,75,62,.5))}
-    .kicker{font-family:'Caveat',cursive;font-size:clamp(26px,5vw,40px);color:var(--chalk-dim);
+    .kicker{font-family:var(--mono-stack);font-size:clamp(13px,5vw,20px);color:var(--chalk-dim);
       transform:rotate(-2deg);margin-bottom:6px}
-    .wordmark{font-family:'Raleway',sans-serif;font-weight:900;letter-spacing:.14em;
-      font-size:clamp(30px,7vw,58px);line-height:1.05;text-transform:uppercase}
+    .wordmark{font-family:var(--mono-stack);font-weight:900;letter-spacing:.14em;
+      font-size:clamp(15px,7vw,29px);line-height:1.05;text-transform:uppercase}
     .wordmark .dot{color:var(--crema)}
     .rule{width:min(380px,80%);height:0;border-top:2px dashed var(--chalk-dim);opacity:.5;margin:18px auto 8px}
-    .sub{font-family:'Caveat',cursive;font-size:clamp(22px,4vw,30px);color:var(--crema)}
+    .sub{font-family:var(--mono-stack);font-size:clamp(13px,4vw,18px);color:var(--crema)}
 
     /* support */
     .support{margin-top:44px;padding-top:30px;border-top:2px dashed rgba(244,239,230,.18)}
-    .support h4{font-family:'Caveat',cursive;font-size:30px;color:var(--crema);margin-bottom:6px}
+    .support h4{font-family:var(--mono-stack);font-size:30px;color:var(--crema);margin-bottom:6px}
     .support p{color:var(--chalk-dim);font-size:14px;line-height:1.7;max-width:520px;margin:0 auto 4px}
     .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:24px 0 8px}
-    .btn{font-family:'Raleway';font-weight:700;font-size:14px;letter-spacing:.04em;
+    .btn{font-family:var(--mono-stack);font-weight:700;font-size:14px;letter-spacing:.04em;
       padding:11px 20px;border-radius:8px;border:1.5px solid;background:transparent;cursor:pointer;
       text-decoration:none;transition:.18s;display:inline-flex;align-items:center;gap:9px}
     .btn:hover{transform:translateY(-2px)}
@@ -79,10 +79,10 @@
     .way{display:flex;align-items:baseline;gap:14px;padding:14px 4px;
       border-bottom:1px dashed rgba(244,239,230,.18);text-decoration:none;transition:.15s}
     .way:hover{background:rgba(244,239,230,.04)}
-    .way .name{font-family:'Raleway';font-weight:900;letter-spacing:.1em;font-size:14px;
+    .way .name{font-family:var(--mono-stack);font-weight:900;letter-spacing:.1em;font-size:14px;
       min-width:120px;text-transform:uppercase;color:var(--chalk)}
     .way:hover .name{color:var(--crema)}
-    .way .desc{font-family:'Caveat',cursive;font-size:21px;color:var(--chalk-dim);line-height:1.15}
+    .way .desc{font-family:var(--mono-stack);font-size:21px;color:var(--chalk-dim);line-height:1.15}
 
     .foot{margin-top:46px;color:var(--chalk-dim);font-size:13px;line-height:1.9}
     .foot a{color:var(--crema)}
@@ -93,7 +93,7 @@
     .modal.hidden{display:none}
     .modal-card{background:var(--board2);border:1px solid var(--pix);border-radius:14px;
       padding:28px;max-width:340px;text-align:center;position:relative}
-    .modal-card h3{color:var(--pix);font-weight:900;letter-spacing:1px;font-family:'Raleway'}
+    .modal-card h3{color:var(--pix);font-weight:900;letter-spacing:1px;font-family:var(--mono-stack)}
     .modal-card .x{position:absolute;top:12px;right:14px;background:none;border:none;color:var(--chalk-dim);font-size:20px;cursor:pointer}
     .modal-card img{width:230px;height:230px;border-radius:8px;margin:18px 0;border:2px solid var(--pix)}
     .pixkey{font-size:13px;color:var(--chalk-dim);word-break:break-all;user-select:all;margin-bottom:16px}
@@ -107,7 +107,7 @@
     <div class="wrap">
       <a class="back" href="index.html">&lt; back to cafeneurotico</a>
 
-      <div class="kicker">ways to support ☕</div>
+      <div class="kicker">ways to support</div>
       <div class="wordmark">
         <svg class="heart" viewBox="0 0 7 6" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">
           <rect x="1" y="0" width="2" height="1" fill="#ff4b3e"/>
@@ -120,21 +120,19 @@
         </svg>Support
       </div>
       <div class="rule"></div>
-      <div class="sub">keep the pot warm</div>
+      <div class="sub">it keeps the work going</div>
 
       <!-- buy a coffee -->
       <div class="support">
-        <h4>tip the barista</h4>
-        <p>Cafe Neurotico is free and made by one person on their own time. If it organized your gaming
-           life, a coffee keeps the pot warm and the late-night brewing going.</p>
-        <p style="color:var(--chalk)"><b>If you donate, <a href="mailto:shampooisalie@gmail.com" style="color:var(--crema)">let me know</a> so I can thank you personally! :)</b></p>
+        <h4>chip in</h4>
+        <p>Cafe Neurotico is free, and made by one person on their own time. If it sorted out your gaming life, a contribution keeps the work going. </p>
+        <p style="color:var(--chalk)"><b>If you donate, <a href="mailto:joserobertoazevedo@hey.com" style="color:var(--crema)">let me know</a> so I can thank you personally! :)</b></p>
         <div class="btns">
           <a href="https://ko-fi.com/cafeneurotico" target="_blank" rel="noopener" class="btn kofi">☕ Ko-fi · International</a>
           <button class="btn pix" onclick="openPix()">🇧🇷 PIX · Brazil (QR)</button>
         </div>
         <a href="https://ko-fi.com/cafeneurotico" target="_blank" rel="noopener">
-          <img class="banner" src="assets/images/coffee_banner.jpg" alt="Cafe Neurotico — buy us a coffee!">
-        </a>
+          </a>
       </div>
 
       <!-- free ways -->
@@ -151,14 +149,14 @@
           <a class="way" href="https://github.com/FromChaosComesClarity/CafeNeurotico" target="_blank" rel="noopener">
             <span class="name">📣 Spread it</span><span class="desc">tell a fellow Linux gamer — word of mouth is everything</span>
           </a>
-          <a class="way" href="mailto:shampooisalie@gmail.com">
+          <a class="way" href="mailto:joserobertoazevedo@hey.com">
             <span class="name">💌 Say hi</span><span class="desc">feedback, a thank-you, or just to chat about coffee</span>
           </a>
         </div>
       </div>
 
       <div class="foot">
-        Built by J.R.A. · Contact: <a href="mailto:shampooisalie@gmail.com">shampooisalie@gmail.com</a><br>
+        Built by J.R.A. · Contact: <a href="mailto:joserobertoazevedo@hey.com">joserobertoazevedo@hey.com</a><br>
         “more caffeine is <u>more good</u>”
       </div>
     </div>

@@ -13,17 +13,17 @@
   <meta property="og:url" content="https://fromchaoscomesclarity.github.io/CafeNeuroticoWebSite/ports.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Raleway:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --amber:#ffb000; --amber-dim:#9a6a00;
-      --chalk:#f4efe6; --chalk-dim:#bcae97;
-      --board:#1d2420; --board2:#161b18;
-      --crema:#D4A373; --kofi:#FF5E5B; --pix:#32BCAD;
+      --amber:#2fe0d6; --amber-dim:#177c77;
+      --chalk:#dfe8e8; --chalk-dim:#7d9295;
+      --board:#0e1113; --board2:#141819;
+      --mono-stack:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace; --crema:#ff5fa2; --kofi:#FF5E5B; --pix:#32BCAD;
     }
     *{box-sizing:border-box;margin:0;padding:0}
     html,body{min-height:100%}
-    body{background:#0a0a0a;color:var(--chalk);font-family:'Raleway',sans-serif;overflow-x:hidden}
+    body{background:#08090a;color:var(--chalk);font-family:var(--mono-stack);overflow-x:hidden}
     a{color:inherit}
 
     /* ───────────── CHALKBOARD ───────────── */
@@ -42,16 +42,16 @@
       background-size:140px 140px,200px 200px,170px 170px}
     .wrap{max-width:920px;margin:0 auto;padding:30px 24px 80px;text-align:center;position:relative;z-index:1}
 
-    .back{display:inline-block;font-family:'VT323',monospace;font-size:19px;color:var(--chalk-dim);
+    .back{display:inline-block;font-family:var(--mono-stack);font-size:13px;color:var(--chalk-dim);
       text-decoration:none;letter-spacing:.5px;margin-bottom:34px;transition:.18s}
     .back:hover{color:var(--crema)}
 
-    .kicker{font-family:'Caveat',cursive;font-size:clamp(26px,5vw,40px);color:var(--chalk-dim);
+    .kicker{font-family:var(--mono-stack);font-size:clamp(13px,5vw,20px);color:var(--chalk-dim);
       transform:rotate(-2deg);margin-bottom:6px}
-    .wordmark{font-family:'Raleway',sans-serif;font-weight:900;letter-spacing:.14em;
-      font-size:clamp(26px,6vw,48px);line-height:1.05;text-transform:uppercase}
+    .wordmark{font-family:var(--mono-stack);font-weight:900;letter-spacing:.14em;
+      font-size:clamp(13px,6vw,24px);line-height:1.05;text-transform:uppercase}
     .rule{width:min(380px,80%);height:0;border-top:2px dashed var(--chalk-dim);opacity:.5;margin:18px auto 8px}
-    .sub{font-family:'Caveat',cursive;font-size:clamp(22px,4vw,30px);color:var(--crema)}
+    .sub{font-family:var(--mono-stack);font-size:clamp(13px,4vw,18px);color:var(--crema)}
 
     .lead{color:var(--chalk-dim);font-size:14px;line-height:1.8;max-width:620px;margin:26px auto 0}
     .lead b{color:var(--chalk)}
@@ -59,34 +59,34 @@
     /* ───────────── HOW IT WORKS ───────────── */
     .rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:14px;margin-top:30px;text-align:left}
     .rule-item{background:rgba(0,0,0,.22);border:1px solid rgba(244,239,230,.14);border-radius:12px;padding:17px 19px}
-    .rule-item h5{font-family:'Caveat',cursive;font-weight:700;font-size:22px;color:var(--crema);
+    .rule-item h5{font-family:var(--mono-stack);font-weight:700;font-size:22px;color:var(--crema);
       line-height:1.2;margin-bottom:7px}
     .rule-item p{color:var(--chalk-dim);font-size:12.5px;line-height:1.65}
     .rule-item p b{color:var(--chalk);font-weight:700}
 
     /* ───────────── THE CATALOGUE ───────────── */
     .group{margin-top:38px;text-align:left}
-    .glabel{font-family:'VT323',monospace;font-size:22px;letter-spacing:1px;color:var(--amber);
+    .glabel{font-family:var(--mono-stack);font-size:22px;letter-spacing:1px;color:var(--amber);
       border-bottom:1px dashed rgba(244,239,230,.2);padding-bottom:6px;margin-bottom:14px}
     .ports{display:grid;grid-template-columns:repeat(auto-fit,minmax(252px,1fr));gap:12px}
     .port{background:rgba(0,0,0,.22);border:1px solid rgba(244,239,230,.14);border-radius:12px;padding:16px 18px}
-    .port .ptag{display:inline-block;font-family:'VT323',monospace;font-size:14px;letter-spacing:1px;
+    .port .ptag{display:inline-block;font-family:var(--mono-stack);font-size:14px;letter-spacing:1px;
       color:var(--amber);border:1px solid var(--amber-dim);border-radius:5px;padding:0 8px;margin-bottom:8px}
-    .port .pname{font-family:'Raleway';font-weight:900;letter-spacing:.06em;font-size:14px;
+    .port .pname{font-family:var(--mono-stack);font-weight:900;letter-spacing:.06em;font-size:14px;
       color:var(--crema);margin-bottom:7px;line-height:1.3}
     .port p{color:var(--chalk-dim);font-size:12.5px;line-height:1.6}
     .port p b{color:var(--chalk);font-weight:700}
-    .dnote{font-family:'Caveat',cursive;font-size:19px;color:var(--chalk-dim);line-height:1.45;margin-top:13px}
+    .dnote{font-family:var(--mono-stack);font-size:19px;color:var(--chalk-dim);line-height:1.45;margin-top:13px}
     .dnote b{color:var(--chalk);font-weight:700}
 
     .sect{margin-top:52px;padding-top:34px;border-top:2px dashed rgba(244,239,230,.18)}
-    .sect h4{font-family:'Caveat',cursive;font-size:30px;color:var(--crema);margin-bottom:6px}
+    .sect h4{font-family:var(--mono-stack);font-size:17px;color:var(--crema);margin-bottom:6px}
 
-    .note{font-family:'Caveat',cursive;font-size:20px;color:var(--chalk-dim);margin-top:26px;line-height:1.5}
+    .note{font-family:var(--mono-stack);font-size:14px;color:var(--chalk-dim);margin-top:26px;line-height:1.5}
     .note a{color:var(--crema)}
 
     .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:26px 0 8px}
-    .btn{font-family:'Raleway';font-weight:700;font-size:14px;letter-spacing:.04em;
+    .btn{font-family:var(--mono-stack);font-weight:700;font-size:14px;letter-spacing:.04em;
       padding:11px 20px;border-radius:8px;border:1.5px solid;background:transparent;
       text-decoration:none;transition:.18s;display:inline-flex;align-items:center;gap:9px}
     .btn:hover{transform:translateY(-2px)}
@@ -104,7 +104,7 @@
     <div class="wrap">
       <a class="back" href="index.html">&lt; back to cafeneurotico</a>
 
-      <div class="kicker">also on the board 🎮</div>
+      <div class="kicker">fan games &amp; ports</div>
       <div class="wordmark">Source Ports &amp; Mods</div>
       <div class="rule"></div>
       <div class="sub">you bring the download &middot; the data is already yours</div>
@@ -120,7 +120,7 @@
         <div class="rule-item">
           <h5>the download is yours to fetch</h5>
           <p>Every entry names the project, links its page and says <b>what the file is called</b> &mdash;
-            <span style="font-family:'VT323',monospace">ironwail-0.8.2-win64.zip</span>, and so on. Nothing is
+            <span style="font-family:var(--mono-stack)">ironwail-0.8.2-win64.zip</span>, and so on. Nothing is
             pulled automatically, so nothing breaks the day a project renames an asset.</p>
         </div>
 
@@ -189,8 +189,8 @@
           </div>
         </div>
         <p class="dnote">The <b>id1</b> paks are linked out of your own Quake install, lower-cased on the way in
-          because GOG ships <span style="font-family:'VT323',monospace">Id1/PAK0.PAK</span> and the engines ask for
-          <span style="font-family:'VT323',monospace">id1/pak0.pak</span>.<br>
+          because GOG ships <span style="font-family:var(--mono-stack)">Id1/PAK0.PAK</span> and the engines ask for
+          <span style="font-family:var(--mono-stack)">id1/pak0.pak</span>.<br>
           And the music: the 1996 release kept its soundtrack on the CD, which is why GOG's own GLQuake is silent.
           If <b>Quake Enhanced</b> is owned too, its 26 tracks are linked in &mdash; the same recordings, already on
           your disk, legitimately.</p>
@@ -307,7 +307,7 @@
         <p class="dnote">Nobody wants <i>Raze</i> in their library; they want <b>Blood</b>, and <b>Duke Nukem
           3D</b>. So each game is its own entry with its own name and its own cover, in its own folder &mdash;
           which is also the only way two Build games can coexist without fighting over the same
-          <span style="font-family:'VT323',monospace">tiles000.art</span>.</p>
+          <span style="font-family:var(--mono-stack)">tiles000.art</span>.</p>
       </div>
 
       <!-- ░░ OpenBOR ░░ -->

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cafe Neurotico — the game center for Omarchy</title>
-<meta name="description" content="Cafe Neurotico is becoming the game center for Omarchy: every game you own — Steam, GOG, Epic, itch, PICO-8, emulators, fan games and source ports — in one place, in the bar, one keystroke away. 2.0 is being built now.">
+<meta name="description" content="Every game you own — Steam, GOG, Epic, itch, PICO-8, emulators, fan games, source ports and mods — in one place, in the bar, one keystroke away. 2.0 is being built now.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cafe Neurotico">
 <meta property="og:title" content="Cafe Neurotico — the game center for Omarchy">
@@ -14,133 +14,72 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
 <style>
-/* ── Identity ────────────────────────────────────────────────────────────────
-   After cliamp.stream, as chosen for this phase: near-black ground, one cyan
-   accent with magenta as the second voice, monospace throughout, box-drawing
-   rules rather than cards, numbered file-name section labels, flat surfaces.
-   The coffee-shop theme is deliberately retired here. */
-:root{
-  --ground:#08090a;
-  --surface:#0e1113;
-  --line:#1e2629;
-  --ink:#dfe8e8;
-  --muted:#7d9295;
-  --dim:#4f6265;
-  --cyan:#2fe0d6;
-  --cyan-dim:#177c77;
-  --magenta:#ff5fa2;
-  --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  background:var(--ground);color:var(--ink);
-  font-family:var(--mono);font-size:15px;line-height:1.7;
-  -webkit-font-smoothing:antialiased;overflow-x:hidden;
-}
-a{color:var(--cyan);text-decoration:none;border-bottom:1px solid var(--cyan-dim)}
-a:hover{border-bottom-color:var(--cyan)}
-a:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
-.wrap{max-width:1080px;margin:0 auto;padding:0 clamp(18px,4vw,48px)}
-
-/* ── Top bar ─────────────────────────────────────────────────────────────── */
-header.top{
-  position:sticky;top:0;z-index:20;
-  background:rgba(8,9,10,0.86);backdrop-filter:blur(8px);
-  border-bottom:1px solid var(--line);
-}
-.topin{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;flex-wrap:wrap}
-.brand{font-weight:700;letter-spacing:.14em;font-size:.92rem;text-transform:uppercase}
-.brand .dot{color:var(--cyan)}
-nav.links{display:flex;gap:18px;font-size:.8rem;letter-spacing:.08em;flex-wrap:wrap}
-nav.links a{border:0;color:var(--muted)}
-nav.links a:hover{color:var(--cyan)}
-
 /* ── Hero ────────────────────────────────────────────────────────────────── */
-.hero{padding:clamp(48px,9vh,110px) 0 clamp(28px,5vh,56px)}
-.eyebrow{
-  font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);
-  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
-}
-.eyebrow .tag{border:1px solid var(--magenta);color:var(--magenta);padding:2px 8px;letter-spacing:.14em}
-h1{
-  font-size:clamp(2rem,6.2vw,4.1rem);line-height:1.05;font-weight:700;
-  letter-spacing:-.03em;margin:22px 0 0;text-wrap:balance;
-}
-h1 .em{color:var(--cyan)}
+.hero{padding:clamp(48px,9vh,110px) 0 clamp(20px,4vh,44px)}
+.hero h1{margin:22px 0 0;font-size:clamp(2rem,6.2vw,4.1rem)}
 .sub{max-width:62ch;color:var(--muted);margin-top:20px;font-size:clamp(.95rem,1.6vw,1.08rem)}
 .cta{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap}
-.btn{
-  border:1px solid var(--cyan-dim);color:var(--cyan);background:rgba(47,224,214,.06);
-  padding:11px 20px;font-family:var(--mono);font-size:.85rem;letter-spacing:.1em;
-  text-transform:uppercase;
-}
-.btn:hover{background:rgba(47,224,214,.14);border-color:var(--cyan)}
-.btn.ghost{border-color:var(--line);color:var(--muted);background:transparent}
-.btn.ghost:hover{color:var(--ink);border-color:var(--muted)}
 
-/* ── Section furniture ───────────────────────────────────────────────────── */
-section{padding:clamp(40px,7vh,90px) 0}
-.label{
-  font-size:.72rem;letter-spacing:.2em;color:var(--dim);
-  display:flex;align-items:center;gap:12px;margin-bottom:18px;
+/* ── “Things ONLY CN can do” — the carousel ──────────────────────────────
+   A horizontal track that scrolls itself. Each card is a headline and a picture;
+   the detail lives on its own page, which is this site's standing rule. */
+.only{padding:clamp(30px,5vh,58px) 0 clamp(40px,7vh,80px)}
+.only-head{display:flex;align-items:baseline;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:6px}
+.only h2{margin:0;font-size:clamp(1.15rem,2.6vw,1.7rem)}
+.only h2 .hot{color:var(--magenta)}
+.only-hint{font-size:.76rem;letter-spacing:.1em;color:var(--dim)}
+.rail{position:relative;margin-top:22px}
+.track{
+  display:flex;gap:16px;overflow-x:auto;scroll-behavior:smooth;
+  scroll-snap-type:x mandatory;padding-bottom:14px;
+  scrollbar-width:none;-ms-overflow-style:none;
 }
-.label::after{content:"";flex:1;height:1px;background:var(--line)}
-h2{font-size:clamp(1.25rem,2.8vw,1.85rem);font-weight:700;letter-spacing:-.02em;margin-bottom:14px;text-wrap:balance}
-p.body{max-width:66ch;color:var(--muted)}
-p.body + p.body{margin-top:14px}
-p.body strong{color:var(--ink);font-weight:500}
+.track::-webkit-scrollbar{display:none}
+.card{
+  flex:0 0 clamp(260px,30vw,360px);scroll-snap-align:start;
+  border:1px solid var(--line);background:var(--surface);
+  display:flex;flex-direction:column;border-bottom-width:1px;
+}
+.card:hover{border-color:var(--cyan-dim)}
+.card .cap{aspect-ratio:16/10;overflow:hidden;background:#000;border-bottom:1px solid var(--line)}
+.card .cap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.card:hover .cap img{transform:scale(1.03)}
+.card .txt{padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card .tagline{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--magenta)}
+.card .tagline.plain{color:var(--cyan)}
+.card h3{margin:0;font-size:1rem;color:var(--ink);line-height:1.35;font-weight:700}
+.card p{font-size:.84rem;color:var(--muted);margin:0;flex:1}
+.card .more{font-size:.74rem;letter-spacing:.1em;color:var(--cyan);text-transform:uppercase}
+a.card{border:1px solid var(--line)}
+a.card:hover{border-color:var(--cyan-dim)}
+.raildots{display:flex;gap:8px;margin-top:14px;justify-content:center;flex-wrap:wrap}
+.rdot{width:22px;height:3px;background:var(--line);border:0;padding:0;cursor:pointer}
+.rdot[aria-current="true"]{background:var(--cyan)}
+.rdot:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
 
 /* ── Slideshow ───────────────────────────────────────────────────────────── */
-.shots{border:1px solid var(--line);background:var(--surface);position:relative}
+.shots{border:1px solid var(--line);background:var(--surface)}
 .stage{position:relative;aspect-ratio:16/9;overflow:hidden;background:#000}
-.stage img{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  opacity:0;transition:opacity .6s ease;
-}
+.stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s ease}
 .stage img.on{opacity:1}
-.shotbar{
-  display:flex;align-items:center;justify-content:space-between;gap:16px;
-  padding:12px 16px;border-top:1px solid var(--line);flex-wrap:wrap;
-}
+.shotbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 16px;border-top:1px solid var(--line);flex-wrap:wrap}
 .caption{font-size:.78rem;color:var(--muted);letter-spacing:.04em}
 .caption b{color:var(--cyan);font-weight:500}
-.dots{display:flex;gap:8px}
-.dot{
-  width:26px;height:3px;background:var(--line);border:0;padding:0;cursor:pointer;
-}
+.dots{display:flex;gap:8px;flex-wrap:wrap}
+.dot{width:22px;height:3px;background:var(--line);border:0;padding:0;cursor:pointer}
 .dot[aria-current="true"]{background:var(--cyan)}
 .dot:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
-
-/* ── Facts ───────────────────────────────────────────────────────────────── */
-.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
-.fact{background:var(--surface);padding:22px}
-.fact h3{font-size:.95rem;font-weight:500;color:var(--cyan);margin-bottom:8px;letter-spacing:.02em}
-.fact p{font-size:.85rem;color:var(--muted)}
-
-/* ── Status note ─────────────────────────────────────────────────────────── */
-.note{border:1px solid var(--magenta);background:linear-gradient(180deg,rgba(255,95,162,.07),rgba(255,95,162,.02));padding:20px 22px}
-.note .h{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--magenta);margin-bottom:8px}
-.note p{color:var(--ink);max-width:68ch;font-size:.92rem}
-
-footer{border-top:1px solid var(--line);padding:28px 0 60px;color:var(--dim);font-size:.76rem;letter-spacing:.06em}
-footer .fin{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-footer a{color:var(--muted);border:0}
-footer a:hover{color:var(--cyan)}
-
-@media (prefers-reduced-motion:reduce){
-  *{transition:none!important;animation:none!important}
-  html{scroll-behavior:auto}
-}
 </style>
 </head>
 <body>
 
 <header class="top">
   <div class="wrap topin">
-    <div class="brand">cafe<span class="dot">.</span>neurotico</div>
+    <a class="brand" href="index.html">cafe<span class="dot">.</span>neurotico</a>
     <nav class="links">
+      <a href="#only">Only here</a>
       <a href="#what">What it is</a>
       <a href="#shots">Screens</a>
       <a href="#omarchy">Omarchy</a>
@@ -170,14 +109,109 @@ footer a:hover{color:var(--cyan)}
     </div>
   </div>
 
+  <!-- ── Things ONLY CN can do ─────────────────────────────────────────── -->
+  <div class="only" id="only">
+    <div class="only-head">
+      <h2>Things <span class="hot">ONLY</span> CN can do:</h2>
+      <span class="only-hint">drag, or wait — it moves on its own</span>
+    </div>
+
+    <div class="rail">
+      <div class="track" id="track">
+
+        <a class="card" href="ports.html">
+          <div class="cap"><img src="assets/shots/shot-4.webp" alt="The fan games and source ports catalogue, listing Raze, BuildGDX and Blood with install buttons." loading="lazy" width="1600" height="1000"></div>
+          <div class="txt">
+            <div class="tagline">no one else does this</div>
+            <h3>Source ports and fan games that arrive playable</h3>
+            <p>Point it at the file you downloaded. It knows what each port needs and wires up the game data from a title you already own — so it never lands unplayable.</p>
+            <span class="more">See the catalogue →</span>
+          </div>
+        </a>
+
+        <a class="card" href="fixes.html">
+          <div class="cap"><img src="assets/shots/shot-3.webp" alt="A game page in the Manager showing artwork, description, achievements and a play button." loading="lazy" width="1600" height="1000"></div>
+          <div class="txt">
+            <div class="tagline">no one else does this</div>
+            <h3>Named games, named faults, fixed one at a time</h3>
+            <p>Not “improved compatibility”. Specific games that did not run on Linux, what was actually wrong with each, and the fix applied automatically when you install it.</p>
+            <span class="more">Read the list →</span>
+          </div>
+        </a>
+
+        <a class="card" href="omarchy.html">
+          <div class="cap"><img src="assets/shots/shot-1.webp" alt="The launcher overlay open over an Omarchy desktop, listing games with cover art beside them." loading="lazy" width="1600" height="1000"></div>
+          <div class="txt">
+            <div class="tagline">omarchy only</div>
+            <h3>Your whole library, one keystroke from anywhere</h3>
+            <p>A launcher overlay in the bar's own language. Type three letters, press Enter, play — without a window ever opening.</p>
+            <span class="more">What it does on Omarchy →</span>
+          </div>
+        </a>
+
+        <a class="card" href="omarchy.html#theme">
+          <div class="cap"><img src="assets/shots/shot-5.webp" alt="The theme picker with a Your Desktop category at the top, showing the current Omarchy theme." loading="lazy" width="1600" height="1000"></div>
+          <div class="txt">
+            <div class="tagline">omarchy only</div>
+            <h3>It wears the theme you already chose</h3>
+            <p>Install a theme, apply it, and the app is wearing it too. Not a lookalike — the same colours your desktop is using.</p>
+            <span class="more">How the bridge works →</span>
+          </div>
+        </a>
+
+        <a class="card" href="crema.html">
+          <div class="cap"><img src="assets/shots/shot-9.webp" alt="CREMA showing a full-screen game page for Teenage Mutant Ninja Turtles: Shredder's Revenge." loading="lazy" width="1600" height="1000"></div>
+          <div class="txt">
+            <div class="tagline">no one else does this</div>
+            <h3>The same library, on the big screen</h3>
+            <p>A second face built for a television and a gamepad — artwork, trailers, a jukebox with a real spectrum, and no keyboard anywhere.</p>
+            <span class="more">Meet CREMA →</span>
+          </div>
+        </a>
+
+        <a class="card" href="library.html">
+          <div class="cap"><img src="assets/shots/shot-7.webp" alt="A game page listing several downloadable manuals for Baldur's Gate." loading="lazy" width="1600" height="1000"></div>
+          <div class="txt">
+            <div class="tagline">no one else does this</div>
+            <h3>Manuals, achievements and saves, in the app</h3>
+            <p>The PDF that came with your GOG game, read in place. Achievements from two stores in one list. Save games backed up and restored without leaving the page.</p>
+            <span class="more">What a game page holds →</span>
+          </div>
+        </a>
+
+        <a class="card" href="library.html#stores">
+          <div class="cap"><img src="assets/shots/shot-2.webp" alt="The library grid in the Manager, covers with install and play buttons under each." loading="lazy" width="1600" height="1000"></div>
+          <div class="txt">
+            <div class="tagline">no one else does this</div>
+            <h3>Six kinds of game, one shelf</h3>
+            <p>Steam, GOG, Epic, itch, Flatpak, PICO-8 carts and emulated ROMs sitting side by side — sorted, filtered and searched as one library instead of six.</p>
+            <span class="more">How importing works →</span>
+          </div>
+        </a>
+
+        <a class="card" href="library.html#portable">
+          <div class="cap"><img src="assets/shots/shot-6.webp" alt="A game page showing achievement progress alongside cover art and a play button." loading="lazy" width="1600" height="1000"></div>
+          <div class="txt">
+            <div class="tagline">no one else does this</div>
+            <h3>Your library is a folder you can carry</h3>
+            <p>Everything lives beside the AppImage. Copy the folder to another machine and your covers, playlists, saves and settings arrive with it. No account, no cloud, no sync.</p>
+            <span class="more">Where your data lives →</span>
+          </div>
+        </a>
+
+      </div>
+      <div class="raildots" id="raildots"></div>
+    </div>
+  </div>
+
   <section id="what">
     <div class="label">02_what_it_is.md</div>
     <h2>One app, three faces, all your games</h2>
     <p class="body">
       <strong>The Manager</strong> is the desk: import, organise, scrape, install, launch, with
-      a mouse and keyboard. <strong>CREMA</strong> is the sofa: fullscreen, gamepad-first, made
-      for a television across a room. <strong>GRINDER</strong> works underneath both, installing
-      GOG and Epic games without a store client.
+      a mouse and keyboard. <strong>CREMA</strong> is the big screen companion: fullscreen,
+      gamepad-first, made for a television across a room. <strong>GRINDER</strong> works
+      underneath both, installing GOG and Epic games without a store client.
     </p>
     <p class="body">
       It is one AppImage. Nothing to install alongside it, and your library, artwork and settings
@@ -194,12 +228,16 @@ footer a:hover{color:var(--cyan)}
 
     <div class="shots">
       <div class="stage" id="stage">
-        <img class="on" src="assets/shots/shot-1.webp" alt="The Cafe Neurotico launcher overlay open on an Omarchy desktop, showing a fuzzy list of games." width="1600" height="900">
-        <img src="assets/shots/shot-2.webp" alt="CREMA's game page for Teenage Mutant Ninja Turtles: Shredder's Revenge, fullscreen with artwork and metadata." width="1600" height="900">
-        <img src="assets/shots/shot-3.webp" alt="CREMA's gallery, browsing cover art in a three-dimensional card flow." width="1600" height="900">
-        <img src="assets/shots/shot-4.webp" alt="CREMA's home screen with library statistics, today's pick and recently imported games." width="1600" height="900">
-        <img src="assets/shots/shot-5.webp" alt="The Manager showing a GOG library grid with install and play buttons on every cover." width="1600" height="900">
-        <img src="assets/shots/shot-6.webp" alt="CREMA's home screen featuring a game with its key art as the backdrop." width="1600" height="900">
+        <img class="on" src="assets/shots/shot-1.webp" alt="The launcher overlay open on an Omarchy desktop, showing a fuzzy list of games with cover art." width="1600" height="900">
+        <img src="assets/shots/shot-2.webp" alt="The Manager's library grid, covers with install and play buttons." width="1600" height="900">
+        <img src="assets/shots/shot-3.webp" alt="The Manager's game page for DOOM, with artwork, screenshots and description." width="1600" height="900">
+        <img src="assets/shots/shot-4.webp" alt="The fan games and source ports catalogue with install buttons per entry." width="1600" height="900">
+        <img src="assets/shots/shot-5.webp" alt="The theme picker, with the current Omarchy theme at the top under Your Desktop." width="1600" height="900">
+        <img src="assets/shots/shot-6.webp" alt="A game page showing achievement progress for Baldur's Gate 3." width="1600" height="900">
+        <img src="assets/shots/shot-7.webp" alt="A game page listing the manuals that came with a GOG game." width="1600" height="900">
+        <img src="assets/shots/shot-8.webp" alt="CREMA's home screen with library statistics and today's pick." width="1600" height="900">
+        <img src="assets/shots/shot-9.webp" alt="CREMA's full-screen game page for Shredder's Revenge." width="1600" height="900">
+        <img src="assets/shots/shot-10.webp" alt="CREMA's gallery, browsing covers in a three-dimensional card flow." width="1600" height="900">
       </div>
       <div class="shotbar">
         <div class="caption" id="caption"><b>01</b> — the launcher, one keystroke from anywhere</div>
@@ -212,28 +250,31 @@ footer a:hover{color:var(--cyan)}
     <div class="label">04_at_home_on_omarchy.md</div>
     <h2>It found a home</h2>
     <p class="body">
-      Cafe Neurotico runs on any Linux desktop, and it is <strong>built and tested on Omarchy</strong>
-      — which is why it now behaves like part of it rather than a visitor.
+      Cafe Neurotico should run on any Linux desktop, but it's being built and tested on
+      <strong>Omarchy</strong>, with its no-nonsense no BS mentality — which is why it now
+      behaves like part of it rather than a visitor.
     </p>
 
-    <div class="facts" style="margin-top:26px">
-      <div class="fact">
+    <div class="grid" style="margin-top:26px">
+      <div class="cell">
         <h3>In the bar</h3>
-        <p>A widget showing what is installed and what is playing, with a menu one click from the library, the couch face and your storage.</p>
+        <p>A widget showing what is installed and what is playing, with a menu one click from the library, the big screen face and your storage.</p>
       </div>
-      <div class="fact">
+      <div class="cell">
         <h3>One keystroke away</h3>
         <p>A launcher overlay: type a few letters, press Enter, play. Cover art, genre and a sentence about whatever you are pointing at.</p>
       </div>
-      <div class="fact">
+      <div class="cell">
         <h3>Your theme, not ours</h3>
-        <p>It reads the palette your desktop is actually using. Change it with <code>omarchy theme set</code> and the app follows.</p>
+        <p>It uses the theme Omarchy is using. Install a new one, apply it with <code>omarchy theme set</code>, and Cafe Neurotico is wearing it too.</p>
       </div>
-      <div class="fact">
+      <div class="cell">
         <h3>Games open properly</h3>
-        <p>Fullscreen on the screen you chose, at the resolution you expect — including the X11 detail that made games pick the smallest monitor.</p>
+        <p>Fullscreen, on the screen you chose, at the resolution you expect.</p>
       </div>
     </div>
+
+    <p class="body" style="margin-top:24px"><a href="omarchy.html">Everything it does on Omarchy →</a></p>
   </section>
 
   <section>
@@ -241,7 +282,7 @@ footer a:hover{color:var(--cyan)}
     <div class="note">
       <div class="h">⚠ Experimental, and honest about it</div>
       <p>
-        What you can download today is the <strong>1.11.x experimental line</strong> — the work
+        What you can download today is the <strong>1.12.x experimental line</strong> — the work
         in progress, not a settled release. It is used daily on the machine it is built on, and
         it will have rough edges. <strong>2.0 is the destination</strong>, and there is no date
         on it. If you want the calm version, wait for that one.
@@ -255,30 +296,35 @@ footer a:hover{color:var(--cyan)}
   <div class="wrap fin">
     <span>Cafe Neurotico · GPL-3.0-or-later · built in Brazil 🇧🇷</span>
     <span>
+      <a href="omarchy.html">Omarchy</a> ·
+      <a href="crema.html">CREMA</a> ·
+      <a href="library.html">The library</a> ·
       <a href="macos.html">macOS</a> ·
       <a href="clock.html">Clock</a> ·
       <a href="emulatte.html">EmuLatte</a> ·
-      <a href="support.html">Support the project</a> ·
+      <a href="support.html">Support</a> ·
       <a href="https://github.com/FromChaosComesClarity/CafeNeurotico">GitHub</a>
     </span>
   </div>
 </footer>
 
 <script>
-/* The slideshow. Auto-advances, pauses on hover or focus, and stops entirely for anyone
-   who asked for reduced motion — where it becomes a plain set of dots you click. */
+/* ── The slideshow ──────────────────────────────────────────────────────── */
 (function () {
   var stage = document.getElementById('stage');
   var slides = stage ? Array.prototype.slice.call(stage.querySelectorAll('img')) : [];
   if (slides.length < 2) return;
-
   var captions = [
     'the launcher, one keystroke from anywhere',
-    'a game page on the couch face',
-    'browsing covers in CREMA',
-    'the home screen, with what you actually play',
     'the library on the desk',
-    'CREMA, opened on a game'
+    'a game page, with everything about it in one place',
+    'source ports and fan games, installed from your own file',
+    'the theme picker, wearing your desktop’s colours',
+    'achievements from two stores in one list',
+    'the manuals that came with your GOG game',
+    'CREMA’s home screen, on the big screen',
+    'a game page built for a television',
+    'browsing covers in CREMA'
   ];
   var dotsWrap = document.getElementById('dots');
   var caption = document.getElementById('caption');
@@ -298,20 +344,74 @@ footer a:hover{color:var(--cyan)}
 
   slides.forEach(function (_, i) {
     var b = document.createElement('button');
-    b.className = 'dot';
-    b.type = 'button';
+    b.className = 'dot'; b.type = 'button';
     b.setAttribute('aria-label', 'Screenshot ' + (i + 1));
     b.addEventListener('click', function () { show(i); start(); });
     dotsWrap.appendChild(b);
   });
-
   stage.addEventListener('mouseenter', stop);
   stage.addEventListener('mouseleave', start);
   dotsWrap.addEventListener('focusin', stop);
   dotsWrap.addEventListener('focusout', start);
+  show(0); start();
+})();
 
-  show(0);
-  start();
+/* ── The “only CN” carousel ─────────────────────────────────────────────
+   Scrolls itself along a real scroll container, so a drag, a trackpad swipe and
+   a keyboard tab all still work. Stops the moment anyone touches it. */
+(function () {
+  var track = document.getElementById('track');
+  if (!track) return;
+  var cards = Array.prototype.slice.call(track.querySelectorAll('.card'));
+  if (cards.length < 2) return;
+  var dots = document.getElementById('raildots');
+  var timer = 0, i = 0, human = false;
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function step(n) {
+    i = (n + cards.length) % cards.length;
+    track.scrollTo({ left: cards[i].offsetLeft - track.offsetLeft, behavior: 'smooth' });
+    paint();
+  }
+  function paint() {
+    Array.prototype.forEach.call(dots.children, function (d, n) {
+      d.setAttribute('aria-current', n === i ? 'true' : 'false');
+    });
+  }
+  function start() { if (!reduced && !human) { stop(); timer = setInterval(function () { step(i + 1); }, 4200); } }
+  function stop() { if (timer) { clearInterval(timer); timer = 0; } }
+  /* Once someone scrolls it themselves, it is theirs — it does not wrestle back. */
+  function surrender() { human = true; stop(); }
+
+  cards.forEach(function (_, n) {
+    var b = document.createElement('button');
+    b.className = 'rdot'; b.type = 'button';
+    b.setAttribute('aria-label', 'Feature ' + (n + 1));
+    b.addEventListener('click', function () { surrender(); i = n; step(n); });
+    dots.appendChild(b);
+  });
+
+  track.addEventListener('pointerdown', surrender);
+  track.addEventListener('wheel', surrender, { passive: true });
+  track.addEventListener('mouseenter', stop);
+  track.addEventListener('mouseleave', start);
+  track.addEventListener('focusin', surrender);
+
+  /* Keep the dots honest when the user scrolls by hand. */
+  var settle = 0;
+  track.addEventListener('scroll', function () {
+    clearTimeout(settle);
+    settle = setTimeout(function () {
+      var nearest = 0, best = Infinity;
+      cards.forEach(function (c, n) {
+        var d = Math.abs(c.offsetLeft - track.offsetLeft - track.scrollLeft);
+        if (d < best) { best = d; nearest = n; }
+      });
+      i = nearest; paint();
+    }, 120);
+  }, { passive: true });
+
+  paint(); start();
 })();
 </script>
 </body>
