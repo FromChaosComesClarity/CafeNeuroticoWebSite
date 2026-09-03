@@ -201,7 +201,7 @@ The emulation side — a ROM library manager across 56 systems, with a gamepad-f
 Get EmuLatte ▸
 
 ### clock.html | 053 | h4
-tip the barista
+spread the good vibes
 
 ### clock.html | 054 | p
 If the clock earned a spot on your desk, consider chipping in — it keeps the pot warm.
@@ -578,7 +578,7 @@ A standalone clock that runs a slow slideshow of your library's artwork — Ken 
 Get the Clock ▸
 
 ### emulatte.html | 065 | h4
-tip the barista
+spread the good vibes
 
 ### emulatte.html | 066 | p
 If EmuLatte sorted out your ROM collection, consider chipping in — it keeps the pot warm.
@@ -1866,7 +1866,7 @@ Support Clarity — every way to help the project, from a contribution (Ko-fi / 
 Support Clarity
 
 ### support.html | og:description
-All the ways to support the project — buy a coffee or help out for free.
+All the ways to support the project — send a little something, or help out for free.
 
 ### support.html | 001 | a
 &lt; back to clarity
@@ -1920,7 +1920,7 @@ tell a fellow Linux gamer — word of mouth is everything
 💌 Say hi
 
 ### support.html | 018 | span
-feedback, a thank-you, or just to chat about coffee
+feedback, a thank-you, or just to say what's up
 
 ### support.html | 019 | a
 joserobertoazevedo@hey.com

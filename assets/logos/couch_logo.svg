@@ -9,7 +9,7 @@
     </style>
   </defs>
 
-  <!-- The ABXY Foam Icon -->
+  <!-- The ABXY Icon -->
   <g transform="translate(10, 10) scale(0.195)">
     <rect width="512" height="512" rx="112" fill="#2C1E16"/>
     <path d="M 380 256 C 490 256, 490 150, 380 150" fill="none" stroke="#D4A373" stroke-width="24" stroke-linecap="round"/>
