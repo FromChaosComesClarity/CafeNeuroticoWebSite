@@ -346,7 +346,7 @@ What is left is what you would actually want from a sofa: mark a favourite, say 
 Couch Mode has no store login. If an account needs signing in to, it says so and points you at the desk — a device-code flow with a password field has no business on a television.
 
 ### couch.html | 029 | a
-&lt; back to cafe neurotico
+&lt; back to Clarity
 
 ### couch.html | 030 | span
 Clarity · GPL-3.0-or-later · built in Brazil 🇧🇷
@@ -1121,7 +1121,7 @@ The games that do not just work
 Some games need more than a launch command. Those get handled one at a time — [named games with named faults](fixes.html) — and the things that are not games at all, like source ports and fan remakes, get [their own catalogue](ports.html).
 
 ### library.html | 037 | a
-&lt; back to cafe neurotico
+&lt; back to Clarity
 
 ### library.html | 038 | span
 Clarity · GPL-3.0-or-later · built in Brazil 🇧🇷
@@ -1468,7 +1468,7 @@ The bar widget and the launcher are a companion plugin. It is around nine kiloby
 The plugin is built and in daily use, but it is not on Omarchy's plugin marketplace yet. It goes out with 2.0.
 
 ### omarchy.html | 038 | a
-&lt; back to cafe neurotico
+&lt; back to Clarity
 
 ### omarchy.html | 039 | span
 Clarity · GPL-3.0-or-later · built in Brazil 🇧🇷
