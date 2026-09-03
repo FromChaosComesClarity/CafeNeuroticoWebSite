@@ -1445,13 +1445,13 @@ PAGE: index.html
 ==============================================================================
 
 ### index.html | title
-Clarity — the game center made for Omarchy
+Clarity — the game manager made for Omarchy
 
 ### index.html | meta:description
 Every game you own — Steam, GOG, Epic, itch, PICO-8, emulators, fan games, source ports and mods — in one place, in the bar, one keyboard shortcut away. 2.0 is being built now.
 
 ### index.html | og:title
-Clarity — the game center made for Omarchy
+Clarity — the game manager made for Omarchy
 
 ### index.html | og:description
 Every game you own, in one place, at home on Omarchy. 2.0 is being built and tested now.
