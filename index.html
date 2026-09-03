@@ -3,14 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Clarity — the game manager for Omarchy</title>
-<meta name="description" content="Every game you own — Steam, GOG, Epic, itch, PICO-8, emulators, fan games, source ports and mods — in one place, in the bar, one keystroke away. 2.0 is being built now.">
+<title>Clarity — the game center made for Omarchy</title>
+<meta name="description" content="Every game you own — Steam, GOG, Epic, itch, PICO-8, emulators, fan games, source ports and mods — in one place, in the bar, one keyboard shortcut away. 2.0 is being built now.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Clarity">
-<meta property="og:title" content="Clarity — the game manager for Omarchy">
+<meta property="og:title" content="Clarity — the game center made for Omarchy">
 <meta property="og:description" content="Every game you own, in one place, at home on Omarchy. 2.0 is being built and tested now.">
 <meta property="og:image" content="https://fromchaoscomesclarity.github.io/ClarityWebSite/assets/shots/shot-1.webp">
 <meta property="og:url" content="https://fromchaoscomesclarity.github.io/ClarityWebSite/">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -66,7 +69,12 @@ a.card:hover{border-color:var(--cyan-dim)}
 .stage img.on{opacity:1}
 .shotbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 16px;border-top:1px solid var(--line);flex-wrap:wrap}
 .caption{font-size:.78rem;color:var(--muted);letter-spacing:.04em}
-.caption b{color:var(--cyan);font-weight:500}
+.caption b,.caption strong{color:var(--cyan);font-weight:500}
+/* All ten captions live in the markup so copy-extract.py can reach them; only the
+   current one shows. They used to sit in a JavaScript array, where the extractor
+   could not see them — and they drifted out of step with the rest of the site. */
+.caption .shotcap{display:none}
+.caption .shotcap.on{display:inline}
 .dots{display:flex;gap:8px;flex-wrap:wrap}
 .dot{width:22px;height:3px;background:var(--line);border:0;padding:0;cursor:pointer}
 .dot[aria-current="true"]{background:var(--cyan)}
@@ -97,12 +105,8 @@ a.card:hover{border-color:var(--cyan-dim)}
       <span>01_now_building</span>
       <span class="tag">2.0 in progress</span>
     </div>
-    <h1>The game manager<br><span class="em">for Omarchy.</span></h1>
-    <p class="sub">
-      Every game you own — Steam, GOG, Epic, itch, PICO-8, emulators, fan games, source ports
-      and mods — in one place. In the bar. One keystroke away. Clarity is being rebuilt
-      around that idea, and <strong>2.0 is what it is becoming.</strong>
-    </p>
+    <h1>clar<span class="em">.</span>ity<br><span class="em"> The Game Manager.</span></h1>
+    <p class="sub">Every game you own — Steam, GOG, Epic, itch, PICO-8, emulators, fan games, source ports and mods — in one place. In the bar. One keyboard shortcut away. Clarity is being rebuilt around that idea, and <strong>2.0 is what it is becoming.</strong> <strong>CN</strong> should work in any other Linux distro, but it has found a home in Omarchy, with exclusive features.</p>
     <div class="cta">
       <a class="btn" href="https://github.com/FromChaosComesClarity/Clarity/releases">See what is shipping</a>
       <a class="btn ghost" href="https://github.com/FromChaosComesClarity/Clarity">The code</a>
@@ -124,7 +128,7 @@ a.card:hover{border-color:var(--cyan-dim)}
           <div class="txt">
             <div class="tagline">no one else does this</div>
             <h3>Source ports and fan games that arrive playable</h3>
-            <p>Point it at the file you downloaded. It knows what each port needs and wires up the game data from a title you already own — so it never lands unplayable.</p>
+            <p>It knows what each port needs and wires up the game data from a title you already own — so it never lands unplayable.</p>
             <span class="more">See the catalogue →</span>
           </div>
         </a>
@@ -133,7 +137,7 @@ a.card:hover{border-color:var(--cyan-dim)}
           <div class="cap"><img src="assets/shots/shot-3.webp" alt="A game page in the Manager showing artwork, description, achievements and a play button." loading="lazy" width="1600" height="1000"></div>
           <div class="txt">
             <div class="tagline">no one else does this</div>
-            <h3>Named games, named faults, fixed one at a time</h3>
+            <h3>Fixes for games that didn't work on Linux, embedded in the app.</h3>
             <p>Not “improved compatibility”. Specific games that did not run on Linux, what was actually wrong with each, and the fix applied automatically when you install it.</p>
             <span class="more">Read the list →</span>
           </div>
@@ -143,7 +147,7 @@ a.card:hover{border-color:var(--cyan-dim)}
           <div class="cap"><img src="assets/shots/shot-1.webp" alt="The launcher overlay open over an Omarchy desktop, listing games with cover art beside them." loading="lazy" width="1600" height="1000"></div>
           <div class="txt">
             <div class="tagline">omarchy only</div>
-            <h3>Your whole library, one keystroke from anywhere</h3>
+            <h3>Your whole library, one keyboard shortcut from anywhere</h3>
             <p>A launcher overlay in the bar's own language. Type three letters, press Enter, play — without a window ever opening.</p>
             <span class="more">What it does on Omarchy →</span>
           </div>
@@ -206,13 +210,8 @@ a.card:hover{border-color:var(--cyan-dim)}
 
   <section id="what">
     <div class="label">02_what_it_is.md</div>
-    <h2>One app, three faces, all your games</h2>
-    <p class="body">
-      <strong>The Manager</strong> is the desk: import, organise, scrape, install, launch, with
-      a mouse and keyboard. <strong>Couch Mode</strong> is the big screen companion: fullscreen,
-      gamepad-first, made for a television across a room. <strong>Installer</strong> works
-      underneath both, installing GOG and Epic games without a store client.
-    </p>
+    <h2>One app, two faces, all your games</h2>
+    <p class="body"><strong>The Manager</strong> is the desktop app: import, organise, scrape, install, launch, with a mouse and keyboard. <strong>Couch Mode</strong> is the big screen companion: fullscreen, gamepad-first, made for a television across a room. <strong>Installer</strong> works underneath both, installing GOG and Epic games without a store client.</p>
     <p class="body">
       It is one AppImage. Nothing to install alongside it, and your library, artwork and settings
       live in a folder beside it — portable, backed up by copying, gone when you delete it.
@@ -235,15 +234,27 @@ a.card:hover{border-color:var(--cyan-dim)}
         <img src="assets/shots/shot-5.webp" alt="The theme picker, with the current Omarchy theme at the top under Your Desktop." width="1600" height="900">
         <img src="assets/shots/shot-6.webp" alt="A game page showing achievement progress for Baldur's Gate 3." width="1600" height="900">
         <img src="assets/shots/shot-7.webp" alt="A game page listing the manuals that came with a GOG game." width="1600" height="900">
-        <img src="assets/shots/shot-8.webp" alt="Couch Mode's home screen with library statistics and today's pick." width="1600" height="900">
+        <img src="assets/shots/shot-11.webp" alt="Couch Mode's home screen: library statistics, today's pick, and rows of recently imported covers." width="1600" height="929">
         <img src="assets/shots/shot-9.webp" alt="Couch Mode's full-screen game page for Shredder's Revenge." width="1600" height="900">
         <img src="assets/shots/shot-10.webp" alt="Couch Mode's gallery, browsing covers in a three-dimensional card flow." width="1600" height="900">
       </div>
       <div class="shotbar">
-        <div class="caption" id="caption"><b>01</b> — the launcher, one keystroke from anywhere</div>
+        <div class="caption" id="caption">
+          <span class="shotcap on"><strong>01</strong> — the launcher, one keyboard shortcut from anywhere</span>
+          <span class="shotcap"><strong>02</strong> — the library on the desktop</span>
+          <span class="shotcap"><strong>03</strong> — a game page, with everything about it in one place</span>
+          <span class="shotcap"><strong>04</strong> — source ports and fan games, installed from your own file</span>
+          <span class="shotcap"><strong>05</strong> — the theme picker, wearing your desktop’s colours</span>
+          <span class="shotcap"><strong>06</strong> — achievements from two stores in one list</span>
+          <span class="shotcap"><strong>07</strong> — the manuals that came with your GOG game</span>
+          <span class="shotcap"><strong>08</strong> — Couch Mode’s home screen, on the big screen</span>
+          <span class="shotcap"><strong>09</strong> — a game page built for a television</span>
+          <span class="shotcap"><strong>10</strong> — browsing covers in Couch Mode</span>
+        </div>
         <div class="dots" id="dots"></div>
       </div>
     </div>
+    <p class="body" style="margin-top:20px"><a href="gallery.html">All 104 screenshots, in one place →</a></p>
   </section>
 
   <section id="omarchy">
@@ -261,11 +272,11 @@ a.card:hover{border-color:var(--cyan-dim)}
         <p>A widget showing what is installed and what is playing, with a menu one click from the library, the big screen face and your storage.</p>
       </div>
       <div class="cell">
-        <h3>One keystroke away</h3>
-        <p>A launcher overlay: type a few letters, press Enter, play. Cover art, genre and a sentence about whatever you are pointing at.</p>
+        <h3>One keyboard shortcut away</h3>
+        <p>A launcher overlay: type a few letters, press Enter, play. Cover art, genre and a short description of the game.</p>
       </div>
       <div class="cell">
-        <h3>Your theme, not ours</h3>
+        <h3>Omarchy Themes</h3>
         <p>It uses the theme Omarchy is using. Install a new one, apply it with <code>omarchy theme set</code>, and Clarity is wearing it too.</p>
       </div>
       <div class="cell">
@@ -281,12 +292,7 @@ a.card:hover{border-color:var(--cyan-dim)}
     <div class="label">05_where_it_stands.txt</div>
     <div class="note">
       <div class="h">⚠ Experimental, and honest about it</div>
-      <p>
-        What you can download today is the <strong>1.12.x experimental line</strong> — the work
-        in progress, not a settled release. It is used daily on the machine it is built on, and
-        it will have rough edges. <strong>2.0 is the destination</strong>, and there is no date
-        on it. If you want the calm version, wait for that one.
-      </p>
+      <p>What you can download today is the <strong>1.12.x experimental line</strong> — the work in progress, in fine tuning, not a settled release yet. It is used daily on the machine it is built on, and it will have rough edges. <strong>2.0 is the destination</strong>, it's coming soon. If you want the calm version, wait for that one.</p>
     </div>
   </section>
 
@@ -314,20 +320,8 @@ a.card:hover{border-color:var(--cyan-dim)}
   var stage = document.getElementById('stage');
   var slides = stage ? Array.prototype.slice.call(stage.querySelectorAll('img')) : [];
   if (slides.length < 2) return;
-  var captions = [
-    'the launcher, one keystroke from anywhere',
-    'the library on the desk',
-    'a game page, with everything about it in one place',
-    'source ports and fan games, installed from your own file',
-    'the theme picker, wearing your desktop’s colours',
-    'achievements from two stores in one list',
-    'the manuals that came with your GOG game',
-    'Couch Mode’s home screen, on the big screen',
-    'a game page built for a television',
-    'browsing covers in Couch Mode'
-  ];
   var dotsWrap = document.getElementById('dots');
-  var caption = document.getElementById('caption');
+  var caps = Array.prototype.slice.call(document.querySelectorAll('#caption .shotcap'));
   var index = 0, timer = 0;
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -337,7 +331,7 @@ a.card:hover{border-color:var(--cyan-dim)}
     Array.prototype.forEach.call(dotsWrap.children, function (d, i) {
       d.setAttribute('aria-current', i === index ? 'true' : 'false');
     });
-    caption.innerHTML = '<b>' + String(index + 1).padStart(2, '0') + '</b> — ' + captions[index];
+    caps.forEach(function (c, i) { c.classList.toggle('on', i === index); });
   }
   function start() { if (!reduced) { stop(); timer = setInterval(function () { show(index + 1); }, 5200); } }
   function stop() { if (timer) { clearInterval(timer); timer = 0; } }
